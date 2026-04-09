@@ -1,6 +1,6 @@
 # CLAUDE.md — ScriptOS Project Context
 
-> This file provides context for Claude Code (VS Code extension) to continue the architectural design and implementation of ScriptOS. It captures all decisions, strategies, and open questions from the initial design sessions.
+> This file provides context for Claude Code (VS Code extension) to continue the architectural design and implementation of ScriptOS. It is kept in sync with the wiki — when a decision is made, both CLAUDE.md and the relevant wiki page are updated.
 
 ## What is ScriptOS?
 
@@ -10,163 +10,178 @@ ScriptOS is a **unified platform for script writing, production planning, and st
 
 ## Project Wiki
 
-The full architectural documentation lives in `wiki/`. Start with `wiki/00-index.md` for the table of contents.
+The full architectural documentation lives in `Wiki/`. Start with `Wiki/00-index.md` for the table of contents.
 
-Key pages:
-- `wiki/03-data-model.md` — Script AST, Series Bible Graph, SeriesTimeline (START HERE for implementation)
-- `wiki/04-crdt-collaboration.md` — Loro vs Yjs, tree move problem, semantic validation
-- `wiki/05-ai-governance.md` — WGA compliance, model routing, AI ledger
-- `wiki/06-offline-sync.md` — PowerSync, Tauri, on-set architecture
-- `wiki/14-adr.md` — All architectural decisions with rationale
+Key pages (read in this order when onboarding):
+- `Wiki/03-data-model.md` — **FINALIZED** Script AST (19 node types), Series Bible Graph (Neo4j), SeriesTimeline, PostgreSQL DDL, export mappings
+- `Wiki/16-system-design.md` — **FINALIZED** Service catalog (15 services), communication patterns, API gateway, event bus, auth, database ownership, infra topology, monorepo structure
+- `Wiki/14-adr.md` — All 29 architectural decisions with rationale (ADR-001 through ADR-029)
+- `Wiki/04-crdt-collaboration.md` — Loro vs Yjs, tree move problem, binding strategy, compaction
+- `Wiki/05-ai-governance.md` — WGA compliance, model routing, prompt caching, AI ledger
+- `Wiki/06-offline-sync.md` — PowerSync, Tauri, on-set architecture, SQLCipher key management
+- `Wiki/07-workflow-orchestration.md` — Temporal sagas, approval routing, escalation policy
+- `Wiki/08-production-modules.md` — Breakdown (OR-Tools), scheduling, budgeting, call sheets
+- `Wiki/09-post-production.md` — OTIO/AAF/NLE round-trip (Avid first), Frame.io connector
+- `Wiki/11-security-compliance.md` — Watermarking, SOC 2 timeline, GDPR, accessibility
+- `Wiki/12-infrastructure.md` — GKE Autopilot, Atlas migrations, y-redis licensing, S3 vs R2
+- `Wiki/15-roadmap.md` — Phased rollout plan, team size assumptions, milestone commitments
 
-## Key Architectural Decisions
+## Engineering Progress
 
-| Decision | Choice | Notes |
-|----------|--------|-------|
-| CRDT library | **Loro** (primary), Yjs (fallback) | Needs POC to validate ProseMirror binding maturity |
-| Graph database | **Neo4j** (Aura managed) | For Series Bible — Cypher queries, GDS analytics |
-| Search | **Elasticsearch 8.9+** | Native RRF for hybrid BM25 + vector search |
-| Orchestration | **Temporal** | Saga pattern for publish-to-production and all multi-step workflows |
-| Offline sync | **PowerSync** + SQLite | Postgres ↔ SQLite sync for on-set tools |
-| On-set client | **Tauri 2.x** | 3–10MB binary; native SQLite; needs iOS maturity evaluation |
-| CRDT scaling | **y-redis** | Memory-efficient streaming via Redis Streams; AGPL — needs commercial license |
-| AI models | **Hybrid API router** | Cheap models for simple tasks, quality for creative; prompt caching for Bible context |
-| Editorial interchange | **OTIO** + correlation DB | Metadata fallback matching by timecode + clip name + reel name |
-| Editor framework | **ProseMirror / TipTap** | Schema enforcement + CRDT binding |
-| Primary database | **PostgreSQL** | Scripts, users, projects, workflow state |
-| Object storage | **S3-compatible** | Media, exports, backups, continuity photos |
-| Cache + streams | **Redis** | CRDT streams, session cache, pub/sub |
+| Step | Description | Status |
+|------|-------------|--------|
+| **Step 1** | Canonical Data Model (AST, Bible Graph, SeriesTimeline) | ✅ COMPLETE |
+| **Step 2** | System Design Document (service boundaries, comms, infra) | ✅ COMPLETE |
+| **Step 3** | Technical Deep-Dives per module (CRDT → AI → Offline → Orchestration → Editorial) | ✅ COMPLETE |
+| **Step 4** | Implementation Roadmap (sprint-level plans) | 🔲 NEXT |
 
-## Implementation Sequence (Agreed)
+**Step 3 sequence:** ~~CRDT/collaboration layer~~ ✅ → ~~AI governance~~ ✅ → ~~Offline sync~~ ✅ → ~~Workflow orchestration~~ ✅ → ~~Editorial integration~~ ✅. All complete.
 
-The next engineering steps should follow this order:
+## Key Architectural Decisions (All Closed)
 
-### Step 1: Data Model (CURRENT PRIORITY)
-Finalize the Script AST schema, Series Bible Graph schema, and SeriesTimeline schema. This is the spine — every module depends on it. See `wiki/03-data-model.md` for current state.
+| Decision | Choice | ADR |
+|----------|--------|-----|
+| CRDT library | **Loro** (primary) + in-house ProseMirror binding; Yjs fallback | ADR-001, ADR-018 |
+| CRDT structural ops | Decompose into atomic MovableTree ops + Redis coordination lock | ADR-019 |
+| CRDT scaling | **Hocuspocus** (startup); **y-redis** (growth, AGPL commercial license) | ADR-012 (infra) |
+| Graph database | **Neo4j Aura** managed | ADR-002 |
+| Search | **Elasticsearch 8.9+** — native RRF for BM25 + vector search | ADR-005 |
+| Embedding model | **OpenAI text-embedding-3-large**; self-hosted BGE-M3 for enterprise | ADR-024 |
+| Orchestration | **Temporal Cloud** (managed server); workers inside K8s mesh | ADR-004, ADR-014 |
+| Offline sync | **PowerSync** + SQLite (WAL + SQLCipher) | ADR-003 |
+| On-set client | **Tauri 2.x** desktop at launch; iOS evaluated Q3 2026 | ADR-008 |
+| Editorial interchange | **OTIO** + AAF (Avid first) + correlation DB | ADR-007, ADR-022 |
+| Dailies review | **Frame.io connector** (v1); native player (v1.1) | ADR-023 |
+| Editor framework | **ProseMirror / TipTap** | ADR-001 |
+| Primary database | **PostgreSQL** — schema-per-service on shared cluster; Atlas migrations | ADR-013, ADR-027 |
+| Graph database | **Neo4j Aura** | ADR-002 |
+| Object storage | **AWS S3** (evaluate R2 if egress > $500/month) | ADR-026 |
+| Cache + streams | **Redis** — CRDT streams, session cache, pub/sub | — |
+| Event bus | **NATS JetStream** (not Kafka) | ADR-009 |
+| Client API | **GraphQL Federation** (Apollo Router); REST for upload/SSE/webhooks | ADR-010 |
+| Internal comms | **gRPC** (Protocol Buffers) | ADR-011 |
+| Auth boundary | JWT validated at HTTP Gateway only; headers injected into service mesh | ADR-012 |
+| Gateways | Two: **HTTP Gateway** (Apollo Router) + **WebSocket** (Collaboration Gateway) | ADR-015 |
+| Kubernetes | **GKE Autopilot** (default); EKS for enterprise AWS clients | ADR-026 |
+| Service mesh | **Istio** (mTLS, traffic management, observability) | — |
+| CI/CD | **GitHub Actions** + Turborepo affected graph | — |
+| Feature flags | **Unleash** (self-hosted, open source) | — |
+| Repository | **Monorepo** — pnpm workspaces + Turborepo + Cargo workspace | ADR-017 |
+| Scheduling solver | **Google OR-Tools** (Apache 2.0) wrapped by Scheduling Service | ADR-021 |
+| AI models | **Anthropic** (Claude family) for generation; prompt caching for Bible context | ADR-020 |
+| AI self-hosted | **Llama 3.1 70B** via vLLM for enterprise data-residency | ADR-006 |
+| Watermarking | **In-house steganographic** (char spacing + zero-width chars); Digimarc add-on for enterprise | ADR-025 |
+| Multi-tenancy | **Multi-tenant SaaS** default; single-tenant VPC as enterprise add-on | ADR-028 |
+| Pricing | **Indie** $49/seat · **Professional** $149/seat · **Studio** custom | ADR-029 |
+| NLE priority | **Avid** (AAF) → **DaVinci Resolve** (OTIO) → Premiere (v1.1) | ADR-022 |
 
-Open tasks:
-- Define all AST node types with exact TypeScript interfaces and metadata fields
-- Define Neo4j node labels and relationship types for Bible Graph
-- Define revision color workflow mapping
-- Define CRDT ↔ Postgres persistence boundary
-- Define multi-format export from AST (FDX, Fountain, PDF)
-
-### Step 2: System Design Document
-Service boundaries, communication patterns (sync vs event-driven), orchestration layer, infrastructure topology. See `wiki/02-core-architecture.md` for architectural overview.
-
-### Step 3: Technical Deep-Dives Per Module
-In dependency order:
-1. CRDT/collaboration layer (`wiki/04-crdt-collaboration.md`)
-2. AI governance (`wiki/05-ai-governance.md`)
-3. Offline sync (`wiki/06-offline-sync.md`)
-4. Workflow orchestration (`wiki/07-workflow-orchestration.md`)
-5. Editorial integration (`wiki/09-post-production.md`)
-
-### Step 4: Implementation Roadmap
-Sprint-level plans with dependency chains. See `wiki/15-roadmap.md` for current draft.
-
-## Technology Stack (Decided)
+## Technology Stack (Finalized)
 
 ### Backend
-- **Language:** TypeScript (Node.js) or Rust (for performance-critical sync)
-- **API:** gRPC for service-to-service, REST/GraphQL for client-facing
-- **Database:** PostgreSQL (primary), Neo4j (graph), Elasticsearch (search), Redis (cache/streams)
-- **Orchestration:** Temporal
-- **Message bus:** Kafka or NATS (for event fan-out)
-- **Object storage:** S3-compatible
+- **Language:** TypeScript (Node.js) for all services; Rust for Tauri on-set backend
+- **API (client-facing):** GraphQL Federation (Apollo Router) + REST for file upload, SSE, webhooks
+- **API (internal):** gRPC with Protocol Buffers
+- **Databases:** PostgreSQL (primary, schema-per-service), Neo4j Aura (Bible Graph), Elasticsearch 8.9+ (search + vectors), Redis (CRDT streams + cache + pub/sub)
+- **Orchestration:** Temporal Cloud (server) + Temporal Workers (in K8s)
+- **Event bus:** NATS JetStream
+- **Object storage:** AWS S3
+- **Migrations:** Atlas (ariga.io) declarative schema management
+- **Scheduling solver:** Google OR-Tools (Java SDK)
 
 ### Frontend
-- **Web:** React + TipTap (ProseMirror) + Tailwind
-- **On-set:** Tauri 2.x with local SQLite
-- **Mobile:** React Native (if Tauri mobile proves immature)
+- **Web:** React + TipTap (ProseMirror) + Tailwind CSS
+- **On-set:** Tauri 2.x (Rust backend + React frontend) — desktop first; iOS Q3 2026
+- **Mobile fallback:** React Native (if Tauri iOS proves immature)
 
 ### Infrastructure
-- **Container orchestration:** Kubernetes
-- **Service mesh:** Istio or Linkerd
-- **Observability:** OpenTelemetry + Prometheus + Grafana
-- **CI/CD:** GitHub Actions or GitLab CI
-- **Feature flags:** LaunchDarkly or Unleash
+- **Container orchestration:** Kubernetes — GKE Autopilot (default)
+- **Service mesh:** Istio (mTLS, traffic management)
+- **Observability:** OpenTelemetry + Prometheus + Grafana + Jaeger/Tempo + Loki
+- **CI/CD:** GitHub Actions + Turborepo remote cache
+- **Feature flags:** Unleash (self-hosted)
+- **Monorepo:** pnpm workspaces + Turborepo (TS) + Cargo workspace (Rust)
+
+## Monorepo Structure
+
+```
+scriptos/
+├── packages/                    # Shared libraries (imported by services + apps)
+│   ├── ast/                     # ASTNode types, RevisionColor, BreakdownTag
+│   ├── proto/                   # .proto files + generated TypeScript gRPC stubs
+│   ├── events/                  # NATS DomainEvent<T> envelope + payload types
+│   ├── workflows/               # Temporal workflow definitions + activity interfaces
+│   ├── db/                      # Atlas schema files, shared query helpers
+│   └── common/                  # Auth header utils, OpenTelemetry setup, logger
+├── services/                    # 15 microservices (each has own Dockerfile)
+│   ├── script/                  # Script AST, versions, revision workflow
+│   ├── collaboration/           # CRDT sync (WebSocket + y-redis)
+│   ├── bible/                   # Neo4j Series Bible Graph
+│   ├── breakdown/               # NLP element detection, breakdown catalog
+│   ├── scheduling/              # Stripboard, shoot days, OR-Tools solver
+│   ├── budget/                  # Budget lines, account codes, exports
+│   ├── continuity/              # SeriesTimeline, assertions, violations
+│   ├── supervisor/              # On-set take logs, deviations, turnover
+│   ├── ai/                      # Model routing, AI ledger, consent, semantic cache
+│   ├── import/                  # FDX/Fountain/PDF/OCR import pipeline
+│   ├── search/                  # Elasticsearch indexing + hybrid search
+│   ├── watermark/               # Forensic watermark embed/extract
+│   ├── legal/                   # Rights tags, NDA gates, legal holds
+│   ├── notification/            # Email + WebSocket push + mobile push
+│   └── auth/                    # OIDC/SAML, SCIM, JWT, RBAC
+├── workers/                     # Temporal workers (separate K8s deployments)
+│   ├── publish-saga/
+│   ├── import-saga/
+│   ├── call-sheet/
+│   └── revision-dist/
+├── apps/
+│   ├── web/                     # React web app
+│   ├── onset/                   # Tauri on-set app (src-tauri/ + src/)
+│   └── gateway/                 # Apollo Router config + supergraph schema
+├── infra/                       # Kubernetes manifests, Terraform, Helm charts
+├── Cargo.toml                   # Cargo workspace root
+├── package.json                 # pnpm workspace root
+├── pnpm-workspace.yaml
+└── turbo.json                   # Turborepo pipeline config
+```
+
+**Dependency rule:** `services/*` may only import from `packages/*`. Services must never import from other services — cross-service data goes through gRPC APIs only. Enforced via ESLint `import/no-restricted-paths` in CI.
 
 ## Core Domain Concepts
 
 ### Script AST
-The screenplay as a tree of typed nodes with stable UUIDs. Text content lives in CRDT text types at leaf level. Structural moves use tree CRDTs (Loro MovableTree) or coordinated operations (Yjs fallback).
+19 node types (project → script/episode → act → scene → heading/action/dialogue/etc.) with stable UUID v7 identities. Text lives in CRDT text types at leaf nodes. Structural moves use Loro MovableTree. Full schema: `Wiki/03-data-model.md`.
 
 ### Series Bible Graph
-Neo4j graph of characters, locations, lore, arcs, facts, rules, and voice profiles. Every fact has provenance (where it came from in the script). Used for AI grounding and continuity checking.
+Neo4j graph of characters, locations, props, vehicles, organizations, story events, facts, rules, arcs, lore, and voice profiles. Every fact has provenance (source scene, confidence, supersedure chain). Used for AI grounding, continuity checking, and character voice enforcement.
 
 ### SeriesTimeline
-Maps story-day chronology across episodes. Continuity assertions (wardrobe, injuries, props) attach to story days, not individual scripts. Enables cross-episode continuity reasoning.
+Story-day chronology across episodes. Continuity assertions (wardrobe, injuries, props, VFX) attach to story days + time-of-day slots, not individual scripts. Cross-episode continuity violations detected by AI + surfaced to Script Supervisor.
 
 ### Publish-to-Production Saga
-Temporal workflow: lock draft → validate policy → extract breakdown → delta schedule → delta budget → route approvals → operational lock. Compensation on failure at each step.
+Temporal workflow: lock draft → validate policy (Legal) → validate canon (Bible) → extract breakdown → delta schedule → delta budget → route approvals (parallel for independent depts, sequential for dependent) → operational lock. Auto-escalate at 24h; auto-approve at 48h. Full spec: `Wiki/07-workflow-orchestration.md`.
 
 ### AI Contribution Ledger
-Every AI interaction logged: timestamp, user, model, prompt hash, AI output, writer action (accepted/rejected/modified), modification delta, company consent reference. Required for WGA Article 72 compliance.
+Every AI interaction logged immutably: timestamp, user, model, prompt hash, context refs, AI output, writer action (accepted/rejected/modified), modification delta, company consent reference. Required for WGA Article 72 compliance. Rate limited per org (quota) and per user (soft cap).
 
 ### Character Voice Registry
-Per-character voice profiles constraining AI dialogue suggestions: vocabulary level, speech patterns, forbidden words, reference scenes for few-shot prompting.
+Per-character voice profiles (vocabulary level, speech patterns, forbidden words, 3–5 reference scenes for few-shot prompting). AI dialogue suggestions are checked against the registry before display. Violations are warnings — never blocks.
 
-## Constraints and Non-Negotiables
+## Non-Negotiables
 
-1. **WGA compliance** — AI is assistive only; never positions AI as author; every interaction logged
-2. **Offline-first on-set** — Script Supervisor module must work fully offline for 12–16 hour days
-3. **Industry-standard screenplay formatting** — Must match Final Draft output quality
+1. **WGA compliance** — AI is assistive only; every interaction logged; opt-in; company consent tracked
+2. **Offline-first on-set** — Script Supervisor module fully offline for 12–16 hour days; 7-day design target
+3. **Industry-standard screenplay formatting** — Final Draft output quality; FDX round-trip fidelity
 4. **Forensic watermarking** — Every exported script carries invisible recipient-identifying watermark
-5. **CRDT collaboration** — No central server dependency for text editing (structural ops may coordinate)
-6. **Audit trail** — Every state mutation logged with actor, timestamp, and diff
-
-## What Has NOT Been Decided
-
-- [ ] Exact AST node types and field-level schemas (Step 1 priority)
-- [ ] Neo4j node/relationship type definitions
-- [ ] Backend language: TypeScript vs Rust vs hybrid
-- [ ] Kubernetes provider: EKS vs GKE vs AKS
-- [ ] Single-tenant vs multi-tenant for enterprise
-- [ ] Pricing tiers and AI usage metering
-- [ ] Loro vs Yjs (pending POC)
-- [ ] Temporal Cloud vs self-hosted
-- [ ] Which NLEs to prioritize for editorial round-trip
-- [ ] Embedding model for vector search
-- [ ] Tauri 2.x iOS readiness (needs evaluation)
+5. **CRDT collaboration** — Text editing offline-capable; structural ops require connectivity
+6. **Audit trail** — Every state mutation logged (actor, timestamp, diff) in immutable Audit Service
+7. **All decisions documented** — Every architectural/design decision written into wiki with rationale + ADR if significant
 
 ## How to Use This File
 
 When working on ScriptOS in Claude Code:
-1. Read the relevant wiki page(s) before starting any module
-2. Check `wiki/14-adr.md` for existing architectural decisions before proposing alternatives
-3. Update wiki pages as decisions are made
-4. Add new ADRs for significant technical choices
-5. Keep the roadmap (`wiki/15-roadmap.md`) updated as tasks complete
-
-## Project Structure (Proposed)
-
-```
-scriptos/
-├── CLAUDE.md                    # This file
-├── wiki/                        # Architecture documentation
-│   ├── 00-index.md
-│   ├── 01-product-vision.md
-│   ├── ...
-│   └── 15-roadmap.md
-├── packages/                    # Monorepo packages
-│   ├── ast/                     # Script AST types and utilities
-│   ├── crdt/                    # CRDT layer (Loro/Yjs abstraction)
-│   ├── editor/                  # ProseMirror/TipTap screenplay editor
-│   ├── bible/                   # Series Bible service
-│   ├── breakdown/               # Breakdown service
-│   ├── scheduling/              # Scheduling service
-│   ├── supervisor/              # Script Supervisor module
-│   ├── ai/                      # AI governance + assistance
-│   ├── import/                  # Import pipeline
-│   ├── sync/                    # PowerSync offline layer
-│   ├── orchestration/           # Temporal workflows
-│   ├── search/                  # Elasticsearch integration
-│   └── common/                  # Shared utilities, types, auth
-├── apps/
-│   ├── web/                     # React web application
-│   ├── onset/                   # Tauri on-set application
-│   └── api/                     # API gateway
-├── infra/                       # Kubernetes, Terraform, Docker
-└── scripts/                     # Dev tooling, migrations, seeds
-```
+1. **Read `Wiki/00-index.md`** for a full table of contents before starting any module
+2. **Check `Wiki/14-adr.md`** (ADR-001 through ADR-029) before proposing any alternative to a closed decision
+3. **Read the relevant wiki page** before writing any code or design for a module
+4. **Update both the wiki page AND this file** whenever a decision is made — open questions must be closed with rationale, not left hanging
+5. **Add a new ADR** for any decision that is hard to reverse, affects multiple services, or represents a non-obvious choice
+6. **Step 3 is next** — technical deep-dives per module in dependency order (CRDT → AI → Offline → Orchestration → Editorial)

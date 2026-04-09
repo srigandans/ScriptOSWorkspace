@@ -79,9 +79,16 @@ flowchart TB
     INDEX --> CONFIRM[Confirm indexing complete]
 ```
 
-## Open Questions
+## Decisions
 
-- [ ] Embedding model: Voyage-3 vs OpenAI text-embedding-3-large vs self-hosted?
-- [ ] Should bible facts have separate embeddings or be indexed inline with scenes?
-- [ ] Search scope: per-project, per-organization, or cross-project?
-- [ ] Fuzzy matching for character name variants (JAKE, Jake, J., JACOB)?
+**Embedding model — OpenAI `text-embedding-3-large` (1536 dimensions) at launch. See ADR-024.**
+`text-embedding-3-large` leads MTEB retrieval benchmarks and is already in use by teams in the OpenAI ecosystem. At ScriptOS's scale (even 10,000 screenplays), the cost difference between Voyage-3 and OpenAI embeddings is negligible. Simplicity wins — one AI vendor relationship for generation (Anthropic) and one for embeddings (OpenAI) is manageable; adding Voyage as a third vendor is not justified by marginal quality gains. Enterprise data-residency deployments use self-hosted `BGE-M3` or `e5-large-v2` served via a vLLM embedding endpoint (OpenAI-compatible API — no code changes required).
+
+**Bible facts index — separate index (`scriptos-bible`), not inline with scenes.**
+Bible facts and scenes have different search profiles. "Find all facts about Jake" is a structured entity query with optional semantic ranking. "Find scenes where Jake shows vulnerability" is a purely semantic query on scene text. Mixing them in one index degrades relevance for both — the retrieval signals conflict. The `scriptos-bible` index stores facts by entity ID, category, statement text, and embedding. Cross-index queries (find scenes that contradict a bible fact) join at the application layer after separate retrievals.
+
+**Search scope — per-project default; cross-project opt-in at org level.**
+Default scope is one project — a writer on Project A should not see Project B's content without authorization. Cross-project search is available as an org-admin-enabled feature for showrunners managing multiple seasons or related projects (e.g., comparing dialogue across a franchise). The Elasticsearch query always includes a `project_id` filter; cross-project mode substitutes an `org_id` filter with an explicit allowlist of project IDs the user has access to.
+
+**Character name fuzzy matching — normalize to canonical ID at index time via Bible Graph aliases.**
+Fuzzy string matching (Levenshtein, trigrams) is expensive and produces false positives ("JAKE" matching "JAKE SR.", "JAKE (V.O.)" as separate entities). The Bible Graph already maintains an `aliases` array per Character node (populated during script parsing and manual curation). At index time, the character resolver maps any name variant to the canonical character UUID. Search uses the canonical ID as a structured filter — exact match, not fuzzy. New unresolved character names are flagged for the writer to link to an existing character or create a new one.

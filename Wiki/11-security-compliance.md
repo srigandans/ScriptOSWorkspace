@@ -80,9 +80,16 @@ interface AuditEntry {
 }
 ```
 
-## Open Questions
+## Decisions
 
-- [ ] Watermarking technology: build in-house or license (e.g., Digimarc)?
-- [ ] SOC 2 Type II timeline: when to begin audit prep?
-- [ ] GDPR: data residency requirements for EU clients — multi-region deployment?
-- [ ] Accessibility: automated testing tools (axe-core, Lighthouse) in CI/CD?
+**Watermarking — build in-house using steganographic techniques; Digimarc for enterprise litigation cases. See ADR-025.**
+In-house approach: character spacing micro-adjustments in PDF (imperceptible to readers, survives print and scan), and Unicode zero-width character injection in FDX (survives copy-paste, encodes recipient ID in binary). Both techniques encode: recipient UUID, export timestamp, project ID, version ID, and access scope. Sufficient for identifying leaks. Digimarc provides legally certified provenance suitable for litigation — offered as a premium add-on for major studio clients (who will pay the licensing cost). Building in-house first avoids a hard external dependency and significant licensing cost for all tiers.
+
+**SOC 2 Type II timeline — begin prep at Week 20 (Beta milestone); target report by Week 44.**
+SOC 2 Type II requires a minimum 6-month observation period. Starting at Week 20 aligns the 6-month window with GA (Week 36) plus 8 weeks post-launch, delivering the report at approximately Week 44. Starting earlier wastes audit spend on a product still changing rapidly (pre-Beta controls are immature). Starting later delays enterprise sales where SOC 2 is a procurement requirement.
+
+**GDPR / data residency — EU-only region for EU clients (not multi-region active-active).**
+GDPR requires EU personal data to remain in the EU — it does not require multi-region. A single EU Kubernetes cluster (europe-west4 on GCP, or eu-west-1 on AWS) with Multi-AZ redundancy satisfies GDPR and is far simpler to operate than active-active multi-region. EU clients are provisioned on the EU cluster at signup. US clients on the US cluster. Cross-region data transfer is prohibited. Full active-active multi-region is a v2 scaling concern, not a compliance requirement.
+
+**Accessibility testing — axe-core in CI (blocking), Lighthouse scheduled (non-blocking), manual screen reader quarterly.**
+axe-core catches ~57% of WCAG 2.2 AA violations automatically and is fast enough to run in CI as a blocking gate. A PR that introduces axe-core violations fails. Lighthouse performance and accessibility audits run on a nightly schedule (not blocking — performance budgets are informational at this stage). Manual screen reader testing with NVDA (Windows) and VoiceOver (macOS/iOS) is conducted quarterly by QA, covering the script editor, approval workflows, and review surfaces. Automated tools cannot catch reading order issues, complex widget semantics, or screen reader announcement quality.

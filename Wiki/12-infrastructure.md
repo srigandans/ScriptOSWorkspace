@@ -154,10 +154,19 @@ flowchart TB
 | Alerting | Grafana Alerting / PagerDuty | Incident notification |
 | Service mesh observability | Kiali (with Istio) | Service-to-service traffic visualization |
 
-## Open Questions
+## Decisions
 
-- [ ] y-redis commercial license cost?
-- [ ] Multi-region strategy: active-active for CRDT, active-passive for Temporal?
-- [ ] Object storage: S3 vs R2 (Cloudflare) for media?
-- [ ] Kubernetes provider: EKS, GKE, or AKS?
-- [ ] Database migration strategy: schema versioning tool (Flyway, Atlas)?
+**y-redis commercial license — budget $2,000–5,000/month at growth scale; use Hocuspocus (MIT) at startup scale.**
+y-redis is AGPL — proprietary use requires a commercial license from the y-redis maintainers. At startup scale (< 1K users, single WebSocket instance sufficient), use Hocuspocus instead: it is MIT licensed, single-instance, and eliminates the licensing decision while the platform is pre-revenue. Switch to y-redis when horizontal WebSocket scaling becomes necessary (active session count exceeds one instance's capacity). Budget the commercial license as part of the growth-tier infrastructure spend.
+
+**Multi-region strategy — active-active for CRDT collaboration; active-passive for everything else.**
+CRDT collaboration (Redis Streams) uses globally replicated Redis (Upstash Global or Redis Cluster with cross-region replication) — any writer in any region connects to any WebSocket server and their ops reach all peers. Postgres writes go to the primary region only (active-passive); the secondary region reads from a replica. Temporal runs in a single region (workflow consistency requires a single source of truth); Temporal Cloud handles infrastructure failover. This is the strategy with the best latency for the most latency-sensitive use case (real-time editing) without the complexity of multi-master Postgres.
+
+**Object storage — AWS S3 at launch; evaluate Cloudflare R2 if egress costs exceed $500/month.**
+S3 is the universal standard with the broadest SDK and tooling ecosystem. Operational familiarity at launch outweighs R2's cost advantage. At TB-scale of continuity photo storage and script export downloads, R2's zero-egress-fee model becomes compelling (S3 charges $0.09/GB egress). Migration from S3 to R2 is mechanical (R2 is S3-compatible API). Set a cost threshold: if monthly egress exceeds $500, evaluate R2 migration. No code changes required — only S3 endpoint configuration changes.
+
+**Kubernetes provider — GKE (Google Kubernetes Engine) with Autopilot mode. See ADR-026.**
+GKE Autopilot manages node provisioning, scaling, and security patching automatically, reducing cluster management burden significantly for a small team. Google Cloud provides the best native integration with Cloud SQL (managed Postgres), Artifact Registry (container images), and Cloud Armor (DDoS protection). Kubernetes was created at Google — GKE has the deepest feature set and earliest access to new Kubernetes capabilities. Switch to EKS only if enterprise clients require AWS for compliance or procurement reasons (offered as an enterprise deployment option, not the default).
+
+**Database migrations — Atlas (ariga.io). See ADR-027.**
+Atlas generates migration files from schema declarations (declarative migrations) — engineers declare the target schema state, Atlas computes the diff and generates the SQL migration. This fits the schema-per-service model: each service's schema is declared in its own `schema.hcl` file. Atlas handles multi-schema drift detection (flags when a running database diverges from its declared schema). Flyway is mature but requires hand-writing SQL migrations, creating room for errors across 13 schemas. Liquibase is similar to Flyway. Atlas's declarative approach is meaningfully safer at this schema count.

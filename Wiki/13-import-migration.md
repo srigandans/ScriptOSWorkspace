@@ -153,10 +153,19 @@ interface ImportProvenance {
 }
 ```
 
-## Open Questions
+## Decisions
 
-- [ ] Celtx export format: which version(s) to support?
-- [ ] OCR accuracy threshold: what's the minimum acceptable for production use?
-- [ ] Round-trip fidelity testing: automated tests comparing import → export → import?
-- [ ] Batch import: support importing entire season (multiple FDX files) at once?
-- [ ] Revision history preservation: can FDX revision data map to ScriptOS revisions?
+**Celtx support — PDF export path only; no native Celtx format parsing.**
+Celtx does not publish a format specification. Reverse-engineering a proprietary/undocumented format is a maintenance liability — any Celtx version update can break the parser with no warning. Celtx supports PDF export, which our PDF parser already handles. Users migrating from Celtx use `File → Export → PDF` in Celtx, then import the PDF into ScriptOS. Document this migration path clearly in onboarding.
+
+**OCR accuracy threshold — flag at 85% confidence; block auto-import below 60%.**
+Maps to the confidence tiers in the import table: 85–100% = auto-accepted (high/moderate confidence), 60–85% = flagged for review (orange warning), below 60% = blocked, requires manual correction before proceeding. These thresholds match common document OCR pipeline practices. The 60% block threshold prevents garbage data from entering the AST. Below 60%, the element count and type distribution are likely wrong enough to produce a misleading import. Thresholds are configurable per-org for productions with consistently clean scan quality.
+
+**Round-trip fidelity testing — automated in CI, mandatory for parser and export changes.**
+Test library of 20 reference scripts: 10 public domain (classic screenplays in FDX and Fountain), 10 synthetic (generated to cover edge cases — dual dialogue, transitions, scene number suffixes, OCR artifacts, missing slug lines). CI pipeline: import reference FDX → export to FDX → import again → assert AST structural equality (same node count, same scene sequence, same character names, same dialogue content). For PDF: assert structural equivalence within edit distance threshold for text content. Any PR touching the import pipeline or export formatters must pass all 20 round-trip tests.
+
+**Batch import — yes, support season-level batch import at launch.**
+Showrunners migrating to ScriptOS have an entire season already written. Requiring episode-by-episode import is a usability blocker for adoption. Batch import accepts: a zip file of FDX/Fountain files, or a folder upload. Each file becomes an episode. Episode numbering is inferred from filenames (e.g., `S01E03_title.fdx`) and confirmed by the user in a review step before the import saga begins. The import saga processes episodes in parallel (separate Temporal activities per episode).
+
+**Revision history from FDX — preserve color and date metadata; do not reconstruct page-level history.**
+FDX stores the current revision color and date on the document and on individual elements (`RevisionChange` attribute). ScriptOS preserves these: the imported script's `revision_color` is set from the FDX document-level revision metadata, and individual AST nodes inherit the `revision_color` from their FDX `RevisionChange` attribute where present. What we do NOT attempt: reconstructing the full revision history (which pages changed between which revisions) from a single FDX file. That history requires the intermediate revision files, which typically are not provided. The import is honest — it captures the current state, not the journey to it.

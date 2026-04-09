@@ -210,10 +210,19 @@ flowchart TB
     APPROVE --> DISTRIBUTE[Email/SMS/Push Distribution]
 ```
 
-## Open Questions
+## Decisions
 
-- [ ] Stripboard algorithm: build in-house or integrate existing solver?
-- [ ] Budget templates: how many industry-standard templates to ship at launch?
-- [ ] Script Supervisor: iPad-first or desktop-first for on-set UX?
-- [ ] Call sheet distribution: email-only or in-app notification + mobile deep link?
-- [ ] Production reports: which standard templates (AICP, studio-specific)?
+**Stripboard scheduling solver — Google OR-Tools (open source constraint solver). See ADR-021.**
+Scheduling is a constraint satisfaction problem. Building a solver from scratch is a research project. Google OR-Tools is a proven, production-grade constraint solver (Apache 2.0 license) used in logistics and scheduling at scale. OR-Tools handles: actor availability windows, location grouping (minimize company moves), day/night balance, child actor hour restrictions, and union turnaround rules. The Scheduling Service wraps OR-Tools — engineers write constraints in the OR-Tools API, not a custom solver. Manual override is always available; the solver produces a starting point that the 1st AD refines.
+
+**Budget templates at launch — 3 templates: Feature Film, TV Episode, Indie/Low Budget.**
+Three templates cover ~80% of productions. Feature Film follows AICP-standard account codes. TV Episode uses standard 8-act structure with per-episode rollups. Indie/Low Budget is a simplified version without union fringe calculations. Additional templates (documentary, commercial, animation, music video) added in v1.1 based on user feedback. Over-building templates before having real user data creates templates nobody uses.
+
+**Script Supervisor UX — desktop-first (macOS) at launch.**
+Script Supervisors on professional productions use a laptop on set — more screen real estate for lined scripts, facing pages, and multi-column notes. iPad is preferred for walkabout use (checking props, visiting set dressing) but the primary workflow is desk-based. Desktop launches first. iPad support evaluated alongside Tauri iOS maturity in Q3 2026. This is consistent with the Tauri iOS decision in wiki/06.
+
+**Call sheet distribution — email (PDF attachment) + in-app push notification at launch; SMS in v1.1.**
+Email with PDF attachment is universal — all crew have email and can receive the call sheet even without the app. In-app notification provides an interactive confirmation flow ("I've received tomorrow's call sheet"). SMS adds cost (carrier fees) and phone number management complexity (international numbers, do-not-call compliance). Defer SMS to v1.1 when we understand which user segments want it. Mobile deep link in the in-app notification opens the call sheet directly in the app.
+
+**Production reports at launch — Daily Production Report (DPR), Script Supervisor Daily, Editor's Daily.**
+DPR is universal — every production requires it, and it is generated from data we already capture (scenes shot, pages, setups, cast, schedule status). Script Supervisor Daily Report and Editor's Daily Report are generated from TakeLog data the Script Supervisor module captures. AICP reports and day-out-of-days reports require additional data collection points and are deferred to v1.1.

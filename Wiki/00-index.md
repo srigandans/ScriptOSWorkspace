@@ -25,6 +25,7 @@ ScriptOS is a unified platform for script writing, production planning, and stud
 | [13 — Import & Migration Pipeline](./13-import-migration.md) | FDX, Fountain, PDF/OCR import, phased migration strategy |
 | [14 — Architectural Decisions Log](./14-adr.md) | Key decisions made, rationale, and trade-offs |
 | [15 — Implementation Roadmap](./15-roadmap.md) | Service priority, dependency chains, release plan |
+| [16 — System Design Document](./16-system-design.md) | Service catalog, communication patterns, infra topology, auth, database ownership |
 
 ---
 
@@ -45,12 +46,32 @@ ScriptOS is a unified platform for script writing, production planning, and stud
 
 ---
 
-## Open Questions
+## Decisions
 
-- [ ] Script AST schema: finalize node types and metadata fields
-- [ ] Series Bible Graph: define entity types, relationship types, and rule schema
-- [ ] CRDT: Loro ProseMirror binding maturity — needs spike/POC
-- [ ] AI: initial model selection and prompt architecture for Character Voice Registry
-- [ ] Editorial: which NLEs to prioritize for round-trip (Avid vs Premiere vs Resolve)
-- [ ] Deployment: single-tenant vs multi-tenant for enterprise clients
-- [ ] Pricing: tier boundaries and AI usage metering approach
+**Script AST schema — finalized in wiki/03-data-model.md.**
+All 19 node types, PostgreSQL DDL, revision color workflow, CRDT boundary, and export mappings. Closed.
+
+**Series Bible Graph schema — finalized in wiki/03-data-model.md.**
+13 Neo4j node labels, 25+ relationship types, Cypher constraints, vector index, fact provenance model. Closed.
+
+**CRDT — Loro primary with in-house ProseMirror binding; Yjs fallback if POC fails.**
+Decision recorded in wiki/04 and ADR-001/ADR-018. POC (Weeks 3–6) is the gate.
+
+**AI model selection — Anthropic (Claude family) for generation; OpenAI text-embedding-3-large for embeddings.**
+Model routing: Haiku for format/consistency checks, Sonnet for dialogue and scene analysis, Opus for coverage analysis. Prompt caching for Bible + voice context. See wiki/05 and ADR-020/ADR-024.
+
+**NLE priority — Avid (AAF) first, DaVinci Resolve second, Premiere in v1.1.**
+See wiki/09 and ADR-022.
+
+**Multi-tenancy — multi-tenant SaaS by default; single-tenant VPC as enterprise add-on. See ADR-028.**
+Multi-tenant SaaS (all customers on shared infrastructure, isolated by org_id + row-level security) is the default and covers the majority of clients. Single-tenant VPC (dedicated Postgres, Neo4j, and optional self-hosted AI) is available as a premium enterprise tier for studios requiring data sovereignty or custom AI deployment. Building single-tenant first would mean building the platform twice.
+
+**Pricing tiers — Indie / Professional / Studio. See ADR-029.**
+
+| Tier | Price | Includes |
+|------|-------|---------|
+| Indie | $49/seat/month | Editor, bible, collaboration. No AI generation. Limited breakdown (manual only). |
+| Professional | $149/seat/month | Full AI assistance (500K tokens/month included), full breakdown + scheduling, FDX/PDF export. |
+| Studio | Custom | Full platform, on-set module, watermarking, compliance reporting, self-hosted AI option, single-tenant VPC option. AI metered at cost + margin. |
+
+AI metering for Studio: usage is tracked per org, billed monthly at inference cost + 30% margin. Overage for Professional tier: $0.005 per 1K tokens above the 500K monthly inclusion.

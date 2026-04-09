@@ -162,9 +162,16 @@ graph TB
 | Beta (production teams) | Week 24 | 3 production teams using breakdown + scheduling |
 | GA | Week 36 | Full platform available |
 
-## Open Questions
+## Decisions
 
-- [ ] Team size and composition assumed for this timeline?
-- [ ] Which milestones are client-committed with deadlines?
-- [ ] Build vs buy for scheduling solver (stripboard optimization)?
-- [ ] Phased rollout to clients or big-bang launch?
+**Team size assumption — 8–12 engineers: 5–7 backend, 2–3 frontend, 1 DevOps/Platform, 1 ML/AI.**
+Phase timelines in this roadmap assume this composition. A smaller team extends each phase by 50–100%. A larger team compresses it, but with diminishing returns past ~15 engineers given coordination overhead at this stage. Revisit phase durations if the actual team composition differs significantly.
+
+**Client-committed milestones — none until Alpha (Week 14).**
+Committing to external deadlines before the data model and system design are locked is premature. The first external commitment is the Alpha milestone (Week 14) delivered to 10 hand-selected writers. All earlier milestones are internal. After Alpha, Beta (Week 24) may be committed to 3 pilot production companies pending Alpha learnings.
+
+**Scheduling solver — Google OR-Tools. See ADR-021 (wiki/08).**
+Already resolved. OR-Tools is the constraint solver; the Scheduling Service wraps it. The 1st AD's manual overrides are always available.
+
+**Launch strategy — phased rollout by persona, not big-bang.**
+Persona sequence: (1) Writers — editor + bible (Weeks 8–14), (2) Production teams — breakdown + scheduling + budgeting (Weeks 14–24), (3) On-set — Script Supervisor module (Weeks 24–32). Each persona phase has a distinct user group, limiting the blast radius of early bugs. Big-bang launch requires all modules to be production-ready simultaneously — high risk for a platform this broad. Phased rollout also generates the user feedback that calibrates the remaining roadmap before the next cohort onboards.
