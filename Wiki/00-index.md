@@ -26,6 +26,7 @@ ScriptOS is a unified platform for script writing, production planning, and stud
 | [14 — Architectural Decisions Log](./14-adr.md) | Key decisions made, rationale, and trade-offs |
 | [15 — Implementation Roadmap](./15-roadmap.md) | Service priority, dependency chains, release plan |
 | [16 — System Design Document](./16-system-design.md) | Service catalog, communication patterns, infra topology, auth, database ownership |
+| [17 — P2 Feature Roadmap](./17-p2-roadmap.md) | Post-GA features: Table Read TTS, Location Scouting, Multilingual, Pitch Gen, Marketplace, Native Player, Evercast |
 
 ---
 

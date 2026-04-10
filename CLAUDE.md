@@ -24,7 +24,8 @@ Key pages (read in this order when onboarding):
 - `Wiki/09-post-production.md` — OTIO/AAF/NLE round-trip (Avid first), Frame.io connector
 - `Wiki/11-security-compliance.md` — Watermarking, SOC 2 timeline, GDPR, accessibility
 - `Wiki/12-infrastructure.md` — GKE Autopilot, Atlas migrations, y-redis licensing, S3 vs R2
-- `Wiki/15-roadmap.md` — Phased rollout plan, team size assumptions, milestone commitments
+- `Wiki/15-roadmap.md` — Sprint-level P0/P1 plan (18 sprints, 38 weeks to GA)
+- `Wiki/17-p2-roadmap.md` — Post-GA P2 features: Table Read TTS, Location Scouting, Multilingual, Pitch Gen, Marketplace, Native Player, Evercast
 
 ## Engineering Progress
 
