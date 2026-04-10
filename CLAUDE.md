@@ -33,7 +33,7 @@ Key pages (read in this order when onboarding):
 | **Step 1** | Canonical Data Model (AST, Bible Graph, SeriesTimeline) | ✅ COMPLETE |
 | **Step 2** | System Design Document (service boundaries, comms, infra) | ✅ COMPLETE |
 | **Step 3** | Technical Deep-Dives per module (CRDT → AI → Offline → Orchestration → Editorial) | ✅ COMPLETE |
-| **Step 4** | Implementation Roadmap (sprint-level plans) | 🔲 NEXT |
+| **Step 4** | Implementation Roadmap (sprint-level plans) | ✅ COMPLETE |
 
 **Step 3 sequence:** ~~CRDT/collaboration layer~~ ✅ → ~~AI governance~~ ✅ → ~~Offline sync~~ ✅ → ~~Workflow orchestration~~ ✅ → ~~Editorial integration~~ ✅. All complete.
 
@@ -184,4 +184,4 @@ When working on ScriptOS in Claude Code:
 3. **Read the relevant wiki page** before writing any code or design for a module
 4. **Update both the wiki page AND this file** whenever a decision is made — open questions must be closed with rationale, not left hanging
 5. **Add a new ADR** for any decision that is hard to reverse, affects multiple services, or represents a non-obvious choice
-6. **Step 3 is next** — technical deep-dives per module in dependency order (CRDT → AI → Offline → Orchestration → Editorial)
+6. **All 4 steps are complete** — implementation begins with Sprint 0 per `Wiki/15-roadmap.md`
