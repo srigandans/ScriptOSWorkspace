@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScriptOS Backlog — Epic 1: Platform Foundation</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 2cm; color: #1a1a1a; }
+  h1 { font-size: 20pt; color: #1F3864; border-bottom: 3px solid #1F3864; padding-bottom: 6px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #2E4D9A; border-bottom: 2px solid #2E4D9A; padding-bottom: 4px; margin-top: 28px; }
+  h3 { font-size: 13pt; color: #2E75B6; margin-top: 20px; }
+  h4 { font-size: 11pt; color: #375623; margin-top: 14px; font-style: italic; }
+  h5 { font-size: 10pt; color: #843C0C; margin-top: 10px; }
+  .epic-box { background: #EFF3FB; border-left: 6px solid #1F3864; padding: 14px 18px; margin-bottom: 24px; border-radius: 4px; }
+  .feature-box { background: #F2F7FF; border-left: 5px solid #2E4D9A; padding: 12px 16px; margin: 18px 0 10px 0; border-radius: 3px; }
+  .story-box { background: #F9FDF4; border-left: 4px solid #375623; padding: 10px 14px; margin: 14px 0 8px 0; border-radius: 3px; }
+  .task-box { background: #FFFBF5; border-left: 3px solid #843C0C; padding: 8px 12px; margin: 8px 0 4px 0; border-radius: 2px; }
+  .label { display: inline-block; font-size: 8pt; font-weight: bold; padding: 2px 7px; border-radius: 10px; margin-right: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .lbl-epic { background: #1F3864; color: white; }
+  .lbl-feature { background: #2E4D9A; color: white; }
+  .lbl-story { background: #375623; color: white; }
+  .lbl-task { background: #843C0C; color: white; }
+  .meta-row { font-size: 9pt; color: #555; margin: 4px 0 8px 0; }
+  .meta-row span { margin-right: 16px; }
+  .meta-row .tag { background: #E8EEF6; padding: 1px 6px; border-radius: 3px; font-size: 8.5pt; }
+  table.ac-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 10pt; }
+  table.ac-table th { background: #F0F0F0; padding: 5px 8px; text-align: left; font-weight: bold; border: 1px solid #CCC; }
+  table.ac-table td { padding: 4px 8px; border: 1px solid #DDD; vertical-align: top; }
+  .section-label { font-size: 9pt; font-weight: bold; color: #666; text-transform: uppercase; margin: 8px 0 3px 0; }
+  .description-text { font-size: 10.5pt; margin: 4px 0 8px 0; line-height: 1.5; }
+  ul.ac-list { margin: 4px 0; padding-left: 18px; }
+  ul.ac-list li { font-size: 10pt; margin-bottom: 3px; line-height: 1.4; }
+  .divider { border: none; border-top: 1px solid #E0E0E0; margin: 10px 0; }
+  .id-badge { font-size: 8pt; color: #999; font-family: monospace; margin-right: 8px; }
+  .sprint-tag { background: #FFF3CD; border: 1px solid #FFC107; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #856404; }
+  .priority-1 { color: #C00000; font-weight: bold; }
+  .priority-2 { color: #E36C09; font-weight: bold; }
+  .priority-3 { color: #375623; font-weight: bold; }
+  .points-badge { background: #EBF5FB; border: 1px solid #2E4D9A; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #1a3a6b; font-weight: bold; }
+  .hours-badge { background: #FEF9E7; border: 1px solid #F0B429; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #7D5A00; }
+  .page-break { page-break-before: always; }
+  @media print { .page-break { page-break-before: always; } }
+</style>
+</head>
+<body>
+
+<h1>ScriptOS Backlog — Epic 1: Platform Foundation</h1>
+<p style="font-size:10pt; color:#555; margin-bottom:20px;">
+  <strong>Project:</strong> ScriptOS &nbsp;|&nbsp;
+  <strong>Sprints:</strong> 0–1 (Weeks 1–4) &nbsp;|&nbsp;
+  <strong>Generated:</strong> 2026-04-11 &nbsp;|&nbsp;
+  <strong>Total items:</strong> 1 Epic · 5 Features · 12 User Stories · 50 Tasks
+</p>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     EPIC 1
+═══════════════════════════════════════════════════════════════ -->
+<div class="epic-box">
+  <div>
+    <span class="id-badge">#1</span>
+    <span class="label lbl-epic">Epic</span>
+    <strong style="font-size:14pt;">Platform Foundation</strong>
+  </div>
+  <div class="meta-row" style="margin-top:6px;">
+    <span class="sprint-tag">Sprint 0–1</span>
+    <span class="priority-1" style="margin-left:10px;">&#9679; Priority: Critical</span>
+    <span style="margin-left:10px;"><span class="tag">platform</span> <span class="tag">foundation</span> <span class="tag">infrastructure</span> <span class="tag">sprint-0</span> <span class="tag">sprint-1</span></span>
+  </div>
+  <div class="section-label" style="margin-top:10px;">Description</div>
+  <div class="description-text">
+    Establish the complete development infrastructure, cloud hosting environment, authentication system, shared TypeScript packages, and API gateway that ALL subsequent service epics depend on. This epic covers Sprints 0 and 1 (Weeks 1–4). No end-user features are delivered; the output is a fully operational development and staging environment with a working authentication and authorisation flow. Completion of this epic is the hard gate for starting Epic 2 onwards.
+    <br><br>
+    <em>Reference: Wiki/15-roadmap.md Sprint 0 and Sprint 1.</em>
+  </div>
+  <div class="section-label">Acceptance Criteria (Epic-level Definition of Done)</div>
+  <ul class="ac-list">
+    <li>Every engineer can clone the repo and run <code>docker compose up</code> in under 2 minutes</li>
+    <li>GKE Autopilot staging cluster operational with Istio mTLS enforced</li>
+    <li>All Tier 0 data stores running in staging (Postgres, Redis, NATS, Neo4j, Elasticsearch, Temporal, S3)</li>
+    <li>Auth Service end-to-end: Google OAuth login returns valid RS256 JWT</li>
+    <li>Apollo Router federated gateway running; JWT validation enforced at gateway</li>
+    <li>All shared packages (ast, events, proto, common, db) compile with zero TypeScript errors</li>
+    <li>CI pipeline green on main branch (lint, typecheck, test, Docker build)</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 1.1
+═══════════════════════════════════════════════════════════════ -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#2</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>1.1 — Development Environment &amp; Monorepo Setup</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 0</span>
+  </div>
+  <div class="description-text" style="margin-top:8px;">
+    Set up the monorepo scaffold (pnpm workspaces + Turborepo + Cargo workspace), Docker Compose local development environment, and the GitHub Actions CI/CD pipeline. The goal is zero-friction onboarding: clone, install, and the entire local stack is running. CI enforces code quality on every pull request. This feature is the first thing built in Sprint 0 because every other task in the project depends on a working build system.
+    <br><em>Reference: Wiki/15-roadmap.md Sprint 0 tasks 1–2.</em>
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li><code>pnpm install</code> completes without errors across macOS, Windows WSL2, and Linux</li>
+    <li><code>docker compose up</code> starts Postgres, Redis, NATS, and Neo4j locally in under 2 minutes</li>
+    <li><code>pnpm build</code> runs successfully with Turborepo caching across all packages</li>
+    <li>GitHub Actions CI triggers on every PR; lint, typecheck, test, and Docker build all pass</li>
+    <li>ESLint <code>import/no-restricted-paths</code> rule enforced: services may not import from other services</li>
+    <li>Turborepo affected mode: only changed packages are rebuilt in CI</li>
+  </ul>
+</div>
+
+<!-- US 1.1.1 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#3</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a developer, I can clone the repo and start the full local development stack with a single <code>docker compose up</code> command in under 2 minutes</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 0</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">5 pts</span>
+    <span style="margin-left:8px;"><span class="tag">monorepo</span> <span class="tag">developer-experience</span></span>
+  </div>
+  <div class="description-text">
+    A new engineer joining the team should be productive on day one without manual dependency installation or environment configuration. The local stack must include all Tier 0 services (Postgres, Redis, NATS, Neo4j) so service development can start immediately. The monorepo structure must enforce workspace-level dependency management and build caching from day one to prevent the slow CI times that plague large TypeScript monorepos.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li><code>pnpm install</code> at repo root installs all workspace dependencies without errors</li>
+    <li><code>docker compose up</code> starts: Postgres 16, Redis 7, NATS 2.10 with JetStream, Neo4j 5, Elasticsearch 8.9 in under 2 minutes (8-core 16 GB dev machine)</li>
+    <li>Each container has a health check; <code>docker compose up --wait</code> returns only when all services are healthy</li>
+    <li><code>.env.example</code> documents every required environment variable with placeholder values and inline comments</li>
+    <li><code>pnpm build</code> runs the Turborepo pipeline with caching; second run uses cache and completes in under 30 seconds</li>
+    <li>Cargo workspace builds successfully; <code>cargo check</code> passes with no Rust code yet</li>
+  </ul>
+
+  <!-- Task 1.1.1.1 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#4</span><span class="label lbl-task">Task</span> <strong>Initialize monorepo root structure with pnpm workspaces, Turborepo, and Cargo workspace</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create the top-level monorepo configuration files. <code>pnpm-workspace.yaml</code> must declare all workspace globs (<code>packages/*</code>, <code>services/*</code>, <code>workers/*</code>, <code>apps/*</code>). <code>turbo.json</code> must define the full pipeline topology: <code>build</code> (dependsOn: [^build]), <code>test</code> (dependsOn: [build]), <code>lint</code> (no deps), <code>typecheck</code> (no deps). <code>Cargo.toml</code> workspace root includes <code>apps/onset/src-tauri</code>. Create directory skeleton (<code>packages/</code>, <code>services/</code>, <code>workers/</code>, <code>apps/</code>, <code>infra/</code>) with placeholder README files.
+    </div>
+  </div>
+
+  <!-- Task 1.1.1.2 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#5</span><span class="label lbl-task">Task</span> <strong>Write docker-compose.yml for local development stack</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>docker-compose.yml</code> at repo root. Services: <code>postgres</code> (postgres:16, port 5432, persistent volume, POSTGRES_PASSWORD from env), <code>redis</code> (redis:7-alpine, port 6379), <code>nats</code> (nats:2.10-alpine, ports 4222+8222, <code>-js</code> flag for JetStream), <code>neo4j</code> (neo4j:5-community, ports 7474+7687, NEO4J_AUTH from env), <code>elasticsearch</code> (elasticsearch:8.9.0, port 9200, single-node, xpack.security.enabled=false for dev). All services must have <code>healthcheck</code> definitions. Add <code>depends_on</code> chain.
+    </div>
+  </div>
+
+  <!-- Task 1.1.1.3 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#6</span><span class="label lbl-task">Task</span> <strong>Write .env.example with all required environment variable placeholders</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">4 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>.env.example</code> at repo root documenting every environment variable across all services. Each variable must have: a descriptive inline comment, a safe placeholder value (never a real credential), and a note if required vs optional. Categories: database connection strings, cloud service credentials (S3, Temporal, Frame.io), JWT signing (RS256 private key path), feature flags (UNLEASH_URL), AI API keys (ANTHROPIC_API_KEY, OPENAI_API_KEY). Create a separate <code>.env.local.example</code> for Docker Compose local overrides.
+    </div>
+  </div>
+
+  <!-- Task 1.1.1.4 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#7</span><span class="label lbl-task">Task</span> <strong>Configure Turborepo pipeline with correct task dependency topology and remote caching</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Write <code>turbo.json</code> at repo root. Tasks: <code>build</code> (outputs: dist/**, dependsOn: [^build]), <code>test</code> (dependsOn: [build], outputs: coverage/**), <code>lint</code> (no dependsOn), <code>typecheck</code> (no dependsOn). Configure <code>pipeline.dev</code> for watch mode. Set up Turborepo remote cache (Vercel Remote Cache or self-hosted). Document cache keys and explain the dependency topology.
+    </div>
+  </div>
+
+  <!-- Task 1.1.1.5 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#8</span><span class="label lbl-task">Task</span> <strong>Configure Cargo workspace root for Tauri Rust backend</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">4 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>Cargo.toml</code> at repo root as a Cargo workspace with <code>members = ["apps/onset/src-tauri"]</code>. Set <code>rust-edition = "2021"</code>. Add workspace-level clippy lints. Create <code>apps/onset/src-tauri/Cargo.toml</code> with placeholder tauri dependency. Verify <code>cargo check</code> passes on empty workspace.
+    </div>
+  </div>
+</div>
+
+<!-- US 1.1.2 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#9</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a developer, every pull request is validated by a CI pipeline that enforces lint, typecheck, tests, and Docker build before merge</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 0</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">3 pts</span>
+    <span style="margin-left:8px;"><span class="tag">ci-cd</span> <span class="tag">quality</span></span>
+  </div>
+  <div class="description-text">
+    Engineers should never merge broken code. The CI pipeline must catch TypeScript errors, import violations, test failures, and unbuildable Docker images before they reach main. Turborepo affected mode ensures CI only runs against packages changed in the PR, keeping CI times under 10 minutes. The <code>import/no-restricted-paths</code> ESLint rule enforces the architectural constraint that services must never import from other services.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>GitHub Actions CI workflow triggers on every PR to main</li>
+    <li>CI runs in order: lint → typecheck → test → Docker build</li>
+    <li>Turborepo affected mode: only changed packages/services are linted, typechecked, and tested</li>
+    <li>ESLint fails CI when a service imports directly from another service</li>
+    <li>Docker images built for changed services on PR (not pushed); built and pushed to GCR on merge</li>
+    <li>CI completes in under 10 minutes for a typical single-service PR</li>
+  </ul>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#10</span><span class="label lbl-task">Task</span> <strong>Create GitHub Actions CI workflow for lint, typecheck, test, and Docker build</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>.github/workflows/ci.yml</code>. Triggers: <code>pull_request</code> (branches: [main]), <code>push</code> (branches: [main]). Jobs: (1) lint-typecheck: checkout, pnpm install with frozen lockfile, run <code>pnpm turbo lint typecheck --filter=...[HEAD~1]</code>. (2) test: checkout, pnpm install, run <code>pnpm turbo test --filter=...[HEAD~1]</code>. (3) docker-build: build Docker images for changed services tagged with PR SHA. On push to main: add docker-push job pushing to GCR with SHA tag and latest tag.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#11</span><span class="label lbl-task">Task</span> <strong>Configure ESLint with import restriction rules to prevent cross-service imports</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>.eslintrc.js</code> at repo root. Install: eslint, @typescript-eslint/eslint-plugin, @typescript-eslint/parser, eslint-plugin-import. Add rule: <code>import/no-restricted-paths</code> preventing <code>services/*</code> from importing from other <code>services/*</code>. Error message: "Cross-service imports are forbidden. Use gRPC APIs instead." Add rules: no-console (warn), @typescript-eslint/no-explicit-any (warn), @typescript-eslint/no-unused-vars (error).</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#12</span><span class="label lbl-task">Task</span> <strong>Configure Vitest workspace for unit testing across all packages and services</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">4 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">Create <code>vitest.workspace.ts</code> at repo root discovering all <code>packages/*</code> and <code>services/*</code> vitest configs. Configure coverage provider (v8), coverage thresholds (branches: 60%, lines: 70%), reporters (text, html, json for CI). Wire <code>test</code> task in <code>turbo.json</code>. Verify vitest passes on empty test suites.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#13</span><span class="label lbl-task">Task</span> <strong>Create multi-stage Dockerfile template for TypeScript services</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>infra/docker/Dockerfile.service</code> as the canonical multi-stage template. Stages: (1) <code>deps</code>: node:20-alpine, copy package.json + lockfile, pnpm install --frozen-lockfile. (2) <code>build</code>: copy source, run pnpm turbo build. (3) <code>runtime</code>: node:20-alpine, copy built output, set NODE_ENV=production, add non-root user (node:node), HEALTHCHECK, CMD [node, dist/index.js]. Document customisation via build args.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#14</span><span class="label lbl-task">Task</span> <strong>Configure GCR image registry and push workflow for main branch merges</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>.github/workflows/release.yml</code> triggered on push to main. Steps: authenticate to GCP via Workload Identity Federation (no service account key files), configure Docker for gcloud credential helper, build and push each service image to GCR (<code>us-central1-docker.pkg.dev/scriptos/services/&lt;service-name&gt;</code>) tagged with git-SHA and latest. Create GCR repository via Terraform. Document image naming convention and retention policy.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 1.2
+═══════════════════════════════════════════════════════════════ -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#15</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>1.2 — Cloud Infrastructure Provisioning</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 0</span>
+  </div>
+  <div class="description-text" style="margin-top:8px;">
+    Provision all cloud infrastructure for the staging environment: GKE Autopilot cluster, Istio service mesh, observability stack (OpenTelemetry + Prometheus + Grafana + Loki), all data stores (PostgreSQL, Redis, NATS, Neo4j, Elasticsearch, Temporal, S3), and secret management. All infrastructure defined as code (Terraform + Helm) and reproducible from scratch.
+    <br><em>Reference: Wiki/15-roadmap.md Sprint 0, Wiki/12-infrastructure.md.</em>
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li><code>terraform apply</code> provisions the full staging stack from scratch without errors</li>
+    <li>GKE Autopilot cluster running; <code>kubectl get nodes</code> returns 3+ nodes</li>
+    <li>Istio mTLS enforced between all service namespaces; <code>istioctl analyze</code> clean</li>
+    <li>All data stores healthy and accessible from within the cluster</li>
+    <li>OpenTelemetry traces visible in Grafana/Jaeger for a hello-world service</li>
+    <li>All secrets stored in GCP Secret Manager and mounted via External Secrets Operator</li>
+  </ul>
+</div>
+
+<!-- US 1.2.1 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#16</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a platform engineer, I can run a single Terraform apply to provision the complete GKE staging cluster with service mesh and observability stack</strong>
+  </div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span> <span class="points-badge" style="margin-left:8px;">8 pts</span></div>
+  <div class="description-text">Infrastructure as code ensures the staging environment is reproducible, auditable, and portable. A single Terraform apply should provision everything from scratch — no manual console clicks. The observability stack must be running before any service is deployed so traces and metrics are captured from day one. Istio mTLS must be enforced at cluster level to match the production security posture. <em>Reference: Wiki/12-infrastructure.md, ADR-026.</em></div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li><code>terraform apply -target=module.gke</code> succeeds; cluster visible in GCP console</li>
+    <li><code>kubectl get nodes</code> returns 3+ Autopilot nodes in Ready state</li>
+    <li><code>istioctl analyze</code> returns no errors or warnings</li>
+    <li>Prometheus scrapes metrics; test metric <code>scriptos_hello_requests_total</code> visible in Grafana</li>
+    <li>OpenTelemetry collector receives trace spans; spans visible in Jaeger/Tempo UI</li>
+    <li>Loki receives logs from pods; log query for a test pod returns results</li>
+    <li>External Secrets Operator syncs a test secret from GCP Secret Manager to Kubernetes Secret</li>
+  </ul>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#17</span><span class="label lbl-task">Task</span> <strong>Write Terraform configuration for GKE Autopilot cluster</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">16 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>infra/terraform/gke.tf</code>. Provider: google (region us-central1). Resource: <code>google_container_cluster</code> with <code>enable_autopilot = true</code>, release_channel = REGULAR, workload_identity_config enabled. Create <code>infra/terraform/vpc.tf</code> for VPC and subnet. Create <code>variables.tf</code> and <code>outputs.tf</code>. Add <code>terraform fmt</code> check to CI.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#18</span><span class="label lbl-task">Task</span> <strong>Write Helm values and installation script for Istio service mesh</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>infra/helm/istio/operator.yaml</code>: profile: default, meshConfig.accessLogFile: /dev/stdout, meshConfig.enableTracing: true. Create PeerAuthentication resource with STRICT mTLS mode for the scriptos namespace. Create AuthorizationPolicy allowing service-to-service traffic within mesh.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#19</span><span class="label lbl-task">Task</span> <strong>Deploy OpenTelemetry collector and configure trace and metric pipelines</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>infra/k8s/otel/collector.yaml</code>: OpenTelemetry Collector DaemonSet with OTLP gRPC receiver (port 4317), OTLP HTTP receiver (port 4318). Processors: batch, memory_limiter. Exporters: Prometheus (metrics), Jaeger/Tempo (traces), Loki (logs). Create namespace-level annotation to auto-inject OTel SDK env vars into all pods.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#20</span><span class="label lbl-task">Task</span> <strong>Deploy kube-prometheus-stack for Prometheus and Grafana</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">Add kube-prometheus-stack Helm chart to <code>infra/helm/kube-prometheus/</code>. Write values.yaml with persistent storage (10 GiB PVC). Add pre-built dashboards for: GKE node metrics, NATS JetStream, Postgres, Redis, Istio service mesh. Create Grafana Ingress with TLS (staging.scriptos.internal).</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#21</span><span class="label lbl-task">Task</span> <strong>Deploy Loki and Promtail for log aggregation</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">Add Loki + Promtail Helm chart. Use Loki monolithic mode for staging (distributed for production Sprint 18). Configure Promtail DaemonSet to scrape all pod logs with Kubernetes labels as stream labels. Retention: 14 days. Add Loki as data source in Grafana. Create sample LogQL queries.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#22</span><span class="label lbl-task">Task</span> <strong>Configure External Secrets Operator for GCP Secret Manager integration</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Install External Secrets Operator (ESO) via Helm. Create ClusterSecretStore pointing to GCP Secret Manager using Workload Identity. Create ExternalSecret resources for all secrets: postgres-connection-string, redis-url, neo4j-uri, neo4j-password, elasticsearch-api-key, temporal-tls-cert, temporal-tls-key, jwt-rs256-private-key, anthropic-api-key, openai-api-key, s3-access-key, s3-secret-key. Refresh interval: 1h.</div>
+  </div>
+</div>
+
+<!-- US 1.2.2 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#23</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a platform engineer, all data stores and messaging infrastructure are provisioned in staging and accessible from service pods</strong>
+  </div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span> <span class="points-badge" style="margin-left:8px;">8 pts</span></div>
+  <div class="description-text">The build order for services is blocked until all data stores are available. Every service has hard dependencies on one or more data stores. This user story ensures all Tier 0 infrastructure (per the Service Bring-Up Dependency Order in wiki/15) is running before Sprint 1 service development begins.</div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Cloud SQL Postgres 16 accessible from GKE via private IP; <code>psql</code> connection succeeds from within cluster</li>
+    <li>Redis accessible; <code>redis-cli ping</code> returns PONG from a test pod</li>
+    <li>NATS JetStream accessible; <code>nats stream ls</code> returns empty list; JetStream enabled</li>
+    <li>Neo4j Aura provisioned; Cypher query via Bolt protocol from test pod returns server version</li>
+    <li>Elasticsearch 8.9 cluster health returns green; index creation API call succeeds</li>
+    <li>Temporal Cloud namespace scriptos active; <code>temporal workflow list</code> returns empty list</li>
+    <li>S3 buckets exist; test PutObject and GetObject from GKE workload identity succeeds</li>
+    <li>Atlas CLI: <code>atlas schema apply</code> on empty Postgres completes without errors</li>
+  </ul>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#24</span><span class="label lbl-task">Task</span> <strong>Provision Cloud SQL PostgreSQL 16 instance via Terraform</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>infra/terraform/postgres.tf</code>. <code>google_sql_database_instance</code>: database_version = POSTGRES_16, tier = db-g1-small (staging), private IP only, daily backup (7-day retention). Create application user. Store connection string in Secret Manager. Configure Cloud SQL Auth Proxy sidecar pattern for service pods.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#25</span><span class="label lbl-task">Task</span> <strong>Provision Redis Memorystore Standard tier and verify connectivity from GKE</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>infra/terraform/redis.tf</code>. <code>google_redis_instance</code>: tier = STANDARD_HA, 1 GB, REDIS_7_0, PRIVATE_SERVICE_ACCESS. Store Redis URL in Secret Manager. Create a verification Kubernetes Job that runs <code>redis-cli ping</code> and logs the result. Document Redis use cases: CRDT doc cache, session cache, pub/sub, rate limiting Lua scripts.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#26</span><span class="label lbl-task">Task</span> <strong>Deploy NATS JetStream 3-node cluster on GKE via Helm</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>infra/helm/nats/values.yaml</code>: replicas: 3, jetstream.enabled: true, jetstream.fileStore with 5 GiB PVC per node, cluster.enabled: true, natsbox.enabled: true. Expose client port 4222 as ClusterIP. Store NATS URL in Secret Manager. Write all NATS subjects in <code>packages/events/subjects.ts</code>. Run verification script: create test JetStream stream, publish, consume message.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#27</span><span class="label lbl-task">Task</span> <strong>Provision Neo4j Aura instance and store credentials in Secret Manager</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Provision Neo4j Aura Professional instance (1 GB RAM, staging) via Neo4j Aura console. Store in GCP Secret Manager: NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD. Create verification Kubernetes Job running Cypher query <code>RETURN 1 AS ok</code>. Document cost trigger: evaluate self-hosted Neo4j on GKE if Aura costs exceed $800/month (risk register item). Reference: ADR-002.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#28</span><span class="label lbl-task">Task</span> <strong>Provision Elasticsearch 8.9 on Elastic Cloud and store API key in Secret Manager</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Provision Elasticsearch 8.9 on Elastic Cloud: 1 zone, 4 GB RAM hot tier (staging). Enable machine learning. Create API key scoped to scriptos index pattern. Store in Secret Manager: ELASTICSEARCH_URL, ELASTICSEARCH_API_KEY. Create verification Job calling <code>/_cluster/health</code> asserting status: green. Reference: ADR-005, Wiki/10-search.md.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#29</span><span class="label lbl-task">Task</span> <strong>Provision Temporal Cloud namespace and store TLS certificates in Secret Manager</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Provision namespace <code>scriptos-staging</code> in Temporal Cloud (us-central1). Download CA cert, client cert, client private key. Store in Secret Manager: TEMPORAL_ADDRESS, TEMPORAL_NAMESPACE, TEMPORAL_TLS_CERT (base64), TEMPORAL_TLS_KEY (base64). Test connection from pod using Temporal TypeScript SDK: <code>temporalClient.workflowService.getSystemInfo()</code> must succeed. Document task queues: PUBLISH_SAGA, IMPORT_SAGA, CALL_SHEET, REVISION_DIST. Reference: ADR-004.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#30</span><span class="label lbl-task">Task</span> <strong>Create S3 buckets with IAM roles for GKE Workload Identity via Terraform</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>infra/terraform/s3.tf</code> (AWS provider). Buckets: scriptos-media-staging, scriptos-exports-staging, scriptos-backups-staging. All: versioning enabled, AES-256 encryption, public access blocked. scriptos-media: CORS policy allowing PUT from app domain. scriptos-backups: lifecycle rule → Glacier after 30 days. Create IAM role with s3:PutObject + s3:GetObject. Use GCP Workload Identity Federation to allow GKE pods to assume AWS role without access keys. Store role ARN and bucket names in Secret Manager.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#31</span><span class="label lbl-task">Task</span> <strong>Install Atlas CLI and initialize packages/db Atlas project with empty migration baseline</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 0</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Install Atlas CLI in CI Docker image; document local installation. Create <code>packages/db/atlas.hcl</code> project config. Run <code>atlas schema inspect</code> on empty Postgres; save as baseline. Write first actual schema: <code>auth.hcl</code> containing auth.users, auth.organizations, auth.sessions, auth.refresh_tokens tables. Verify <code>atlas schema apply</code> creates all tables and indexes. Document Atlas HCL format and project conventions.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 1.3
+═══════════════════════════════════════════════════════════════ -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#32</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>1.3 — Authentication Service</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 1</span>
+  </div>
+  <div class="description-text" style="margin-top:8px;">
+    Build the Auth Service: OIDC/SAML SSO login (Google, Okta), JWT issuance (RS256, 15-min access + 30-day refresh), 7-role RBAC, row-level security pattern, and GraphQL subgraph. This is the first microservice deployed to staging. Every other service depends on the Auth Service for identity context. Reference: Wiki/16-system-design.md Auth Service, Wiki/11-security-compliance.md, ADR-012.
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Google OAuth login: browser → Google → callback returns JWT to client</li>
+    <li>JWT contains: sub, org, roles (array), tier, iat, exp; RS256 signed</li>
+    <li>RS256 JWT validates against public key at <code>/auth/.well-known/jwks.json</code></li>
+    <li>Refresh token rotation: POST /auth/refresh returns new access + refresh; old refresh invalidated</li>
+    <li>7 RBAC roles defined; X-Roles header injected at gateway; producer-only endpoint returns 403 for writer</li>
+    <li>Auth GraphQL subgraph: <code>query { me { id email roles } }</code> works through Apollo Router</li>
+    <li>Atlas migration for auth.* tables applies cleanly to fresh Postgres</li>
+  </ul>
+</div>
+
+<!-- US 1.3.1 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#33</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a user, I can sign in with my Google Workspace or Okta SSO account and receive a secure JWT that grants access to ScriptOS</strong>
+  </div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span> <span class="points-badge" style="margin-left:8px;">8 pts</span></div>
+  <div class="description-text">Writers, producers, supervisors, and editors log in via their studio's identity provider — they should not have a separate ScriptOS password. Google Workspace covers indie and small studio users; Okta covers enterprise studios. The JWT must be short-lived (15 min) to limit exposure; the refresh token enables seamless session renewal. All authentication events must be logged for SOC 2 compliance.</div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>GET /auth/google/login returns 302 redirect to Google OAuth consent screen</li>
+    <li>POST /auth/google/callback with valid code creates user if new; returns access_token (15-min RS256 JWT) + sets refresh_token httpOnly cookie (30-day)</li>
+    <li>GET /auth/me with valid Bearer token returns { id, email, name, orgId, roles, tier }</li>
+    <li>POST /auth/refresh with valid refresh cookie returns new access_token; old refresh token invalidated</li>
+    <li>Expired access token returns 401 with WWW-Authenticate: Bearer error=invalid_token</li>
+    <li>Okta SAML: SP-initiated login flow works end-to-end</li>
+    <li>Every login attempt (success and failure) written to audit log with timestamp, IP, user agent</li>
+  </ul>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#34</span><span class="label lbl-task">Task</span> <strong>Define Atlas schema for auth database tables</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>packages/db/schemas/auth.hcl</code> with all auth tables. auth.users: id (UUID PK), email (VARCHAR UNIQUE NOT NULL), name, google_sub (VARCHAR UNIQUE), okta_sub (VARCHAR UNIQUE), created_at, updated_at, last_login_at, is_active (BOOL DEFAULT true). auth.organizations: id, name, tier (CHECK IN indie, professional, studio), created_at. auth.organization_members: org_id FK, user_id FK, role, joined_at (PK: org_id + user_id). auth.refresh_tokens: id, user_id FK, token_hash (VARCHAR UNIQUE), expires_at, revoked_at, created_at. Add indexes. Run atlas schema apply; verify tables created.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#35</span><span class="label lbl-task">Task</span> <strong>Implement OIDC provider integration for Google and Okta using openid-client</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>services/auth/src/providers/google.provider.ts</code> and <code>okta.provider.ts</code> using openid-client. Google: discovery URL <code>accounts.google.com/.well-known/openid-configuration</code>, scope: openid email profile. Okta: org-specific discovery URL, scope: openid email profile groups. Both: implement <code>buildAuthorizationUrl(state, nonce)</code> and <code>exchangeCode(callbackParams)</code> returning UserInfo. Write unit tests using nock to mock OIDC endpoints.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#36</span><span class="label lbl-task">Task</span> <strong>Implement JWT signing service with RS256 key pair managed via Secret Manager</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>services/auth/src/jwt.service.ts</code>. Load RS256 private key PEM from env JWT_PRIVATE_KEY. Expose <code>/auth/.well-known/jwks.json</code> serving public key as JWK set (kid: key-1, alg: RS256, use: sig). <code>signAccessToken(userId, orgId)</code>: RS256 JWT, exp: 15 min, iss: https://auth.scriptos.com. <code>signRefreshToken(userId)</code>: random 256-bit token, store SHA-256 hash in auth.refresh_tokens with 30-day expiry. <code>verifyAccessToken(token)</code>: verify with public key, check exp and iss. Write unit tests for sign, verify, and expiry.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#37</span><span class="label lbl-task">Task</span> <strong>Implement OAuth callback, token issuance, and refresh token rotation REST endpoints</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>services/auth/src/routes/auth.routes.ts</code>. Implement: GET /auth/google/login (redirect), GET /auth/google/callback (exchange code, upsert user, issue JWT + refresh), GET /auth/okta/login, GET /auth/okta/callback, GET /auth/me (validate Bearer, return user), POST /auth/refresh (validate refresh cookie, rotate token), POST /auth/logout (revoke refresh token). All endpoints write to audit log. Rate limit /auth/login routes: 10 attempts per 15 min per IP using express-rate-limit.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#38</span><span class="label lbl-task">Task</span> <strong>Write integration tests for Auth Service covering full OAuth flow, token validation, and refresh</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>services/auth/tests/integration/auth.test.ts</code> using Vitest + Supertest. Test cases: (1) Full Google OAuth flow with nock-mocked OIDC provider. (2) Token validation: valid → 200, expired → 401, tampered → 401, missing → 401. (3) Refresh token rotation: valid cookie → new access token → old refresh invalidated → second use → 401. (4) Rate limiting: 11 login attempts in 15 min → 429. Run against real Postgres using testcontainers.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#39</span><span class="label lbl-task">Task</span> <strong>Deploy Auth Service Docker image to GKE staging with health check and readiness probe</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Build Auth Service Docker image. Create <code>infra/k8s/auth/deployment.yaml</code>: 2 replicas, resource limits (256m CPU, 256 Mi RAM), env vars from ExternalSecret, readinessProbe on GET /health, livenessProbe on GET /health. Create <code>service.yaml</code> (ClusterIP port 80 → 3000). Create Istio VirtualService routing /auth/* to Auth Service. Apply to staging; verify pod Running and READY. Add Auth Service to CI release workflow.</div>
+  </div>
+</div>
+
+<!-- US 1.3.2 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#40</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a platform engineer, all API requests carry RBAC role claims so downstream services can enforce authorisation without querying the database</strong>
+  </div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span> <span class="points-badge" style="margin-left:8px;">5 pts</span></div>
+  <div class="description-text">Downstream services must never make a database call to check if a user is allowed to perform an action — this creates N+1 auth DB queries at scale. The JWT carries the user's roles and org ID. The HTTP Gateway validates the JWT and injects X-User-ID, X-Org-ID, X-Roles, X-Tier headers. Row-level security in Postgres uses <code>app.org_id</code> session variable for tenant isolation. Reference: Wiki/16-system-design.md Auth Boundary, ADR-012.</div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>JWT payload includes: sub, org, roles (array), tier, iat, exp</li>
+    <li>HTTP Gateway rejects requests without valid JWT with 401</li>
+    <li>HTTP Gateway injects X-User-ID, X-Org-ID, X-Roles, X-Tier headers into all forwarded requests</li>
+    <li>Integration test: writer role cannot call producer-only mutation; receives 403 from the service</li>
+    <li>Postgres RLS: SELECT from tenant table without setting app.org_id returns zero rows</li>
+    <li>gRPC internal calls include user context as metadata (x-user-id, x-org-id, x-roles)</li>
+  </ul>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#41</span><span class="label lbl-task">Task</span> <strong>Define all 7 RBAC roles and permission matrix and implement user_roles table</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>services/auth/src/roles.ts</code> defining 7 roles: owner (full access incl. billing), admin (full access excl. billing), writer (create/edit scripts, AI features per consent), producer (approve breakdowns/schedules/budgets, manage call sheets), supervisor (on-set take logging, continuity), editor (editorial round-trip, OTIO/AAF), viewer (read-only). Create permission matrix document at <code>docs/rbac-matrix.md</code>. Add <code>auth.user_org_roles</code> table: user_id, org_id, role, granted_by, granted_at. A user can have different roles in different organisations.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#42</span><span class="label lbl-task">Task</span> <strong>Embed RBAC role array in JWT claims and update token signing service</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Update <code>signAccessToken(userId, orgId)</code> to query <code>auth.user_org_roles</code> for the user + org combination, embed roles array in JWT payload, embed tier from auth.organizations. Update /auth/me response to include roles array. Write test: user with writer role in org A and producer role in org B — JWT for org A login contains only [writer].</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#43</span><span class="label lbl-task">Task</span> <strong>Create Postgres row-level security policy template for multi-tenant isolation</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>packages/db/rls-template.sql</code> documenting the RLS pattern. Pattern: (1) All tenant tables have org_id UUID NOT NULL. (2) ALTER TABLE ... ENABLE ROW LEVEL SECURITY. (3) CREATE POLICY tenant_isolation USING (org_id = current_setting('app.org_id')::uuid). (4) Services SET LOCAL app.org_id = $1 before queries. (5) Application Postgres role has BYPASSRLS=false. Write Vitest test using testcontainers verifying RLS: user from org A cannot see org B data.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#44</span><span class="label lbl-task">Task</span> <strong>Implement Auth Service GraphQL subgraph with User and Organization types</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>services/auth/src/graphql/schema.ts</code>. Schema: <code>type User { id: ID! email: String! name: String roles: [String!]! orgId: ID! tier: String! }</code>. <code>type Organization { id: ID! name: String! tier: String! memberCount: Int! }</code>. Query: <code>me: User</code> (resolves from X-User-ID header — no DB call; data from JWT). Query: <code>organization: Organization</code>. Configure Apollo Federation directives (@key on User.id). Write Vitest tests for resolvers. Deploy updated Auth Service.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#45</span><span class="label lbl-task">Task</span> <strong>Add Auth subgraph to Apollo Router supergraph and verify federated query execution</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Update <code>apps/gateway/supergraph.yaml</code> to include Auth subgraph (name: auth, routing_url: http://auth-service/graphql). Run <code>rover supergraph compose</code> to generate composed schema. Update Apollo Router config to use composed schema. Restart Apollo Router in staging. Verify: introspection returns User and Organization types; <code>query { me { id email } }</code> returns correct data; invalid JWT → 401 before reaching subgraph.</div>
+  </div>
+</div>
+
+<!-- US 1.3.3 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#46</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As an enterprise IT admin, I have a SCIM v2 endpoint to automate user provisioning and deprovisioning from Okta or Azure AD</strong>
+  </div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="priority-3" style="margin-left:8px;">&#9679; Medium</span> <span class="points-badge" style="margin-left:8px;">2 pts</span></div>
+  <div class="description-text">Enterprise studios use Okta or Azure AD to manage all software access. The full SCIM implementation is deferred to Sprint 18 (GA Hardening). This user story delivers a well-documented stub that returns 501 so the Okta integration team can begin configuration without blocking on implementation.</div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>POST /auth/scim/v2/Users returns 501 with RFC 7644 compliant error JSON</li>
+    <li>GET /auth/scim/v2/Users returns 501 with same format</li>
+    <li>OpenAPI spec for SCIM endpoints at /auth/scim/v2/openapi.json</li>
+    <li>Sprint 18 blocker ticket created referencing this stub</li>
+    <li>SCIM endpoint documented in docs/enterprise/scim.md</li>
+  </ul>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#47</span><span class="label lbl-task">Task</span> <strong>Create SCIM v2 Users endpoint stub returning 501 Not Implemented</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">4 hrs</span> <span class="priority-3" style="margin-left:8px;">&#9679; Medium</span></div>
+    <div class="description-text">Add route /auth/scim/v2/* to Auth Service Express app. Implement GET /auth/scim/v2/Users and POST /auth/scim/v2/Users both returning HTTP 501, Content-Type: application/scim+json, body: <code>{ schemas: ['urn:ietf:params:scim:api:messages:2.0:Error'], status: '501', detail: 'SCIM provisioning is not yet implemented. Scheduled for Sprint 18 (GA Hardening).' }</code>. Log all SCIM endpoint hits to audit log including caller IP and SCIM headers.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#48</span><span class="label lbl-task">Task</span> <strong>Write OpenAPI spec and enterprise integration documentation for SCIM endpoints</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">4 hrs</span> <span class="priority-3" style="margin-left:8px;">&#9679; Medium</span></div>
+    <div class="description-text">Create <code>services/auth/openapi/scim.yaml</code> as OpenAPI 3.1 spec for the full SCIM v2 /Users and /Groups endpoints (documenting what Sprint 18 WILL implement): SCIM User schema, group membership, filter queries, pagination, PUT, PATCH (replace operations), DELETE for deprovisioning. Create <code>docs/enterprise/scim.md</code>: step-by-step Okta SCIM configuration guide with field mapping table.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 1.4
+═══════════════════════════════════════════════════════════════ -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#49</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>1.4 — Shared Platform Packages</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 1</span>
+  </div>
+  <div class="description-text" style="margin-top:8px;">
+    Create the shared TypeScript and Protobuf packages imported by all 15 services: packages/ast (19 ASTNode types), packages/events (domain event envelope + payloads), packages/proto (gRPC .proto files + generated stubs), packages/common (logger, OTel, auth utils), packages/db (Atlas HCL schemas). These packages are the architectural foundation — every service depends on at least two. They must be typed correctly from the start because changing these types later cascades across all services.
+    <br><em>Reference: Wiki/03-data-model.md, Wiki/16-system-design.md, ADR-017.</em>
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>packages/ast: <code>tsc --noEmit</code> passes; all 19 ASTNode types match wiki/03-data-model.md exactly</li>
+    <li>packages/events: DomainEvent&lt;T&gt; envelope compiles; 5+ initial payload types defined</li>
+    <li>packages/proto: <code>buf generate</code> produces TypeScript stubs without errors; auth.proto complete</li>
+    <li>packages/common: logger, OTel init, and auth-header utilities importable from any service</li>
+    <li>packages/db: Atlas HCL schema for auth tables applies cleanly to Postgres</li>
+    <li>All packages importable via pnpm workspace protocol (@scriptos/ast, @scriptos/events, etc.)</li>
+    <li>Zero TypeScript errors with strict mode enabled across all packages</li>
+  </ul>
+</div>
+
+<!-- US 1.4.1 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#50</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a backend developer, I have shared TypeScript packages for all domain types, event schemas, and gRPC stubs so every service starts with consistent data contracts</strong>
+  </div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span> <span class="points-badge" style="margin-left:8px;">8 pts</span></div>
+  <div class="description-text">Without shared packages every service would define its own ASTNode type, event payload shape, and gRPC client — inconsistencies accumulate and cross-service calls break silently. The packages/ast package is critical: it defines the 19-node Script AST that is the core domain object. The proto stubs eliminate hand-rolled gRPC clients. The events package ensures publisher and consumer agree on payload shape at compile time.</div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>packages/ast exports 19 named ASTNode type variants as a discriminated union matching wiki/03-data-model.md</li>
+    <li>RevisionColor enum exports 13 named colors matching WGA revision colour spec</li>
+    <li>packages/events exports DomainEvent&lt;T&gt; with eventId (UUID v7), timestamp (ISO8601), version, subject, orgId, payload; at least 5 payload types defined</li>
+    <li><code>buf generate</code> produces TypeScript + gRPC-Web stubs; auth.proto complete; script.proto stubbed</li>
+    <li>packages/common Pino logger produces JSON logs with trace_id and span_id from OTel context</li>
+    <li>packages/db Atlas project initialised; <code>atlas schema apply</code> creates all auth.* tables</li>
+    <li>All packages compile with zero errors in strict mode and are importable via workspace protocol</li>
+  </ul>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#51</span><span class="label lbl-task">Task</span> <strong>Create packages/ast with all 19 ASTNode union types and RevisionColor enum per data model spec</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>packages/ast/src/nodes.ts</code>. Define TypeScript interfaces for each of the 19 node types (each with id: string UUID v7, type: literal discriminant, parentId: string | null, position: number fractional index, createdAt, updatedAt, plus node-specific fields). Per wiki/03-data-model.md: Scene (sceneNumber, intExt, location, timeOfDay, status, revisionColor, pageCount), Action (text, isContinued), Character (name, extension, isDual), Dialogue (text), etc. Export ASTNode as discriminated union. Export type guards: isScene(), isDialogue(), isAction(), isCharacter(). Export RevisionColor enum with all 13 colors.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#52</span><span class="label lbl-task">Task</span> <strong>Create packages/events with DomainEvent envelope and initial NATS payload types</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>packages/events/src/envelope.ts</code>: export <code>DomainEvent&lt;T&gt;</code> = { eventId: string (UUID v7), timestamp: string (ISO8601), version: number, subject: string, orgId: string, payload: T }. Create <code>packages/events/src/payloads.ts</code>: ScriptCheckpointedPayload, BreakdownUpdatedPayload, ApprovalRequestedPayload, TakeSyncedPayload, AssertionSyncedPayload. Create <code>packages/events/src/subjects.ts</code>: NATS_SUBJECTS constant map with all platform subject strings: script.checkpointed, breakdown.updated, approval.requested, supervisor.take.synced, supervisor.assertion.synced.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#53</span><span class="label lbl-task">Task</span> <strong>Create packages/proto with Protocol Buffer definitions and buf generate configuration</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>packages/proto/proto/</code> directory. Write <code>auth.proto</code>: syntax=proto3, package scriptos.auth.v1, messages: User { id, email, org_id, roles, tier }, AuthService.ValidateToken(ValidateTokenRequest) returns (User). Write <code>script.proto</code> stub: ScriptService with LockDraft, UnlockDraft, CheckpointCRDT, GetSceneSnapshot RPCs (bodies TODO). Write <code>buf.gen.yaml</code>: generate TypeScript + gRPC-node stubs using @bufbuild/protoc-gen-es and @connectrpc/protoc-gen-connect-es. Run buf generate; verify output in <code>packages/proto/gen/ts/</code>. Add buf lint to CI.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#54</span><span class="label lbl-task">Task</span> <strong>Create packages/common with Pino logger, OpenTelemetry SDK init, and auth-header utilities</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>packages/common/src/logger.ts</code>: export <code>createLogger(serviceName)</code> returning Pino instance with level from LOG_LEVEL env (default: info), JSON in production, pino-pretty in dev, automatic trace_id and span_id injection from OTel span context. Create <code>packages/common/src/otel.ts</code>: export <code>initOTel(serviceName)</code> initialising NodeSDK with OTLP exporter; export <code>shutdown()</code>. Create <code>packages/common/src/auth.ts</code>: export <code>extractAuthHeaders(headers)</code> returning { userId, orgId, roles, tier } parsed from X-User-ID, X-Org-ID, X-Roles (comma-separated), X-Tier headers.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#55</span><span class="label lbl-task">Task</span> <strong>Create packages/db with Atlas HCL schemas and shared database query helpers</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>packages/db/atlas.hcl</code> as Atlas project config referencing all schema files. Create <code>packages/db/src/types.ts</code>: TypeScript types mirroring Postgres table shapes (UserRow, OrganizationRow, etc.). Create <code>packages/db/src/pg.ts</code>: export <code>createPool(connectionString)</code> returning node-postgres Pool (max: 20, idle timeout: 30s, SSL required except local dev); export <code>withTransaction&lt;T&gt;(pool, fn)</code> helper. Write Vitest test using testcontainers verifying pool connection and transaction rollback.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#56</span><span class="label lbl-task">Task</span> <strong>Verify all shared packages compile and are importable across the workspace with strict TypeScript mode</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create tsconfig.json in each package extending a root <code>tsconfig.base.json</code> with: strict: true, noUncheckedIndexedAccess: true, exactOptionalPropertyTypes: true. Run <code>pnpm turbo typecheck</code> across all packages; fix all strict-mode errors. Create a test service stub at <code>services/script/src/test-imports.ts</code> that imports from all 5 packages and uses at least one type from each — verifying workspace resolution. Run <code>pnpm turbo build</code> to verify compiled output. Verify <code>buf generate</code> still runs cleanly.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 1.5
+═══════════════════════════════════════════════════════════════ -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#57</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>1.5 — API Gateway and Web App Foundation</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 1</span>
+  </div>
+  <div class="description-text" style="margin-top:8px;">
+    Deploy the HTTP GraphQL gateway (Apollo Router) and WebSocket gateway, then create the React web app scaffold with authentication flow. The gateways are the single entry point for all client traffic. Apollo Router federates all 15 service subgraphs into a unified GraphQL API. The WebSocket gateway handles real-time CRDT sync connections. The React app provides the client shell: routing, auth state, and a working login flow.
+    <br><em>Reference: Wiki/16-system-design.md, ADR-010 (GraphQL Federation), ADR-015 (Dual Gateway).</em>
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Apollo Router running in staging; <code>query { me { id email } }</code> returns authenticated user data</li>
+    <li>JWT validation at Apollo Router: missing or invalid JWT returns 401 before request reaches any subgraph</li>
+    <li>WebSocket gateway accepts connections, validates JWT on handshake; invalid JWT closes with code 4001</li>
+    <li>React web app: login page renders; Google OAuth redirect works; authenticated users see app shell</li>
+    <li>Apollo Client sends Authorization: Bearer header with every GraphQL request</li>
+  </ul>
+</div>
+
+<!-- US 1.5.1 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#58</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a developer, all client API requests are routed through a federated GraphQL gateway with JWT validation and all WebSocket connections are authenticated</strong>
+  </div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span> <span class="points-badge" style="margin-left:8px;">5 pts</span></div>
+  <div class="description-text">The HTTP gateway is the security boundary for the entire platform. No service should ever be reachable directly from the public internet — all traffic flows through Apollo Router. This centralises JWT validation, header injection, rate limiting, and observability. The WebSocket gateway is a separate process because WebSocket upgrade and long-lived connections have different scaling characteristics. Reference: ADR-010, ADR-015.</div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Apollo Router deployed to GKE; Istio routes external HTTPS traffic to Apollo Router only</li>
+    <li>Apollo Router validates RS256 JWT using JWKS from Auth Service; caches public key with 5-minute TTL</li>
+    <li>Valid JWT → X-User-ID, X-Org-ID, X-Roles, X-Tier headers injected into forwarded request</li>
+    <li>Invalid JWT → 401 returned immediately; subgraph never receives the request</li>
+    <li>WebSocket gateway validates JWT from Sec-WebSocket-Protocol header; closes with code 4001 if invalid</li>
+    <li>Apollo Router health endpoint /health returns 200</li>
+    <li>Apollo Router request/response trace spans visible in Grafana Jaeger</li>
+  </ul>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#59</span><span class="label lbl-task">Task</span> <strong>Write Apollo Router configuration with Auth subgraph, JWT validation plugin, and header injection</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>apps/gateway/router.yaml</code>. Sections: supergraph path, health_check (port 8088, path /health), authentication.router.jwt (jwks.url pointing to Auth Service, jwks.poll_interval: 5m, claim mapping: sub→x-user-id), headers propagation (X-User-ID, X-Org-ID, X-Roles, X-Tier to all subgraphs), telemetry OTLP exporter. Create <code>apps/gateway/supergraph.yaml</code> listing Auth subgraph. Run <code>rover supergraph compose</code>. Create Docker image for gateway.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#60</span><span class="label lbl-task">Task</span> <strong>Configure X-User-ID, X-Org-ID, X-Roles, and X-Tier header injection in Apollo Router</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">In router.yaml headers section: configure request header propagation rules injecting enriched headers from JWT claims: jwt.sub → X-User-ID, jwt.org → X-Org-ID, jwt.roles → X-Roles (comma-joined), jwt.tier → X-Tier. Write integration test: send authenticated GraphQL request through Apollo Router running in Docker Compose; introspect headers received by mock subgraph; verify all 4 headers present and correct. Document this header contract in Wiki/16-system-design.md as the canonical inter-service auth pattern.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#61</span><span class="label lbl-task">Task</span> <strong>Deploy Apollo Router to GKE staging with Kubernetes Deployment and Service manifests</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>infra/k8s/gateway/http/deployment.yaml</code>: 2 replicas, image: apollo/router (pinned version), env from ExternalSecret, resource limits (500m CPU, 256 Mi RAM), readinessProbe and livenessProbe on :8088/health. Create <code>service.yaml</code>: ClusterIP port 4000. Create Istio Gateway + VirtualService routing external HTTPS to Apollo Router. Configure Istio TLS termination at ingress gateway. Deploy to staging; verify query { __typename } works from outside cluster.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#62</span><span class="label lbl-task">Task</span> <strong>Write WebSocket gateway stub server with JWT validation on handshake</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>services/collaboration/src/ws-gateway.ts</code> using the ws npm package. WS server on port 4001. On connection: (1) parse JWT from Sec-WebSocket-Protocol header after <code>token:</code> prefix, (2) verify JWT using Auth Service JWKS public key, (3) if invalid: close connection with code 4001 and reason "Invalid credentials", (4) if valid: log connection with userId + orgId, store in memory map (docId → Set&lt;WebSocket&gt;). Message handler: echo message back (stub — real CRDT protocol in Sprint 3). Write Vitest test: connect with valid JWT → echo; connect with invalid JWT → closes 4001.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#63</span><span class="label lbl-task">Task</span> <strong>Deploy WebSocket gateway to GKE staging with Kubernetes manifests</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>infra/k8s/gateway/ws/deployment.yaml</code>: 2 replicas, resource limits (500m CPU, 256 Mi RAM), readinessProbe on HTTP :4002/health (add /health endpoint alongside WS server). Create <code>service.yaml</code>: ClusterIP port 4001. Create Istio VirtualService routing /collaboration/* with WebSocket upgrade allowed. Test: <code>wscat -c wss://staging.scriptos.com/collaboration</code> with valid JWT — connection established and echo returned.</div>
+  </div>
+</div>
+
+<!-- US 1.5.2 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#64</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a developer, I can run the React web app locally, see the login page, and after authenticating be redirected to the app shell with my user data available</strong>
+  </div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span> <span class="points-badge" style="margin-left:8px;">5 pts</span></div>
+  <div class="description-text">The React app scaffold must be production-grade from the start: TypeScript strict mode, Tailwind CSS, React Router with protected routes, Apollo Client for GraphQL. The login flow is the first user interaction — it must work correctly with Google OAuth redirect. The auth context makes user data available to all components without prop drilling. This scaffold is reused for every subsequent frontend feature.</div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li><code>pnpm dev</code> in apps/web starts Vite dev server on localhost:3000 in under 5 seconds</li>
+    <li>/login page renders with a Google Sign In button and ScriptOS branding</li>
+    <li>Clicking Google Sign In redirects to Google OAuth; after consent redirects back; JWT stored in httpOnly cookie; user redirected to /dashboard</li>
+    <li>/dashboard (empty) renders for authenticated users; shows user email from useAuth() hook</li>
+    <li>Unauthenticated access to /dashboard redirects to /login</li>
+    <li>Apollo Client sends Authorization: Bearer header with every GraphQL request</li>
+    <li>Zero TypeScript errors in apps/web with strict mode enabled</li>
+  </ul>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#65</span><span class="label lbl-task">Task</span> <strong>Create React web app scaffold with Vite, React 18, TypeScript, Tailwind, React Router, and Apollo Client</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>apps/web/</code>. Install: react@18, react-dom, typescript, vite@5, @vitejs/plugin-react, tailwindcss, postcss, autoprefixer, react-router-dom@6, @apollo/client, graphql. Configure: <code>tailwind.config.ts</code> (content: src/**/*.{ts,tsx}), <code>vite.config.ts</code> (proxy /auth/* to Auth Service, proxy /graphql to Apollo Router in dev). Configure <code>tsconfig.json</code> extending root tsconfig.base.json (strict: true). Create <code>src/main.tsx</code>: BrowserRouter wrapping ApolloProvider wrapping App. Create <code>src/App.tsx</code> with routes: / (redirect to /dashboard), /login, /auth/callback, /dashboard (protected). Add apps/web to Turborepo pipeline.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#66</span><span class="label lbl-task">Task</span> <strong>Implement Google OAuth login page with redirect flow and callback handling</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>src/pages/LoginPage.tsx</code>: full-page centred layout (Tailwind), ScriptOS logo placeholder, tagline, Google Sign In button. Button click: redirect to /auth/google/login. Create <code>src/pages/AuthCallbackPage.tsx</code>: renders loading spinner; on mount calls GET /auth/me with credentials: include; on success dispatches auth state update and navigates to /dashboard; on error shows error message and link to /login. Add /auth/callback route in React Router pointing to AuthCallbackPage.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#67</span><span class="label lbl-task">Task</span> <strong>Implement auth context, useAuth hook, and ProtectedRoute component</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>src/context/AuthContext.tsx</code>: AuthContext holds { user: User | null, isLoading: boolean, logout: () => void }. AuthProvider: on mount, calls GET /auth/me; on success sets user; on 401 sets user to null; sets isLoading false. logout(): calls POST /auth/logout, clears user state, navigates to /login. Create <code>src/hooks/useAuth.ts</code>: returns useContext(AuthContext); throws if used outside AuthProvider. Create <code>src/components/ProtectedRoute.tsx</code>: if isLoading shows Spinner; if user null redirects to /login with current path as state.redirect; else renders children.</div>
+  </div>
+
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#68</span><span class="label lbl-task">Task</span> <strong>Configure Apollo Client with JWT authentication headers and automatic token refresh logic</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 1</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">Create <code>src/lib/apollo.ts</code>. ApolloClient: uri: /graphql (proxied in dev), HttpLink with credentials: include, authLink using setContext to read access token from memory and add Authorization: Bearer header. Add TokenRefreshLink: on 401, calls POST /auth/refresh, stores new access token in memory, retries original request. Create <code>src/lib/token-store.ts</code>: in-memory token storage (NOT localStorage — security) with getToken(), setToken(), clearToken(). InMemoryCache with type policies for Script and User. Write Vitest + React Testing Library test: Apollo mock provider returns { me { id email } }; renders correctly after mock login.</div>
+  </div>
+</div>
+
+<hr style="margin-top:40px; border-top: 2px solid #1F3864;">
+<p style="font-size:9pt; color:#888; text-align:center;">
+  ScriptOS Backlog · Epic 1: Platform Foundation · Sprints 0–1 · 68 Work Items · Generated 2026-04-11
+  <br>Next: <strong>Epic-02-Script-Editor-CRDT-Collaboration.csv/.html</strong> (Sprints 2–3)
+</p>
+
+</body>
+</html>
