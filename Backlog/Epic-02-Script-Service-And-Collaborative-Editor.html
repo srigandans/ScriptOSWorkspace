@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScriptOS Backlog — Epic 2: Script Service &amp; Collaborative Editor</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 2cm; color: #1a1a1a; }
+  h1 { font-size: 20pt; color: #1F3864; border-bottom: 3px solid #1F3864; padding-bottom: 6px; margin-top: 0; }
+  .epic-box { background: #EFF3FB; border-left: 6px solid #1F3864; padding: 14px 18px; margin-bottom: 24px; border-radius: 4px; }
+  .feature-box { background: #F2F7FF; border-left: 5px solid #2E4D9A; padding: 12px 16px; margin: 18px 0 10px 0; border-radius: 3px; }
+  .story-box { background: #F9FDF4; border-left: 4px solid #375623; padding: 10px 14px; margin: 14px 0 8px 0; border-radius: 3px; }
+  .task-box { background: #FFFBF5; border-left: 3px solid #843C0C; padding: 8px 12px; margin: 8px 0 4px 0; border-radius: 2px; }
+  .label { display: inline-block; font-size: 8pt; font-weight: bold; padding: 2px 7px; border-radius: 10px; margin-right: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .lbl-epic { background: #1F3864; color: white; }
+  .lbl-feature { background: #2E4D9A; color: white; }
+  .lbl-story { background: #375623; color: white; }
+  .lbl-task { background: #843C0C; color: white; }
+  .meta-row { font-size: 9pt; color: #555; margin: 4px 0 8px 0; }
+  .meta-row span { margin-right: 16px; }
+  .meta-row .tag { background: #E8EEF6; padding: 1px 6px; border-radius: 3px; font-size: 8.5pt; }
+  .section-label { font-size: 9pt; font-weight: bold; color: #666; text-transform: uppercase; margin: 8px 0 3px 0; }
+  .description-text { font-size: 10.5pt; margin: 4px 0 8px 0; line-height: 1.5; }
+  ul.ac-list { margin: 4px 0; padding-left: 18px; }
+  ul.ac-list li { font-size: 10pt; margin-bottom: 3px; line-height: 1.4; }
+  .id-badge { font-size: 8pt; color: #999; font-family: monospace; margin-right: 8px; }
+  .sprint-tag { background: #FFF3CD; border: 1px solid #FFC107; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #856404; }
+  .priority-1 { color: #C00000; font-weight: bold; }
+  .priority-2 { color: #E36C09; font-weight: bold; }
+  .points-badge { background: #EBF5FB; border: 1px solid #2E4D9A; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #1a3a6b; font-weight: bold; }
+  .hours-badge { background: #FEF9E7; border: 1px solid #F0B429; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #7D5A00; }
+  .gate-banner { background: #FFF4E5; border: 2px solid #E36C09; border-radius: 4px; padding: 8px 14px; margin: 8px 0; font-size: 10pt; font-weight: bold; color: #7B3A00; }
+  .dogfood-banner { background: #EAF7EA; border: 2px solid #375623; border-radius: 4px; padding: 8px 14px; margin: 8px 0; font-size: 10pt; font-weight: bold; color: #1E4620; }
+  @media print { .page-break { page-break-before: always; } }
+</style>
+</head>
+<body>
+
+<h1>ScriptOS Backlog — Epic 2: Script Service &amp; Collaborative Editor</h1>
+<p style="font-size:10pt; color:#555; margin-bottom:20px;">
+  <strong>Project:</strong> ScriptOS &nbsp;|&nbsp;
+  <strong>Sprints:</strong> 2–3 (Weeks 5–8) &nbsp;|&nbsp;
+  <strong>Generated:</strong> 2026-04-11 &nbsp;|&nbsp;
+  <strong>Items:</strong> 1 Epic · 4 Features · 10 User Stories · 36 Tasks (51 total)
+  &nbsp;|&nbsp;<strong>IDs:</strong> #69–#119
+</p>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     EPIC 2
+═══════════════════════════════════════════════════════════════ -->
+<div class="epic-box">
+  <div>
+    <span class="id-badge">#69</span>
+    <span class="label lbl-epic">Epic</span>
+    <strong style="font-size:14pt;">Script Service &amp; Collaborative Editor</strong>
+  </div>
+  <div class="meta-row" style="margin-top:6px;">
+    <span class="sprint-tag">Sprint 2–3</span>
+    <span class="priority-1" style="margin-left:10px;">&#9679; Priority: Critical</span>
+    <span style="margin-left:10px;">
+      <span class="tag">script-service</span>
+      <span class="tag">collaboration</span>
+      <span class="tag">crdt</span>
+      <span class="tag">editor</span>
+      <span class="tag">sprint-2</span>
+      <span class="tag">sprint-3</span>
+    </span>
+  </div>
+  <div class="gate-banner" style="margin-top:10px;">
+    ⚠ CRDT POC Gate — Sprint 3 Week 1: Loro must pass 5 criteria before implementation proceeds. Yjs fallback spec ready in Wiki/04 if gate fails.
+  </div>
+  <div class="dogfood-banner">
+    🎯 Dogfood Milestone — Week 8: Engineering team writes scripts in ScriptOS daily.
+  </div>
+  <div class="section-label" style="margin-top:10px;">Description</div>
+  <div class="description-text">
+    Build the Script Service (AST persistence, version snapshots, project/script lifecycle) and the real-time collaborative screenplay editor powered by Loro CRDT. This epic is the first to deliver user-visible value: writers can create scripts, edit them in professional Final Draft-quality formatting, and collaborate in real-time with convergent CRDT sync.
+    <br><br>
+    Sprint 2 delivers the Script Service and project/script navigation UI. Sprint 3 delivers the CRDT Collaboration Service and the TipTap-based screenplay editor with the Loro↔ProseMirror binding. The Loro POC gate at Sprint 3 Week 1 is the highest-risk decision point — if Loro fails two or more criteria the team switches to the Yjs fallback strategy in Wiki/04.
+    <br><br>
+    <em>Reference: Wiki/15-roadmap.md Sprints 2–3, Wiki/03-data-model.md, Wiki/04-crdt-collaboration.md, ADR-001, ADR-018, ADR-019.</em>
+  </div>
+  <div class="section-label">Acceptance Criteria (Epic-level Definition of Done)</div>
+  <ul class="ac-list">
+    <li>Writers can create projects, add scripts, and browse their script library in the web app</li>
+    <li>Script AST schema (19 node types) persisted in PostgreSQL via Atlas migrations with all indexes and constraints</li>
+    <li>Script Service gRPC methods (<code>upsertASTNodes</code>, <code>getSceneSnapshot</code>, <code>createVersion</code>, <code>lockDraft</code>, <code>unlockDraft</code>) all passing integration tests</li>
+    <li><code>script.checkpointed</code> NATS JetStream event published after every checkpoint; downstream consumers notified</li>
+    <li>CRDT POC gate: Loro passes all 5 criteria in Wiki/04; go/no-go decision recorded before implementation proceeds</li>
+    <li>Two writers co-editing the same script see converged content within 200ms under normal network conditions</li>
+    <li>Scene move, split, and merge operations produce consistent results across all connected clients</li>
+    <li>Checkpoint cycle writes <code>ast_nodes</code> rows readable via <code>getSceneSnapshot</code> gRPC within 5s of trigger</li>
+    <li>Dogfood milestone (Week 8): engineering team writes scripts in ScriptOS daily</li>
+    <li>All Docker images deployed to staging; all Kubernetes health checks passing</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 2.1 — Script Service Core
+═══════════════════════════════════════════════════════════════ -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#70</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>2.1 — Script Service Core</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 2</span>
+  </div>
+  <div class="description-text" style="margin-top:8px;">
+    The Script Service is the authoritative data store for all screenplay content. It owns the <code>script.*</code> PostgreSQL schema (projects, scripts, ast_nodes, script_versions) managed via Atlas. It exposes a GraphQL subgraph and a gRPC API used by the Collaboration Service for checkpoints and by the Temporal publish-saga for locking. It publishes the <code>script.checkpointed</code> NATS event that triggers Breakdown and Search re-processing. This is the first Tier 1 service deployed after Auth; every downstream service depends on it.
+    <br><em>Reference: Wiki/15-roadmap.md Sprint 2, Wiki/03-data-model.md §PostgreSQL DDL, Wiki/16-system-design.md §Script Service.</em>
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li><code>createProject</code> and <code>projects</code> queries functional via Apollo Router</li>
+    <li><code>upsertASTNodes</code> gRPC batch upsert succeeds for up to 500 nodes in under 500ms</li>
+    <li><code>getSceneSnapshot</code> returns heading, element counts, and page estimate</li>
+    <li><code>createVersion</code> stores CRDT snapshot; updates <code>scripts.current_version_id</code></li>
+    <li><code>lockDraft</code> / <code>unlockDraft</code> guard the publish-saga lifecycle with row-level locking</li>
+    <li><code>script.checkpointed</code> NATS event published with scriptId, orgId, changedSceneIds, versionId</li>
+    <li>Script Service Docker image deployed to staging; <code>/health</code> returns 200</li>
+    <li>Atlas migration for <code>script.*</code> schema applied cleanly to staging Postgres</li>
+  </ul>
+</div>
+
+<!-- US 2.1.1 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#71</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a writer I can create script projects and episodes and browse my script library from the web app</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 2</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">8 pts</span>
+    <span style="margin-left:8px;"><span class="tag">graphql</span> <span class="tag">project-management</span></span>
+  </div>
+  <div class="description-text">
+    Writers organise work into projects (a film or series) and scripts within a project (individual episodes). The Script Service must provide CRUD operations that back the navigation UI. Projects are org-scoped; all mutations enforce the X-Org-ID header. The GraphQL subgraph must be federated into Apollo Router.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li><code>createProject(title, scriptType)</code> mutation creates row in <code>script.projects</code>; returns <code>{ id title scriptType createdAt }</code></li>
+    <li><code>projects(orgId, includeArchived)</code> query returns paginated list sorted by <code>updatedAt</code> desc</li>
+    <li><code>archiveProject(id)</code> sets <code>archived_at</code>; project excluded from default list</li>
+    <li><code>createScript(projectId, title, scriptType)</code> creates row; returns <code>{ id title status }</code></li>
+    <li><code>scripts(projectId)</code> returns all scripts with title, status, updatedAt</li>
+    <li><code>script(id)</code> returns full metadata including <code>currentVersionId</code> and scene count</li>
+    <li>All mutations enforce X-Org-ID; cross-org access returns 403</li>
+  </ul>
+
+  <!-- Task #72 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#72</span><span class="label lbl-task">Task</span> <strong>Create Atlas schema for <code>script.*</code> PostgreSQL tables with all indexes and constraints</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Define declarative Atlas schema in <code>packages/db/schema/script.hcl</code>. Tables: <code>script.projects</code> (id uuid PK, org_id, title, script_type CHECK, status, archived_at, created_at, updated_at); <code>script.scripts</code> (id, project_id FK CASCADE, title, status CHECK 'draft'|'locked'|'archived', saga_run_id, current_version_id, created_by, timestamps); <code>script.ast_nodes</code> (id, script_id FK, parent_id, node_type, position, metadata jsonb, revision_color, timestamps); <code>script.script_versions</code> (id UUIDv7 PK, script_id FK, version_label, crdt_snapshot bytea, created_by, created_at). Indexes: <code>idx_projects_org</code> on (org_id, archived_at), <code>idx_scripts_project</code> on (project_id), <code>idx_ast_nodes_script</code> on (script_id, parent_id), <code>idx_ast_nodes_type</code> on (script_id, node_type). Run <code>atlas schema apply</code> and confirm all tables exist in staging Postgres.
+    </div>
+  </div>
+
+  <!-- Task #73 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#73</span><span class="label lbl-task">Task</span> <strong>Implement project CRUD gRPC methods and GraphQL mutations in the Script Service</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement in <code>services/script/src/handlers/project.handler.ts</code>. gRPC: <code>CreateProject</code>, <code>ListProjects</code> (cursor pagination), <code>ArchiveProject</code>. GraphQL resolvers: <code>createProject</code> mutation, <code>projects</code> query with pagination, <code>archiveProject</code> mutation. Use raw pg typed queries — no ORM. Each mutation writes an audit entry. Integration test: create → list asserts 1 → archive → list asserts 0 → list with <code>includeArchived: true</code> asserts 1.
+    </div>
+  </div>
+
+  <!-- Task #74 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#74</span><span class="label lbl-task">Task</span> <strong>Implement script CRUD gRPC methods and GraphQL mutations in the Script Service</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement in <code>services/script/src/handlers/script.handler.ts</code>. gRPC: <code>CreateScript</code>, <code>GetScript</code> (includes computed <code>sceneCount</code>), <code>ListScripts</code>, <code>UpdateScript</code>. GraphQL resolvers: <code>createScript</code> mutation, <code>script(id)</code> query, <code>scripts(projectId)</code> query. Validate <code>projectId</code> belongs to caller's org before create. Integration test: createProject → createScript → scripts(projectId) returns 1 → script(id) returns correct metadata.
+    </div>
+  </div>
+
+  <!-- Task #75 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#75</span><span class="label lbl-task">Task</span> <strong>Add Script Service GraphQL subgraph to Apollo Router supergraph with Federation v2 directives</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Add <code>@key(fields: "id")</code> on <code>Project</code> and <code>Script</code> types. Add User reference resolver: <code>extend type User @key(fields: "id") { projects: [Project!]! }</code>. Register in <code>apps/gateway/supergraph.yaml</code>. Run <code>rover supergraph compose</code>; redeploy Apollo Router. Integration test via Router: <code>{ script(id: testId) { id title status } }</code> returns correct federated data.
+    </div>
+  </div>
+</div>
+
+<!-- US 2.1.2 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#76</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a service consumer the Script Service provides gRPC APIs for AST node management, version snapshots, and draft lifecycle control</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 2</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">13 pts</span>
+    <span style="margin-left:8px;"><span class="tag">grpc</span> <span class="tag">ast</span> <span class="tag">versioning</span></span>
+  </div>
+  <div class="description-text">
+    The Collaboration Service writes checkpointed AST state via gRPC. The Temporal publish-saga locks/unlocks drafts via gRPC. The <code>upsertASTNodes</code> method is the critical path for CRDT checkpointing — must handle batches of 500 nodes in under 500ms. <code>lockDraft</code> must use a pessimistic row-level lock to prevent race conditions.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li><code>upsertASTNodes</code> batch upserts up to 500 nodes via <code>INSERT ... ON CONFLICT DO UPDATE</code>; completes in under 500ms for a 100-node batch</li>
+    <li><code>getSceneSnapshot</code> returns <code>{ sceneId, headingText, sceneNumber, elementCounts, estimatedPageCount, status }</code></li>
+    <li><code>createVersion</code> inserts snapshot; updates <code>scripts.current_version_id</code>; returns <code>versionId</code></li>
+    <li><code>lockDraft</code> uses <code>SELECT FOR UPDATE NOWAIT</code>; returns <code>ALREADY_EXISTS</code> if locked by a different <code>sagaRunId</code></li>
+    <li><code>unlockDraft</code> verifies <code>sagaRunId</code> match; sets <code>status='draft'</code>, clears <code>saga_run_id</code></li>
+    <li>All gRPC methods return correct standard status codes (NOT_FOUND, PERMISSION_DENIED, ALREADY_EXISTS, INVALID_ARGUMENT)</li>
+    <li><code>packages/proto/script.proto</code> complete; <code>buf generate</code> produces TypeScript stubs with zero compile errors</li>
+  </ul>
+
+  <!-- Task #77 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#77</span><span class="label lbl-task">Task</span> <strong>Implement <code>upsertASTNodes</code> gRPC method with batch INSERT ON CONFLICT for up to 500 nodes</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement in <code>services/script/src/handlers/ast.handler.ts</code>. SQL via <code>pg-format</code>: <code>INSERT INTO script.ast_nodes ... VALUES %L ON CONFLICT (id) DO UPDATE SET ...</code>. Validate <code>node_type</code> against the 19 types in <code>packages/ast NodeType</code> enum. Validate <code>script_id</code> belongs to caller's org. Chunk requests &gt;500 nodes into sequential batches. Performance assertion in CI: 100-node batch must complete in under 500ms. Integration test: insert 100 nodes → update 50 → verify correct final state.
+    </div>
+  </div>
+
+  <!-- Task #78 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#78</span><span class="label lbl-task">Task</span> <strong>Implement <code>getSceneSnapshot</code> gRPC method returning computed scene metadata</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement in <code>services/script/src/handlers/snapshot.handler.ts</code>. Logic: query scene node → query child nodes by <code>parent_id</code> ORDER BY position → extract <code>headingText</code> from <code>scene_heading</code> child → count elements by <code>node_type</code> → estimate page count (total lines ÷ 55, rounded to nearest 0.125) → return <code>SceneSnapshot</code> proto. Unit test with mock DB: verify <code>elementCounts</code> and <code>estimatedPageCount</code> calculated correctly for known inputs.
+    </div>
+  </div>
+
+  <!-- Task #79 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#79</span><span class="label lbl-task">Task</span> <strong>Implement <code>createVersion</code> gRPC method storing Loro CRDT binary snapshots in <code>script_versions</code></strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement in <code>services/script/src/handlers/version.handler.ts</code>. Generate ID as UUIDv7 (time-sortable). INSERT into <code>script_versions</code> + UPDATE <code>scripts.current_version_id</code> in a single transaction. Validate snapshot ≤ 50MB. Integration test: createVersion twice → verify both versions exist → <code>current_version_id</code> points to second.
+    </div>
+  </div>
+
+  <!-- Task #80 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#80</span><span class="label lbl-task">Task</span> <strong>Implement <code>lockDraft</code> and <code>unlockDraft</code> gRPC methods with pessimistic row-level locking</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement in <code>services/script/src/handlers/lifecycle.handler.ts</code>. <code>LockDraft</code>: <code>SELECT ... FOR UPDATE NOWAIT</code> → if <code>status != 'draft'</code> return ALREADY_EXISTS → UPDATE to <code>locked</code> + set <code>saga_run_id</code>. <code>UnlockDraft</code>: verify <code>saga_run_id</code> match → set <code>status='draft'</code>, clear <code>saga_run_id</code>. Both inside explicit transactions. Integration test: lock → second lock returns ALREADY_EXISTS → unlock → verify <code>status='draft'</code>.
+    </div>
+  </div>
+
+  <!-- Task #81 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#81</span><span class="label lbl-task">Task</span> <strong>Define complete ScriptService proto definitions in <code>packages/proto/script.proto</code></strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Write <code>packages/proto/script.proto</code> with 11 RPC methods: <code>CreateProject</code>, <code>ListProjects</code>, <code>ArchiveProject</code>, <code>CreateScript</code>, <code>GetScript</code>, <code>ListScripts</code>, <code>UpsertASTNodes</code>, <code>GetSceneSnapshot</code>, <code>CreateVersion</code>, <code>LockDraft</code>, <code>UnlockDraft</code>. Include <code>ASTNodeProto</code> with all 19 node types. Include <code>SceneSnapshotResponse</code> with <code>ElementCounts</code> sub-message. Update <code>buf.gen.yaml</code>. Run <code>buf generate</code>; verify generated TypeScript stubs compile with zero errors.
+    </div>
+  </div>
+</div>
+
+<!-- US 2.1.3 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#82</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a developer the Script Service is deployed to staging, integrated with NATS and the Apollo Router supergraph</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 2</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">5 pts</span>
+    <span style="margin-left:8px;"><span class="tag">nats</span> <span class="tag">kubernetes</span> <span class="tag">devops</span></span>
+  </div>
+  <div class="description-text">
+    Once gRPC and GraphQL are implemented the service must be containerised, deployed to GKE staging, and wired into the event bus and API gateway. The NATS <code>script.checkpointed</code> event is the primary integration point for Breakdown and Search.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li><code>script.checkpointed</code> event published with <code>{ scriptId, orgId, changedSceneIds, versionId, timestamp }</code> within 1s of <code>createVersion</code></li>
+    <li>NATS subject <code>scriptos.script.checkpointed</code>; stream <code>SCRIPT_EVENTS</code>; durable consumers <code>breakdown</code> and <code>search</code> pre-created</li>
+    <li>Docker image: multi-stage node:20-alpine; compressed size under 100MB</li>
+    <li>Kubernetes Deployment: 2 replicas, gRPC readiness probe on port 4001, resource limits 500m CPU / 512Mi RAM</li>
+    <li>ClusterIP Service: port 4001 (gRPC), port 4002 (GraphQL HTTP)</li>
+    <li>Atlas migration Kubernetes Job runs before each deployment; apply is idempotent</li>
+    <li>Istio sidecar injected; mTLS active on all inbound gRPC traffic</li>
+  </ul>
+
+  <!-- Task #83 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#83</span><span class="label lbl-task">Task</span> <strong>Implement <code>script.checkpointed</code> NATS JetStream event publisher in the Script Service</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/script/src/events/checkpoint.publisher.ts</code>. Wrap <code>DomainEvent&lt;ScriptCheckpointedPayload&gt;</code> from <code>packages/events</code>. Use JetStream <code>js.publish()</code> — not core NATS — and await PubAck. Retry policy: 3 retries with 200ms/500ms/1000ms backoff. On persistent failure write to <code>script.failed_events</code> dead-letter table. Call from <code>createVersion</code> handler after DB commit. Integration test: call <code>createVersion</code> → verify NATS message received on <code>scriptos.script.checkpointed</code> within 2s.
+    </div>
+  </div>
+
+  <!-- Task #84 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#84</span><span class="label lbl-task">Task</span> <strong>Containerise Script Service and deploy to GKE staging with Kubernetes Deployment, Service, and Atlas migration Job</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>services/script/Dockerfile</code> extending <code>infra/docker/Dockerfile.service</code>. Create <code>infra/k8s/services/script/deployment.yaml</code> (2 replicas, env from ExternalSecret, gRPC readinessProbe port 4001, HTTP livenessProbe <code>/health</code> port 4002, terminationGracePeriodSeconds 30). Create <code>service.yaml</code> (ClusterIP, ports 4001 gRPC + 4002 HTTP). Create <code>migration-job.yaml</code> (Kubernetes Job running <code>atlas schema apply</code>; backoffLimit 3). Add to CI release workflow. Verify: <code>kubectl get pods -l app=script-service</code> returns 2/2 Running.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 2.2 — Script Editor Web UI Sprint 2
+═══════════════════════════════════════════════════════════════ -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#85</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>2.2 — Script Editor Web UI (Sprint 2)</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 2</span>
+  </div>
+  <div class="description-text" style="margin-top:8px;">
+    The Sprint 2 frontend delivers the project and script navigation layer. Writers can see their projects, create a new one, navigate into scripts, and open the editor placeholder. This establishes the React page structure, routing, and Apollo Client codegen hooks that the Sprint 3 real editor builds on top of. All routes must be correctly established now to avoid routing refactors in Sprint 3.
+    <br><em>Reference: Wiki/15-roadmap.md Sprint 2 frontend tasks.</em>
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Project list page renders all org projects with title, type badge, script count, relative updated time</li>
+    <li>Create project modal submits via GraphQL mutation; new project appears immediately via Apollo cache update</li>
+    <li>Script list page shows scripts with status badges; create script navigates to <code>/scripts/{id}/editor</code></li>
+    <li><code>/scripts/:id/editor</code> renders Sprint 2 placeholder (title + "Editor coming in Sprint 3")</li>
+    <li>All routes wrapped in ProtectedRoute; unauthenticated access redirects to <code>/login</code></li>
+    <li>graphql-codegen generates TypeScript types from all queries/mutations; zero type errors</li>
+  </ul>
+</div>
+
+<!-- US 2.2.1 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#86</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a writer I can browse my projects and scripts and navigate to the screenplay editor from the web app</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 2</span>
+    <span class="priority-2" style="margin-left:8px;">&#9679; High</span>
+    <span class="points-badge" style="margin-left:8px;">8 pts</span>
+    <span style="margin-left:8px;"><span class="tag">frontend</span> <span class="tag">react</span> <span class="tag">project-management</span></span>
+  </div>
+  <div class="description-text">
+    The project and script browsing UI is the writer's home base. Empty states must guide users rather than showing blank screens. Apollo Client hooks established here are reused throughout the app. The route structure (<code>/projects</code>, <code>/projects/:id/scripts</code>, <code>/scripts/:id/editor</code>) must be correct from the start to avoid refactors in Sprint 3.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li><code>/projects</code> page loads within 2s; shows project title, type badge, script count, relative updated time</li>
+    <li>Empty state (no projects): illustration + "Create your first project" CTA</li>
+    <li>Create project modal: title (required, max 100 chars) + scriptType select; submits <code>createProject</code> mutation; Apollo cache updated optimistically</li>
+    <li>Clicking a project navigates to <code>/projects/{id}/scripts</code>; script list shows title, status badge (Draft=blue, Locked=orange, Archived=grey), updatedAt</li>
+    <li>Create script modal: title + type; submits <code>createScript</code>; navigates to <code>/scripts/{id}/editor</code></li>
+    <li>Editor route renders placeholder showing script title from <code>script(id)</code> query</li>
+    <li>All pages protected; unauthenticated access redirects to <code>/login</code> with return URL in state</li>
+  </ul>
+
+  <!-- Task #87 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#87</span><span class="label lbl-task">Task</span> <strong>Build project list page with Apollo <code>useQuery</code>, loading skeleton, and empty state</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">8 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Set up graphql-codegen (<code>packages/codegen</code>). Define <code>GET_PROJECTS</code> query; generate <code>useGetProjectsQuery</code> hook. Create <code>src/pages/ProjectsPage.tsx</code>: loading skeleton (3 card-shaped Tailwind <code>animate-pulse</code> pulses), ErrorState with retry, empty state (SVG illustration + CTA), project grid (<code>ProjectCard</code> with title, <code>ScriptTypeBadge</code>, script count, <code>RelativeTime</code>). Add route <code>/projects</code>; redirect authenticated <code>/</code> → <code>/projects</code>.
+    </div>
+  </div>
+
+  <!-- Task #88 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#88</span><span class="label lbl-task">Task</span> <strong>Build create project modal with React Hook Form, GraphQL mutation, and optimistic Apollo cache update</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">6 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>src/components/CreateProjectModal.tsx</code>. React Hook Form + Zod validation (<code>title: z.string().min(1).max(100), scriptType: z.nativeEnum(ProjectType)</code>). On success: close modal + Apollo <code>cache.modify</code> to append new project without refetch. Keyboard: Enter submits, Escape closes. Accessibility: <code>role=dialog</code>, <code>aria-modal</code>, focus trap via <code>focus-trap-react</code>. Vitest + RTL test: fill form → submit → verify mutation called with correct variables.
+    </div>
+  </div>
+
+  <!-- Task #89 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#89</span><span class="label lbl-task">Task</span> <strong>Build script list page with status badges and project breadcrumb header</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">6 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>src/pages/ScriptsPage.tsx</code>. Route: <code>/projects/:projectId/scripts</code>. Render: project breadcrumb ("Projects / {title}"), loading skeleton, empty state, script list (<code>ScriptCard</code> with title, <code>StatusBadge</code> Tailwind variant map, relative time, ActionMenu stub). Create reusable <code>src/components/StatusBadge.tsx</code> with status → colour mapping: <code>draft=sky, locked=amber, archived=slate</code>.
+    </div>
+  </div>
+
+  <!-- Task #90 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#90</span><span class="label lbl-task">Task</span> <strong>Build create script modal with GraphQL mutation and establish the <code>/scripts/:id/editor</code> route placeholder</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 2</span> <span class="hours-badge">4 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>src/components/CreateScriptModal.tsx</code>: title + scriptType fields; on success navigate to <code>/scripts/{id}/editor</code>. Create <code>src/pages/EditorPage.tsx</code> placeholder: load <code>script(id)</code> query; render script title + "Full collaborative editor arriving in Sprint 3". Add route <code>/scripts/:scriptId/editor</code> → <code>EditorPage</code> in React Router — Sprint 3 only replaces the page body; no routing changes needed.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 2.3 — CRDT Collaboration Service
+═══════════════════════════════════════════════════════════════ -->
+<div class="feature-box page-break">
+  <div>
+    <span class="id-badge">#91</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>2.3 — CRDT Collaboration Service</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 3</span>
+  </div>
+  <div class="gate-banner" style="margin:8px 0;">
+    ⚠ CRDT POC Gate (#92): Loro must pass all 5 criteria by Sprint 3 Day 3. If 2+ criteria fail → activate Yjs fallback per Wiki/04 §Yjs Fallback Plan.
+  </div>
+  <div class="description-text" style="margin-top:8px;">
+    The Collaboration Service runs a Hocuspocus WebSocket server managing Loro CRDT documents in memory with Redis persistence. Each scriptId maps to a LoroDoc. Client changes sync to all connected clients and are periodically checkpointed to the Script Service (ast_nodes + script_versions). Structural ops (move/split/merge) use atomic Loro MovableTree ops with a Redis coordination lock. Upgraded to y-redis for horizontal scaling in Sprint 18.
+    <br><em>Reference: Wiki/04-crdt-collaboration.md, ADR-001, ADR-018, ADR-019.</em>
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Loro POC gate passed: all 5 criteria recorded in Wiki/04 before implementation begins</li>
+    <li>Two clients editing the same script converge within 200ms; verified by automated Playwright test</li>
+    <li>Network partition: 5-minute offline edit; on reconnect edits merge with zero data loss</li>
+    <li>Checkpoint triggers after 30s idle: <code>ast_nodes</code> updated; <code>script.checkpointed</code> NATS event published within 5s</li>
+    <li>Cold start (Redis miss): Loro snapshot loaded from Postgres via gRPC in under 2s</li>
+    <li>Warm start (Redis hit): Loro binary loaded in under 100ms</li>
+    <li>Scene move/split/merge: consistent across all clients; Redis lock prevents concurrent structural conflicts</li>
+    <li>Awareness: cursor positions visible within 100ms; disconnected users removed within 5s</li>
+    <li>Collaboration Service deployed; 10 concurrent WS connections stable for 30 minutes</li>
+  </ul>
+</div>
+
+<!-- US 2.3.1 — POC Gate -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#92</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>The Loro CRDT POC validates the library choice against 5 gate criteria before full implementation begins</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 3</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">8 pts</span>
+    <span style="margin-left:8px;"><span class="tag">crdt</span> <span class="tag">loro</span> <span class="tag">poc</span> <span class="tag">gate</span></span>
+  </div>
+  <div class="gate-banner">⚠ Gate story — must be completed by Sprint 3 Day 3. Implementation of #98, #104, #108 is blocked until this passes.</div>
+  <div class="description-text">
+    The choice of Loro (ADR-001, ADR-018) is the highest-risk architectural decision. Before committing to full implementation the team validates Loro against 5 specific criteria from Wiki/04. POC code lives in <code>packages/ast/loro-poc/</code>. Results documented in Wiki/04 §POC Gate Results with explicit pass/fail per criterion and the go/no-go decision.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li><strong>Criterion 1 — Text Convergence:</strong> 3 instances apply concurrent edits; after bidirectional merge all have identical text with no data loss</li>
+    <li><strong>Criterion 2 — MovableTree Convergence:</strong> 2 instances concurrently move the same node to different parents; merged state is identical and deterministic on both sides</li>
+    <li><strong>Criterion 3 — Network Partition:</strong> 1000 offline ops merged with 20 online ops; final state identical; merge completes in under 1s</li>
+    <li><strong>Criterion 4 — Performance:</strong> 100K sequential insertions in under 2s; memory increase under 200MB; snapshot export and import both under 500ms</li>
+    <li><strong>Criterion 5 — ProseMirror Binding:</strong> prototype <code>LoroPMBinding</code> handles 10-step round-trip without infinite loops</li>
+    <li>POC results documented in Wiki/04 §POC Gate Results; go/no-go decision recorded</li>
+  </ul>
+
+  <!-- Task #93 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#93</span><span class="label lbl-task">Task</span> <strong>Run Loro concurrent text edit convergence test — POC Criterion 1</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Write <code>packages/ast/loro-poc/text-convergence.test.ts</code>. Create 3 LoroDoc instances from a common snapshot. Simulate concurrent edits without seeing each other. Exchange updates bidirectionally via <code>doc.exportFrom(commonVector)</code>. Assert all 3 instances have identical text. Record merged text and pass/fail in Wiki/04 §POC Gate Results.
+    </div>
+  </div>
+
+  <!-- Task #94 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#94</span><span class="label lbl-task">Task</span> <strong>Run Loro MovableTree concurrent scene move test — POC Criterion 2</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Write <code>packages/ast/loro-poc/movable-tree.test.ts</code>. Two LoroDoc instances with 5-node tree. A moves s3 to child of s1; B concurrently moves s3 to child of s4. After bidirectional merge: assert identical structure on both; s3 at exactly one position; no nodes lost. Document which Loro API was used (<code>LoroTree</code> vs <code>LoroMovableList</code>) and determinism semantics. Record in Wiki/04.
+    </div>
+  </div>
+
+  <!-- Task #95 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#95</span><span class="label lbl-task">Task</span> <strong>Run Loro network partition reconnect test — POC Criterion 3</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Write <code>packages/ast/loro-poc/partition.test.ts</code>. Doc A applies 1000 offline insertions; Doc B applies 20 online insertions. Exchange updates. Assert content identical; all 1000 of A's characters present. Measure merge time; assert under 1000ms. Record exact merge time and update payload size in Wiki/04.
+    </div>
+  </div>
+
+  <!-- Task #96 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#96</span><span class="label lbl-task">Task</span> <strong>Run Loro performance benchmark — POC Criterion 4 (100K ops under 2s)</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Write <code>packages/ast/loro-poc/performance.bench.ts</code> using Vitest bench API. Benchmark 1: 100K sequential single-char insertions; assert under 2000ms. Benchmark 2: memory increase under 200MB. Benchmark 3: snapshot export size and time. Benchmark 4: snapshot import time under 500ms. Run on CI runner spec (4 CPU, 8GB RAM). Fail CI if 100K-insert benchmark exceeds 2000ms. Record all numbers in Wiki/04.
+    </div>
+  </div>
+
+  <!-- Task #97 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#97</span><span class="label lbl-task">Task</span> <strong>Prototype <code>LoroPMBinding</code> class and run ProseMirror round-trip test — POC Criterion 5</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Write <code>packages/ast/loro-poc/pm-binding.test.ts</code>. Prototype minimal <code>LoroPMBinding</code>: <code>applyLoroOpToPM</code> maps Loro text delta to a PM Transaction; <code>applyPMTransactionToLoro</code> maps PM <code>ReplaceStep</code> to <code>LoroText</code> ops. Loop guard: <code>applyingRemote</code> boolean flag. 10-step round-trip test: PM insert → Loro → assert; Loro insert → PM → assert; repeat 4 more cycles; assert no infinite loop. Record binding approach and pass/fail in Wiki/04. This prototype becomes the foundation for production <code>LoroPMBinding</code> in task #114.
+    </div>
+  </div>
+</div>
+
+<!-- US 2.3.2 — Real-time co-edit -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#98</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As writers we can co-edit a screenplay in real-time with changes syncing reliably between all connected clients</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 3</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">13 pts</span>
+    <span style="margin-left:8px;"><span class="tag">collaboration</span> <span class="tag">hocuspocus</span> <span class="tag">websocket</span></span>
+  </div>
+  <div class="description-text">
+    Real-time collaborative editing is the core differentiator of ScriptOS. The Collaboration Service uses Hocuspocus (startup phase; upgraded to y-redis in Sprint 18) as the CRDT WebSocket server. Redis-backed doc store ensures fast cold starts. Checkpoint cycle writes AST to Script Service and fires NATS events.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Two browser tabs on same script: typing in tab A appears in tab B within 200ms; verified by Playwright test</li>
+    <li>Offline simulation: disconnect tab A, type 10 lines, reconnect; all 10 lines in tab B within 3s</li>
+    <li>Checkpoint after 30s idle: <code>ast_nodes</code> updated; <code>script.checkpointed</code> event published within 5s</li>
+    <li>Cold start (Redis miss): Loro snapshot from Postgres via <code>GetLatestVersion</code> gRPC; Redis populated; ready in under 2s</li>
+    <li>Warm start (Redis hit): loaded in under 100ms</li>
+    <li>WS gateway routes <code>/collaboration/{scriptId}</code> to Collaboration Service with sticky sessions (ClientIP affinity)</li>
+    <li><code>CheckpointCRDT</code> gRPC callable externally; triggers immediate checkpoint</li>
+  </ul>
+
+  <!-- Task #99 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#99</span><span class="label lbl-task">Task</span> <strong>Set up Hocuspocus server in the Collaboration Service with JWT authentication and Loro document management</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>services/collaboration/src/server.ts</code>. Install <code>@hocuspocus/server</code>, <code>loro-crdt</code>. Configure: <code>onAuthenticate</code>: verify JWT via JWKS (5-min cached); <code>onLoadDocument</code>: call <code>loadDocState(scriptId, orgId)</code>; if snapshot exists call <code>doc.import(snapshot)</code>; <code>onStoreDocument</code>: debounced 30s → call <code>checkpoint()</code>; <code>onConnect</code>/<code>onDisconnect</code>: update presence map. HTTP health endpoint on port 4004. Bootstrap in <code>src/index.ts</code>.
+    </div>
+  </div>
+
+  <!-- Task #100 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#100</span><span class="label lbl-task">Task</span> <strong>Implement <code>loadDocState()</code> with Redis hot path and Postgres cold start fallback</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/collaboration/src/doc-store.ts</code>. <code>loadDocState(scriptId, orgId)</code>: (1) Redis GET <code>collab:doc:{scriptId}</code> — hit: return Buffer. (2) Miss: gRPC <code>GetLatestVersion(scriptId)</code> → warm Redis with 24h TTL → return snapshot. (3) Not found: return null (fresh doc). <code>saveDocState(scriptId, snapshot)</code>: SET with 24h TTL. Unit tests: Redis hit → gRPC not called; miss → gRPC called → Redis populated; NOT_FOUND → returns null.
+    </div>
+  </div>
+
+  <!-- Task #101 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#101</span><span class="label lbl-task">Task</span> <strong>Implement <code>checkpoint()</code> extracting AST from Loro doc, writing to Script Service, and publishing NATS event</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">12 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/collaboration/src/checkpoint.ts</code>. Logic: (1) <code>doc.export({ mode: 'snapshot' })</code>. (2) Traverse Loro MovableTree → build <code>ASTNodeProto</code> array. (3) Call <code>UpsertASTNodes</code> gRPC (chunked at 500). (4) Call <code>CreateVersion</code> gRPC; receive <code>versionId</code>. (5) Call <code>saveDocState()</code>. (6) Publish <code>script.checkpointed</code> NATS event. Error handling: retry <code>UpsertASTNodes</code> 3× with backoff; dead-letter on persistent failure; never block CRDT sync. Integration test: LoroDoc with 3 scenes → checkpoint → verify 3+ <code>ast_nodes</code> rows in DB + NATS event received.
+    </div>
+  </div>
+
+  <!-- Task #102 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#102</span><span class="label lbl-task">Task</span> <strong>Update WebSocket gateway to route collaboration connections by scriptId with org validation and sticky sessions</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Update <code>services/collaboration/src/ws-gateway.ts</code>. Parse <code>/collaboration/{scriptId}</code>; validate UUIDv7 format (close 4003 if invalid). After JWT validation: call <code>GetScript(scriptId)</code> gRPC to confirm <code>script.orgId === jwt.orgId</code> (close 4001 if mismatch). Proxy WS to Collaboration Service via <code>http-proxy-middleware wsProxy</code>. Update Kubernetes Service: <code>sessionAffinity: ClientIP</code>, <code>timeoutSeconds: 10800</code>. Update Istio DestinationRule: consistent hash on <code>x-user-id</code> header. Document sticky session approach in Wiki/04.
+    </div>
+  </div>
+
+  <!-- Task #103 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#103</span><span class="label lbl-task">Task</span> <strong>Define CollaborationService proto with <code>CheckpointCRDT</code> and presence methods in <code>packages/proto</code></strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Write <code>packages/proto/collaboration.proto</code>. Service: <code>CheckpointCRDT</code>, <code>GetDocumentState</code>, <code>GetPresence</code>, <code>HandleStructuralOp</code>. <code>HandleStructuralOpRequest</code> uses <code>oneof op { SceneMoveOp move; SceneSplitOp split; SceneMergeOp merge; }</code>. <code>PresenceEntry</code> includes userId, userName, revisionColor, CursorPosition, isActive. Run <code>buf generate</code>; verify TypeScript stubs compile with zero errors.
+    </div>
+  </div>
+</div>
+
+<!-- US 2.3.3 — Structural ops -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#104</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As writers, structural screenplay operations (move, split, and merge scenes) remain consistent across all connected clients</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 3</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">8 pts</span>
+    <span style="margin-left:8px;"><span class="tag">structural-ops</span> <span class="tag">redis-lock</span> <span class="tag">adr-019</span></span>
+  </div>
+  <div class="description-text">
+    Writers frequently reorganise scripts by moving, splitting, or merging scenes. These structural operations are handled as atomic Loro MovableTree operations with a Redis coordination lock to prevent concurrent conflicts that CRDT alone cannot resolve deterministically. Implements ADR-019.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Scene move while another writer types: after sync all clients see scene at new position with typing intact</li>
+    <li>Concurrent different-scene moves: both moves applied; no scenes lost</li>
+    <li>Concurrent same-scene moves: Redis lock ensures one wins; losing client returns <code>CONCURRENT_STRUCTURAL_OP</code> and sees winner's move within 500ms</li>
+    <li>Scene split after child 3 of 5: original scene retains children 1-3; new scene has children 4-5 + empty heading; all clients converge within 500ms</li>
+    <li>Scene merge: concatenated content in correct order; source scene removed; all clients converge within 500ms</li>
+    <li>All structural ops represented as discrete AST mutations in the next checkpoint cycle</li>
+  </ul>
+
+  <!-- Task #105 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#105</span><span class="label lbl-task">Task</span> <strong>Implement <code>handleSceneMoveOp</code> with Redis distributed lock acquisition and release</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">10 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/collaboration/src/structural/scene-move.ts</code>. Lock pattern: <code>SET lock:structural:{scriptId} {userId} NX EX 5</code>; poll 100ms intervals up to 2s; return <code>CONCURRENT_STRUCTURAL_OP</code> if not acquired. Inside lock: Loro MovableTree move op in a transaction. Broadcast update via Hocuspocus. Release lock via DEL in <code>try/finally</code>. Integration test: two concurrent move ops; only one acquires lock; final state consistent.
+    </div>
+  </div>
+
+  <!-- Task #106 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#106</span><span class="label lbl-task">Task</span> <strong>Implement scene split as decomposed atomic Loro MovableTree operations</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">10 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/collaboration/src/structural/scene-split.ts</code>. <code>SceneSplitOp = { sceneId, splitAfterChildId, newSceneId }</code>. Inside Redis structural lock + single Loro transaction: (1) Partition children into before/after groups at <code>splitAfterChildId</code>. (2) Insert <code>newSceneId</code> as sibling after <code>sceneId</code>. (3) Move each after-child to <code>newSceneId</code> via MovableTree. (4) Create empty <code>scene_heading</code> under <code>newSceneId</code>. Broadcast. Integration test: 5-child scene → split after child 3 → verify original has 3, new scene has 2 + heading.
+    </div>
+  </div>
+
+  <!-- Task #107 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#107</span><span class="label lbl-task">Task</span> <strong>Implement scene merge as atomic MovableTree content concatenation and source node removal</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/collaboration/src/structural/scene-merge.ts</code>. <code>SceneMergeOp = { sourceSceneId, targetSceneId }</code>. Validate siblings (same parent) before acquiring lock — return <code>INVALID_ARGUMENT</code> if not. Inside Redis lock + Loro transaction: move each source child to target at <code>(targetChildCount + index)</code>; delete source scene node. Broadcast. Integration test: 2 scenes × 3 nodes each → merge → 1 scene with 6 nodes in correct order.
+    </div>
+  </div>
+</div>
+
+<!-- US 2.3.4 — Awareness -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#108</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a writer I can see other collaborators' cursor positions and presence in real time using the awareness protocol</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 3</span>
+    <span class="priority-2" style="margin-left:8px;">&#9679; High</span>
+    <span class="points-badge" style="margin-left:8px;">5 pts</span>
+    <span style="margin-left:8px;"><span class="tag">awareness</span> <span class="tag">presence</span></span>
+  </div>
+  <div class="description-text">
+    Seeing where other writers are working reduces merge anxiety. The awareness protocol broadcasts cursor positions and user metadata via Hocuspocus awareness state — ephemeral, not stored in Postgres or Redis. Revision colors from the 13-color WGA palette assigned round-robin on connect.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>User A types; User B sees A's cursor at correct position within 100ms</li>
+    <li>Cursor label shows name and WGA revision color</li>
+    <li>Disconnected user's cursor removed from all clients within 5 seconds</li>
+    <li>Presence avatars shown in editor toolbar</li>
+    <li>Awareness is ephemeral — not persisted in Postgres or Redis</li>
+    <li>Revision colors assigned from <code>RevisionColor</code> enum in <code>packages/ast</code>; stable per session</li>
+  </ul>
+
+  <!-- Task #109 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#109</span><span class="label lbl-task">Task</span> <strong>Implement awareness protocol for cursor position and user presence state in the Hocuspocus server</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">6 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Implement <code>services/collaboration/src/awareness.ts</code>. On connect: assign revision color from <code>RevisionColor</code> enum round-robin (in-memory map <code>colorAssignments: Map&lt;scriptId, Map&lt;userId, RevisionColor&gt;&gt;</code>). Set initial awareness state: <code>{ userId, userName, revisionColor, cursor: null }</code>. Awareness broadcasts handled natively by Hocuspocus. On disconnect: clear color assignment. Integration test: 2 WS connections → connection 1 sends cursor update → assert connection 2 receives within 100ms → disconnect 1 → assert 2 receives updated presence within 5s.
+    </div>
+  </div>
+
+  <!-- Task #110 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#110</span><span class="label lbl-task">Task</span> <strong>Deploy Collaboration Service to GKE staging with sticky session Kubernetes Service and 30-minute load test</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>services/collaboration/Dockerfile</code>. Create <code>infra/k8s/services/collaboration/deployment.yaml</code>: 2 replicas; 1 CPU / 1Gi RAM limits; readinessProbe <code>/health</code> port 4004; <code>terminationGracePeriodSeconds: 60</code> with SIGTERM handler triggering immediate checkpoint on all open docs. <code>service.yaml</code>: <code>sessionAffinity: ClientIP</code>, <code>timeoutSeconds: 10800</code>. Istio DestinationRule: consistent hash on <code>x-user-id</code>. Load test: 10 concurrent WS connections for 30 minutes; assert no pod restarts; memory under 800Mi per pod.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 2.4 — Screenplay Editor UI
+═══════════════════════════════════════════════════════════════ -->
+<div class="feature-box page-break">
+  <div>
+    <span class="id-badge">#111</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>2.4 — Screenplay Editor UI</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 3</span>
+  </div>
+  <div class="dogfood-banner">🎯 Dogfood Milestone (Week 8): This feature gates the dogfood milestone. Team must be able to write real scripts in ScriptOS daily by end of Sprint 3.</div>
+  <div class="description-text" style="margin-top:8px;">
+    The Screenplay Editor UI is the primary product surface. Built on TipTap (ProseMirror) with 7 custom element extensions (Scene Heading, Action, Character, Dialogue, Parenthetical, Transition, General), connected to Collaboration Service via WebSocket, with Loro CRDT ops bound to ProseMirror transactions via <code>LoroPMBinding</code>. Visual output must match Final Draft: Courier New 12pt, industry-standard margins, page break indicators.
+    <br><em>Reference: Wiki/04-crdt-collaboration.md §ProseMirror Binding, Wiki/15-roadmap.md Sprint 3 frontend tasks.</em>
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>TipTap editor renders all 7 element types with correct visual formatting</li>
+    <li><code>LoroPMBinding</code>: typing creates Loro ops; remote Loro ops render as PM transactions; no infinite loops</li>
+    <li>Tab key cycles element type per WGA spec; Shift+Tab cycles in reverse</li>
+    <li>Screenplay formatting: Courier New 12pt, 1.5in left / 1in right margins, page break indicators at 55-line boundaries</li>
+    <li>Scene panel sidebar updates live from Loro MovableTree; clicking navigates editor to scene</li>
+    <li>Remote cursors with name labels and revision colors visible within 100ms</li>
+    <li>Presence avatars bar in editor toolbar</li>
+    <li>Dogfood milestone (Week 8): engineering team writes real scripts in ScriptOS</li>
+  </ul>
+</div>
+
+<!-- US 2.4.1 — Screenplay formatting editor -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#112</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a writer I can write and edit scripts in a TipTap editor with professional industry-standard screenplay formatting</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 3</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">13 pts</span>
+    <span style="margin-left:8px;"><span class="tag">tiptap</span> <span class="tag">formatting</span> <span class="tag">crdt-binding</span></span>
+  </div>
+  <div class="description-text">
+    Screenplay formatting is a professional standard that casting directors, producers, and line producers depend on. The editor must reproduce the visual conventions of Final Draft and WriterDuet. TipTap schema enforces element types; keyboard shortcuts match writers' existing muscle memory.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>White page container: Courier New 12pt, 1.5in left / 1in right / 1in top/bottom padding</li>
+    <li>Scene Heading: UPPERCASE, full width, <code>margin-top: 1em</code></li>
+    <li>Character: UPPERCASE, left margin at ~3.7in from content edge</li>
+    <li>Dialogue: centred block, 2.5in wide from ~2.5in left offset</li>
+    <li>Parenthetical: inside dialogue indent, text in (parentheses)</li>
+    <li>Transition: right-flush, UPPERCASE</li>
+    <li>Page break indicator (CSS, not DOM break) at every 55-line boundary</li>
+    <li>Tab cycles: <code>scene_heading → action → character → dialogue → parenthetical</code>; empty nodes change type; filled nodes do not</li>
+    <li>Enter after Character creates Dialogue; Enter in empty Dialogue creates Character</li>
+    <li>All formatting via TipTap extensions and CSS classes; zero inline styles in DOM</li>
+  </ul>
+
+  <!-- Task #113 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#113</span><span class="label lbl-task">Task</span> <strong>Create TipTap editor scaffold with 7 screenplay element node extensions and screenplay document schema</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">12 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>apps/web/src/editor/</code>. Install <code>@tiptap/react</code>, <code>@tiptap/pm</code>, <code>@tiptap/starter-kit</code>. Remove StarterKit paragraph/heading defaults. Create 7 Node extensions in <code>src/editor/extensions/nodes/</code>: <code>SceneHeadingNode</code>, <code>ActionNode</code>, <code>CharacterNode</code>, <code>DialogueNode</code>, <code>ParentheticalNode</code>, <code>TransitionNode</code>, <code>GeneralNode</code> — each with <code>group: 'block'</code>, <code>content: 'inline*'</code>, class matching node name. Create <code>SceneNode</code> container and <code>ScriptRootNode</code> document replacement (<code>content: 'scene+'</code>). Render in <code>EditorPage</code> replacing Sprint 2 placeholder. Vitest test: editor with scene heading content serialises to expected schema.
+    </div>
+  </div>
+
+  <!-- Task #114 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#114</span><span class="label lbl-task">Task</span> <strong>Implement <code>LoroPMBinding</code> class bridging Loro CRDT and ProseMirror transactions without infinite loops</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">16 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>apps/web/src/editor/crdt/LoroPMBinding.ts</code>. <code>bind()</code>: (1) Editor transaction listener: if <code>tr.docChanged &amp;&amp; !applyingRemote</code> → set <code>applyingLocal = true</code> → <code>_applyPMTransactionToLoro(tr)</code> → clear flag. (2) Loro subscription: if <code>!applyingLocal &amp;&amp; event.by !== 'local'</code> → set <code>applyingRemote = true</code> → build and dispatch PM transaction → clear flag. Implement <code>_applyPMTransactionToLoro</code>: map <code>ReplaceStep</code> → <code>LoroText.insert/delete</code>. Implement <code>_applyLoroEventToPM</code>: map <code>TextDiff</code> → <code>tr.insertText/replaceWith</code>. Create <code>LoroPMBindingContext</code> React context. Write 10-step round-trip test (from POC task #97 — production quality with full error handling).
+    </div>
+  </div>
+
+  <!-- Task #115 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#115</span><span class="label lbl-task">Task</span> <strong>Implement Tab key auto-formatting extension cycling screenplay element types per WGA spec</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>apps/web/src/editor/extensions/ScreenplayKeymap.ts</code> as a TipTap Extension. Tab cycle: <code>scene_heading → action → character → dialogue → parenthetical → action</code> (loop). Shift+Tab reverse. Rule: if node is empty → <code>editor.chain().setNode(nextType).run()</code>; if node has content → do not change type. Context-sensitive Enter: after Character → Dialogue; in empty Dialogue → Character; otherwise → Action. Vitest keyboard simulation tests for all Tab transitions and both Enter scenarios.
+    </div>
+  </div>
+
+  <!-- Task #116 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#116</span><span class="label lbl-task">Task</span> <strong>Apply screenplay visual formatting CSS for Courier 12pt, industry-standard margins, and page break indicators</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>apps/web/src/editor/styles/screenplay.css</code>. Page container: width 816px (8.5in at 96dpi), box shadow, padding 96px 72px 96px 108px. Typography: Courier Prime (Google Fonts) + Courier New fallback; 12pt; line-height 1.0. Element classes: <code>.scene-heading</code> (uppercase, margin-top 1em), <code>.character</code> (margin-left 220px, uppercase), <code>.dialogue</code> (margin 0 100px), <code>.parenthetical</code> (margin 0 130px), <code>.transition</code> (text-align right, uppercase). Page break indicator: TipTap Plugin that inserts <code>.page-break-indicator</code> widget decorations at every 55-line boundary. Playwright visual regression snapshot test against Final Draft reference page.
+    </div>
+  </div>
+</div>
+
+<!-- US 2.4.2 — Scene panel and cursors -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#117</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a writer I can see collaborators' cursor positions in real time and navigate scenes via the scene panel sidebar</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 3</span>
+    <span class="priority-2" style="margin-left:8px;">&#9679; High</span>
+    <span class="points-badge" style="margin-left:8px;">8 pts</span>
+    <span style="margin-left:8px;"><span class="tag">awareness</span> <span class="tag">scene-panel</span> <span class="tag">cursors</span></span>
+  </div>
+  <div class="description-text">
+    The scene panel and collaborative presence indicators make the editor feel alive and reduce disorientation in a 120-page script. The scene panel and remote cursors are driven by the Loro MovableTree and Hocuspocus awareness state respectively — no Postgres round-trips needed.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Scene panel (240px fixed left sidebar; collapsible): lists all scenes with number badge and heading text; updates live from Loro doc subscription</li>
+    <li>Clicking a scene scrolls editor to that scene with smooth scroll</li>
+    <li>Active scene highlighted in panel as cursor moves between scenes (driven by <code>selectionUpdate</code> event)</li>
+    <li>Remote cursors: 2px coloured caret with floating name label; updates within 100ms of remote keystroke</li>
+    <li>Revision color on cursor matches awareness state WGA palette</li>
+    <li>Presence avatars bar: up to 8 circles with initials + revision color ring; 9+ shown as "+N more"</li>
+    <li>All presence data driven by Hocuspocus awareness — no separate API calls to Postgres</li>
+    <li>Scene list populated from Loro MovableTree — no polling; updates in real time during co-edit</li>
+  </ul>
+
+  <!-- Task #118 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#118</span><span class="label lbl-task">Task</span> <strong>Render remote cursor positions with collaborator name labels and revision colors from Hocuspocus awareness data</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">8 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>apps/web/src/editor/components/RemoteCursors.tsx</code>. Subscribe to <code>awareness.on('change')</code>; for each remote entry: call <code>editor.view.coordsAtPos(entry.cursor.anchor)</code> to get pixel coordinates; render absolutely positioned div (<code>cursor-caret</code>: 2px wide, <code>revisionColor</code> background, line-height tall; blinking at 530ms via CSS keyframes) + floating label pill. Clean up cursors on awareness removal. Create <code>PresenceAvatars.tsx</code> for toolbar: circular Avatar components (2-char initials, revisionColor ring); overflow as "+N more" tooltip. Debounce awareness updates to 30fps. Vitest test: 2 remote users → 2 cursors rendered → 1 disconnect → 1 cursor remains.
+    </div>
+  </div>
+
+  <!-- Task #119 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#119</span><span class="label lbl-task">Task</span> <strong>Build scene panel sidebar with live scene list from Loro MovableTree and scroll-to-scene navigation</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 3</span> <span class="hours-badge">8 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>apps/web/src/editor/components/ScenePanel.tsx</code>. Data source: subscribe to <code>loroDoc.subscribe()</code>; on each event traverse MovableTree to extract ordered scene list <code>{ sceneId, sceneNumber, headingText }</code>. headingText from <code>scene_heading</code> child <code>metadata.textContent</code>. Render: collapsible sidebar (ChevronLeft toggle; state in localStorage). Scene list items: number badge + truncated heading (<code>text-overflow: ellipsis</code>); active scene highlight. Click handler: resolve scene node by ID via <code>editor.state.doc.descendants()</code>; call <code>editor.commands.scrollIntoView()</code>. Active scene: <code>editor.on('selectionUpdate')</code> → find containing scene node → update <code>activeSceneId</code>. Receive <code>LoroDoc</code> via <code>LoroPMBindingContext</code>. Vitest test: 3-scene LoroDoc → panel renders 3 items → mock selection in scene 2 → assert active class.
+    </div>
+  </div>
+</div>
+
+<hr style="margin-top:40px; border-top:2px solid #1F3864;">
+<p style="font-size:9pt; color:#888; text-align:center; margin-top:10px;">
+  ScriptOS Backlog · Epic 2 · Sprint 2–3 (Weeks 5–8) · IDs #69–#119 · 51 items ·
+  Generated 2026-04-11
+</p>
+
+</body>
+</html>

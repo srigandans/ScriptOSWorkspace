@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScriptOS Backlog — Epic 3: Import Pipeline &amp; Series Bible</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 2cm; color: #1a1a1a; }
+  h1 { font-size: 20pt; color: #1F3864; border-bottom: 3px solid #1F3864; padding-bottom: 6px; margin-top: 0; }
+  .epic-box { background: #EFF3FB; border-left: 6px solid #1F3864; padding: 14px 18px; margin-bottom: 24px; border-radius: 4px; }
+  .feature-box { background: #F2F7FF; border-left: 5px solid #2E4D9A; padding: 12px 16px; margin: 18px 0 10px 0; border-radius: 3px; }
+  .story-box { background: #F9FDF4; border-left: 4px solid #375623; padding: 10px 14px; margin: 14px 0 8px 0; border-radius: 3px; }
+  .task-box { background: #FFFBF5; border-left: 3px solid #843C0C; padding: 8px 12px; margin: 8px 0 4px 0; border-radius: 2px; }
+  .label { display: inline-block; font-size: 8pt; font-weight: bold; padding: 2px 7px; border-radius: 10px; margin-right: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .lbl-epic { background: #1F3864; color: white; }
+  .lbl-feature { background: #2E4D9A; color: white; }
+  .lbl-story { background: #375623; color: white; }
+  .lbl-task { background: #843C0C; color: white; }
+  .meta-row { font-size: 9pt; color: #555; margin: 4px 0 8px 0; }
+  .meta-row span { margin-right: 16px; }
+  .meta-row .tag { background: #E8EEF6; padding: 1px 6px; border-radius: 3px; font-size: 8.5pt; }
+  .section-label { font-size: 9pt; font-weight: bold; color: #666; text-transform: uppercase; margin: 8px 0 3px 0; }
+  .description-text { font-size: 10.5pt; margin: 4px 0 8px 0; line-height: 1.5; }
+  ul.ac-list { margin: 4px 0; padding-left: 18px; }
+  ul.ac-list li { font-size: 10pt; margin-bottom: 3px; line-height: 1.4; }
+  .id-badge { font-size: 8pt; color: #999; font-family: monospace; margin-right: 8px; }
+  .sprint-tag { background: #FFF3CD; border: 1px solid #FFC107; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #856404; }
+  .priority-1 { color: #C00000; font-weight: bold; }
+  .priority-2 { color: #E36C09; font-weight: bold; }
+  .points-badge { background: #EBF5FB; border: 1px solid #2E4D9A; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #1a3a6b; font-weight: bold; }
+  .hours-badge { background: #FEF9E7; border: 1px solid #F0B429; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #7D5A00; }
+  .alpha-banner { background: #EDE7F6; border: 2px solid #512DA8; border-radius: 4px; padding: 8px 14px; margin: 8px 0; font-size: 10pt; font-weight: bold; color: #311B92; }
+  @media print { .page-break { page-break-before: always; } }
+</style>
+</head>
+<body>
+
+<h1>ScriptOS Backlog — Epic 3: Import Pipeline &amp; Series Bible</h1>
+<p style="font-size:10pt; color:#555; margin-bottom:20px;">
+  <strong>Project:</strong> ScriptOS &nbsp;|&nbsp;
+  <strong>Sprints:</strong> 4–5 (Weeks 9–12) &nbsp;|&nbsp;
+  <strong>Generated:</strong> 2026-04-11 &nbsp;|&nbsp;
+  <strong>Items:</strong> 1 Epic · 4 Features · 7 User Stories · 32 Tasks (44 total)
+  &nbsp;|&nbsp;<strong>IDs:</strong> #120–#163
+</p>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     EPIC 3
+═══════════════════════════════════════════════════════════════ -->
+<div class="epic-box">
+  <div>
+    <span class="id-badge">#120</span>
+    <span class="label lbl-epic">Epic</span>
+    <strong style="font-size:14pt;">Import Pipeline &amp; Series Bible</strong>
+  </div>
+  <div class="meta-row" style="margin-top:6px;">
+    <span class="sprint-tag">Sprint 4–5</span>
+    <span class="priority-1" style="margin-left:10px;">&#9679; Priority: Critical</span>
+    <span style="margin-left:10px;">
+      <span class="tag">import-pipeline</span>
+      <span class="tag">bible-service</span>
+      <span class="tag">neo4j</span>
+      <span class="tag">temporal</span>
+      <span class="tag">sprint-4</span>
+      <span class="tag">sprint-5</span>
+    </span>
+  </div>
+  <div class="alpha-banner" style="margin-top:10px;">
+    &#9650; Alpha Prerequisite — Epic 3 must be complete before Sprint 6 Alpha begins (Week 14). The AI Service (Epic 4) depends on the Bible Service gRPC methods (<code>getWorldRules</code>, <code>getCharacterFacts</code>, <code>getVoiceProfiles</code>) for context assembly.
+  </div>
+  <div class="section-label" style="margin-top:10px;">Description</div>
+  <div class="description-text">
+    Deliver the Import Pipeline (FDX, Fountain, and PDF parsing orchestrated via Temporal sagas with confidence scoring and user review) and the Series Bible Service (Neo4j-backed character, location, fact, and world-rule graph with voice profiles and canon consistency checking). Epic 3 transforms ScriptOS from a greenfield authoring tool into a platform production teams can actually adopt: writers migrate existing scripts from Final Draft and Fountain without friction, and showrunners build out their series bible with character voices, world rules, and canon facts that feed AI grounding in Epic 4.
+    <br><br>
+    Sprint 4 delivers the import backend and UI. Sprint 5 delivers the Series Bible Service, Bible UI panel, and bible↔editor integration including the canon conflict banner. The alpha milestone (Week 14, Sprint 6 end) depends on this epic being complete — the AI Service uses the Bible Service for context assembly.
+    <br><br>
+    <em>Reference: Wiki/15-roadmap.md Sprints 4 and 5, Wiki/03-data-model.md Series Bible Graph, Wiki/13-import-migration.md.</em>
+  </div>
+  <div class="section-label">Acceptance Criteria (Epic-level Definition of Done)</div>
+  <ul class="ac-list">
+    <li>FDX round-trip CI test: 10 reference scripts pass import → export → re-import with structural equality</li>
+    <li>FDX end-to-end: upload → Import Saga completes → script editable in CRDT editor</li>
+    <li>Fountain end-to-end: 5 reference files import with confidence ≥ 0.90</li>
+    <li>Import provenance record written; original file archived in S3</li>
+    <li>Batch import of 3-episode zip completes in under 3 minutes</li>
+    <li>Import Service deployed to staging</li>
+    <li>Character, location, and fact round-trip in Neo4j: create → link to scene → query via gRPC</li>
+    <li>Canon consistency check returns conflicts for a known contradictory test case</li>
+    <li>Bible GraphQL subgraph federated into Apollo Router</li>
+    <li>Character names auto-extracted from script on every checkpoint event</li>
+    <li>Bible panel functional in web app; facts editable inline</li>
+    <li>Series Bible Service deployed to staging with Neo4j Aura connection</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 3.1 — Import Pipeline
+═══════════════════════════════════════════════════════════════ -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#121</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>3.1 — Import Pipeline</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 4</span>
+  </div>
+  <div class="description-text" style="margin-top:8px;">
+    The Import Service accepts FDX, Fountain, PDF, and scanned PDF files and converts them to the canonical Script AST via a five-stage pipeline: format detection → parser → normalization → confidence scoring → provenance record. The Import Saga (Temporal workflow) orchestrates the full lifecycle including a human-in-the-loop review step for low-confidence elements, then persists the AST to the Script Service and fires the NATS checkpointed event to trigger Elasticsearch indexing. Batch import handles zip archives of multiple episode files.
+    <br><em>Reference: Wiki/13-import-migration.md, Wiki/15-roadmap.md Sprint 4.</em>
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Import Service auto-detects format from file extension and magic bytes; all 4 formats correctly identified</li>
+    <li>FDX parser: 10 reference files parse with confidence ≥ 0.95; all AST node types correctly mapped</li>
+    <li>Fountain parser: 5 reference files parse with confidence ≥ 0.90</li>
+    <li>PDF parser: 3 digital PDF screenplays parse with correct element type classification</li>
+    <li>Every imported AST node carries a confidence score (0.0–1.0); nodes below 0.70 flagged</li>
+    <li>ImportProvenance record written; S3 archive of original file</li>
+    <li>Import Saga end-to-end for FDX completes in under 60s (excluding user review wait)</li>
+    <li>Batch import of 5-episode zip completes in under 3 minutes; episode numbers inferred from filenames</li>
+    <li>10 reference FDX scripts pass round-trip CI test (FDX → AST → FDX → assert structural equality)</li>
+    <li>Revision colors preserved from FDX RevisionChange attributes on all imported nodes</li>
+    <li>Import Service deployed to staging</li>
+  </ul>
+</div>
+
+<!-- US 3.1.1 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#122</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a writer I can import existing FDX, Fountain, and PDF scripts into ScriptOS with automatic format detection and per-element confidence scoring</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 4</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">13 pts</span>
+    <span style="margin-left:8px;"><span class="tag">import-service</span> <span class="tag">fdx</span> <span class="tag">fountain</span> <span class="tag">pdf</span> <span class="tag">confidence-scoring</span></span>
+  </div>
+  <div class="description-text">
+    Writers have years of work in Final Draft and other tools. The import path must be friction-free and trustworthy — the confidence scoring system tells writers exactly what the parser was uncertain about so they can fix it before it propagates into breakdown and scheduling. High-fidelity FDX round-trip is P0: writers who need to send scripts back to collaborators using Final Draft must not lose data.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Import Service detects format from file extension: .fdx → FDX, .fountain/.spmd → Fountain, .pdf → PDF digital or PDF scanned; detection confirmed on a 5-file test set with 100% accuracy</li>
+    <li>FDX parser maps all FDX Paragraph Types to AST node types per Wiki/13 mapping table; SceneProperties metadata preserved; HeaderAndFooter revision info captured; 10 reference FDX files parse with confidence ≥ 0.95</li>
+    <li>Fountain parser handles: INT./EXT. scene headings, ALL CAPS character names, (parenthetical) blocks, dialogue, transitions ending in TO: or starting with &gt;; dual dialogue with ^ suffix; 5 reference files parse with confidence ≥ 0.90</li>
+    <li>PDF parser: pdftotext or PyMuPDF extracts text with position data; positional heuristics classify elements by left-margin position and caps pattern; 3 digital PDF scripts parse with correct element types</li>
+    <li>AST normalization: all parsers produce uniform ASTNode array with id (UUIDv7), parentId, nodeType, position, metadata, confidence score (0.0–1.0)</li>
+    <li>Confidence thresholds: ≥ 0.95 auto-accepted; 0.75–0.94 yellow warning; 0.50–0.74 orange + manual review required; below 0.50 red + must correct before persist</li>
+    <li>ImportProvenance record: <code>{ importId, orgId, scriptId, originalFormat, originalFilename, s3ArchiveKey, parserVersion, overallConfidence, importedAt, warnings[] }</code></li>
+    <li>Original file archived to S3 at <code>scriptos-media/{orgId}/imports/{importId}/original.{ext}</code> before parsing begins</li>
+  </ul>
+
+  <!-- Task #123 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#123</span><span class="label lbl-task">Task</span> <strong>Implement format detection module with magic-byte and extension-based classifier in the Import Service</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>services/import/src/detection/format-detector.ts</code>. Export <code>detectFormat(file: { name: string; buffer: Buffer }): ImportFormat</code> enum <code>{ FDX, FOUNTAIN, PDF_DIGITAL, PDF_SCANNED, UNKNOWN }</code>. Detection logic: (1) Extension check: .fdx → FDX; .fountain, .spmd → FOUNTAIN; .pdf → run PDF subtype check. (2) Magic bytes: PDF files start with <code>%PDF-</code>; verify. (3) FDX magic: parse first 256 bytes as UTF-8; check for <code>&lt;FinalDraft</code> root element. (4) PDF subtype: use pdftotext (spawn child process) on the first page; if output has ≥ 50 characters → PDF_DIGITAL; else → PDF_SCANNED. (5) Default: UNKNOWN → return error. Write Vitest test with 5 sample buffers (one per expected format plus UNKNOWN); assert correct detection for all.
+    </div>
+  </div>
+
+  <!-- Task #124 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#124</span><span class="label lbl-task">Task</span> <strong>Implement FDX parser mapping Final Draft XML elements to all 19 AST node types</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">12 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>services/import/src/parsers/fdx-parser.ts</code>. Install: <code>fast-xml-parser</code>. Walk the <code>FinalDraft &gt; Content &gt; Paragraph</code> elements; map Paragraph Type attribute to AST node types (Scene Heading → <code>scene_heading</code>, Action → <code>action</code>, Character → <code>character_name</code>, Dialogue → <code>dialogue</code>, Parenthetical → <code>parenthetical</code>, Transition → <code>transition</code>, Shot → <code>action</code> with <code>metadata.isShot=true</code>, General → <code>general</code>). Extract SceneProperties for scene metadata. Build parent/child hierarchy: each Scene Heading starts a new Scene node (UUIDv7). Confidence scoring: known Paragraph Type → 0.99; unknown → 0.65; empty text → 0.80. Capture RevisionChange attributes per Paragraph for <code>revision_color</code> mapping (13 colors: White through Double White). Integration test: parse 3 reference FDX files from <code>services/import/test-fixtures/</code>; assert node counts, types, and scene structure.
+    </div>
+  </div>
+
+  <!-- Task #125 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#125</span><span class="label lbl-task">Task</span> <strong>Implement Fountain parser handling all Fountain spec element types including dual dialogue</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>services/import/src/parsers/fountain-parser.ts</code>. Implement the full Fountain spec: (1) Scene headings: lines starting with INT., EXT., INT./EXT., I/E, or a lone . (forced); confidence 0.99 for INT./EXT. patterns, 0.85 for forced headings. (2) Action: any block not matching other patterns. (3) Character: ALL CAPS line with optional (V.O.), (O.S.), (O.C.) suffixes immediately before dialogue. (4) Dialogue: block following a character line. (5) Parenthetical: line in (parentheses) between character and dialogue. (6) Transition: lines ending with TO: or starting with &gt;. (7) Dual dialogue: ^ marker triggers <code>dual_dialogue</code> node wrapping both groups. (8) Title page: key-value pairs before first blank line. Build scene tree by grouping elements from one scene heading to the next. Confidence: well-formed patterns → 0.95; ambiguous → 0.72. Test against 3 reference Fountain files; assert scene count, character count, and element type distribution.
+    </div>
+  </div>
+
+  <!-- Task #126 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#126</span><span class="label lbl-task">Task</span> <strong>Implement PDF text extraction with positional heuristics for element type classification</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>services/import/src/parsers/pdf-parser.ts</code>. Spawn <code>pdftotext -layout -bbox</code> child process; parse output to get (text, x, y) per text block. Group blocks into lines by y-coordinate proximity (within 2pt). Positional heuristics: x &lt; 100px and starts with INT./EXT. → <code>scene_heading</code> (0.97); ALL CAPS at x 200-280px → <code>character_name</code> (0.85); x 150-250px after character → <code>dialogue</code> (0.82); x &lt; 120px → <code>action</code> (0.78); ends with TO: → <code>transition</code> (0.95); (parenthetical) pattern → <code>parenthetical</code> (0.88). Merge multi-line elements into single AST nodes. For scanned PDFs: log warning and return SCANNED_PDF_REQUIRES_OCR error — OCR is Phase 2. Test against 2 digital PDF reference files; assert element type accuracy ≥ 75%.
+    </div>
+  </div>
+
+  <!-- Task #127 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#127</span><span class="label lbl-task">Task</span> <strong>Implement AST normalization layer and confidence scoring aggregation across all parsers</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>services/import/src/normalization/normalizer.ts</code>. Normalization steps: (1) Assign UUIDv7 IDs to all nodes. (2) Build parent-child hierarchy: project → script → act → scene → element nodes; assign <code>position</code> as fractional float64 index. (3) Normalize metadata into the standard <code>metadata jsonb</code> structure per Wiki/03-data-model.md. (4) Confidence aggregation: <code>ImportWarning[]</code> = nodes where confidence &lt; 0.95. (5) Overall confidence = weighted average (scene_heading and character_name weighted 2×; action and dialogue weighted 1×). (6) Validate against ASTNode invariants: every scene must have exactly one <code>scene_heading</code> as first child; <code>dialogue_group</code> must have <code>character_name</code>. Fix violations automatically where possible; flag unfixable as errors. Export <code>normalize(rawNodes, format): { nodes: ASTNode[]; warnings: ImportWarning[]; overallConfidence: number }</code>.
+    </div>
+  </div>
+
+  <!-- Task #128 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#128</span><span class="label lbl-task">Task</span> <strong>Implement ImportProvenance record creation and S3 archive upload before parsing begins</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>services/import/src/provenance/provenance.ts</code>. Export <code>createProvenance(file, orgId, scriptId): Promise&lt;ImportProvenance&gt;</code>. Logic: generate importId (UUIDv7); upload original file to S3 at <code>scriptos-media/{orgId}/imports/{importId}/original.{ext}</code> before any parsing — on S3 failure throw without proceeding; INSERT into <code>import.import_provenance</code>. Add Atlas schema for <code>import.import_provenance</code> in <code>packages/db/schema/import.hcl</code>: id uuid PK, org_id, script_id FK, original_format, original_filename, s3_archive_key, parser_version, overall_confidence, status CHECK('pending','reviewing','complete','failed'), warnings jsonb, imported_at, completed_at. Integration test: upload 1KB fake file → verify S3 object exists → verify DB row created.
+    </div>
+  </div>
+</div>
+
+<!-- US 3.1.2 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#129</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a developer the Import Saga orchestrates the full import lifecycle end-to-end via Temporal with human-in-the-loop review and batch zip support</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 4</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">13 pts</span>
+    <span style="margin-left:8px;"><span class="tag">temporal</span> <span class="tag">import-saga</span> <span class="tag">workflow</span></span>
+  </div>
+  <div class="description-text">
+    The Import Saga is a Temporal workflow that sequences all import pipeline steps reliably, handles failures with compensation, and pauses at the human review step for low-confidence imports. Temporal's durable execution guarantees that an import is never lost even if the worker pod restarts mid-import. The batch saga enables showrunners to import an entire season's worth of scripts from a zip file in a single operation with episode number auto-inference.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Import Saga workflow: detect format → create provenance + S3 archive → parse → normalize → if overallConfidence &lt; 0.90: pause and signal UI for review → on review complete: persist AST to Script Service → trigger NATS <code>script.checkpointed</code> → mark provenance complete</li>
+    <li>End-to-end import of a single FDX file completes in under 60s (excluding review wait time)</li>
+    <li>Human review step: saga pauses at <code>WaitForSignal</code> activity; writer sends <code>reviewComplete</code> signal with accepted/corrected element list; saga resumes; rejected elements excluded from persist</li>
+    <li>If worker pod restarts during any step: Temporal replays from last completed activity; no data lost; no duplicate imports</li>
+    <li>Batch import saga: accepts zip file S3 key; extracts files; runs a child workflow per file; episode numbers inferred from filename patterns (e.g. 1x01, S01E01, episode_1); completes 5 episodes in under 3 minutes</li>
+    <li>Import Saga Temporal worker deployed as <code>workers/import-saga/</code> Kubernetes Deployment</li>
+    <li>Round-trip CI test: 10 reference FDX files pass import → FDX export → re-import → structural equality assertion</li>
+  </ul>
+
+  <!-- Task #130 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#130</span><span class="label lbl-task">Task</span> <strong>Implement Import Saga Temporal workflow with all 6 activities and compensation on failure</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">16 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>workers/import-saga/src/workflows/import-saga.workflow.ts</code>. Activity sequence (each with 3-retry policy, 30s start-to-close timeout): (1) <code>createProvenanceActivity</code> — S3 archive + DB record. (2) <code>parseScriptActivity</code> — run format-specific parser; return rawNodes + warnings. (3) <code>normalizeASTActivity</code> — produce <code>ASTNode[]</code>; return overallConfidence. (4) If overallConfidence &lt; 0.90: <code>waitForHumanReviewActivity</code> — set provenance status='reviewing'; emit IMPORT_REVIEW_REQUIRED signal to client; wait for REVIEW_COMPLETE signal (timeout: 7 days) with accepted elements list. (5) <code>persistASTActivity</code> — call Script Service <code>UpsertASTNodes</code> gRPC + <code>CreateVersion</code> gRPC. (6) <code>completeProvenanceActivity</code> — update <code>import_provenance</code> status='complete'. Compensation: if any activity fails, call <code>markProvenanceFailedActivity</code>. Deploy Temporal worker connecting to Temporal Cloud namespace <code>scriptos.{id}</code>; task queue <code>import-saga</code>.
+    </div>
+  </div>
+
+  <!-- Task #131 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#131</span><span class="label lbl-task">Task</span> <strong>Implement batch import saga for zip archives with per-episode child workflows and episode number inference</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>workers/import-saga/src/workflows/batch-import-saga.workflow.ts</code>. Input: <code>{ zipS3Key, orgId, projectId, episodeNumberingScheme }</code>. Steps: (1) <code>extractZipActivity</code>: download zip from S3; extract file list; identify importable files; upload each to S3 individually. (2) <code>inferEpisodeNumbers(extractedFiles)</code>: parse filenames for patterns — SxEx, NxNN, episode_N, ep_N, plain sequence numbers; assign episodeNumber 1-based; sort. (3) For each extracted file: call child workflow <code>executeChildWorkflow(importScript, {...})</code> in parallel (up to 5 concurrent). (4) Aggregate results: return <code>{ total, succeeded, failed, results[] }</code>. Filename inference test: 10 sample filenames covering all patterns → assert correct episode numbers. Load test: 5-episode zip → all 5 import sagas complete in under 3 minutes in staging.
+    </div>
+  </div>
+
+  <!-- Task #132 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#132</span><span class="label lbl-task">Task</span> <strong>Create round-trip CI tests for FDX import and re-export structural equality verification</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>services/import/test/round-trip/</code>. Add 10 reference FDX files to <code>services/import/test-fixtures/fdx/</code>. Implement round-trip test in <code>services/import/test/round-trip/fdx-round-trip.test.ts</code>: (1) Import FDX → call FDX parser → normalize → produce <code>ASTNode[]</code>. (2) Export AST back to FDX: implement basic FDX exporter in <code>services/import/src/exporters/fdx-exporter.ts</code> — serialize ASTNode[] back to FinalDraft XML with correct Paragraph Type attributes. (3) Re-import the exported FDX. (4) Assert structural equality: same number of scenes; same scene headings (case-insensitive); same node type sequence per scene. Track in <code>turbo.json</code> as a separate <code>round-trip</code> pipeline task. All 10 test files must pass. Add to GitHub Actions CI as a required check on main.
+    </div>
+  </div>
+
+  <!-- Task #133 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#133</span><span class="label lbl-task">Task</span> <strong>Implement revision color preservation from FDX RevisionChange attributes to AST node <code>revision_color</code> field</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Extend the FDX parser in <code>services/import/src/parsers/fdx-parser.ts</code> to capture revision change data. During FDX XML walk, detect <code>RevisionChange</code> child elements on each Paragraph. Map the FDX revision name to the <code>RevisionColor</code> enum in <code>packages/ast</code>: White → WHITE, Blue → BLUE, Pink → PINK, Yellow → YELLOW, Green → GREEN, Goldenrod → GOLDENROD, Buff → BUFF, Salmon → SALMON, Cherry → CHERRY, Tan → TAN, Sage → SAGE, Lilac → LILAC, Double White → DOUBLE_WHITE. Set <code>revision_color</code> on the corresponding ASTNode. If a Paragraph has no RevisionChange: set <code>revision_color = WHITE</code> (default). Integration test: parse a test FDX file with known revision marks; assert all 3 colored pages preserved with correct <code>RevisionColor</code> values.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 3.2 — Import UI
+═══════════════════════════════════════════════════════════════ -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#134</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>3.2 — Import UI</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 4</span>
+  </div>
+  <div class="description-text" style="margin-top:8px;">
+    The Sprint 4 frontend delivers the import flow: drag-and-drop file upload, real-time progress tracking via Temporal workflow status, and the confidence review UI where writers can inspect and correct low-confidence elements before the AST is persisted. Batch import enables showrunners to upload a zip of episode files and confirm a preview before bulk importing. All import operations are non-blocking — the UI polls saga status and writers can navigate away and return.
+    <br><em>Reference: Wiki/15-roadmap.md Sprint 4 frontend tasks.</em>
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Import modal: drag-and-drop zone accepting .fdx, .fountain, .pdf, .zip; shows detected format badge on file drop</li>
+    <li>Progress indicator shows current saga stage: Detecting → Parsing → Review Required → Persisting → Complete</li>
+    <li>Review UI: low-confidence elements highlighted per threshold; writer can change element type or accept as-is</li>
+    <li>Batch UI: zip upload → episode list preview with title, episode number, file size, estimated confidence; confirm → all import</li>
+    <li>On import complete: navigate to script editor with imported script loaded in CRDT editor</li>
+    <li>Import progress polled via GraphQL and updates in real time without full page reload</li>
+  </ul>
+</div>
+
+<!-- US 3.2.1 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#135</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a writer I can upload scripts via a drag-and-drop import modal and review confidence warnings before finalizing the import</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 4</span>
+    <span class="priority-2" style="margin-left:8px;">&#9679; High</span>
+    <span class="points-badge" style="margin-left:8px;">8 pts</span>
+    <span style="margin-left:8px;"><span class="tag">frontend</span> <span class="tag">import</span> <span class="tag">review</span> <span class="tag">confidence</span></span>
+  </div>
+  <div class="description-text">
+    Writers should never feel uncertain about whether their import will corrupt their work. The confidence review UI makes the parser's uncertainty transparent and actionable. The progress tracker removes the 'is it stuck?' anxiety of watching a long import. The import flow must handle the full lifecycle from file selection to script editor open.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Import modal opens from a button in the Projects page and Scripts page; accepts .fdx, .fountain, .spmd, .pdf, .zip via drag-and-drop zone or click-to-browse</li>
+    <li>On file drop: show filename, detected format badge (FDX=green, Fountain=blue, PDF=orange, ZIP=purple), file size; Upload button activates</li>
+    <li>Upload calls REST POST <code>/import/upload</code> (multipart); returns importId; initiates Import Saga</li>
+    <li>Progress bar with stage labels: Detecting → Parsing → Review Required / Processing → Persisting → Complete; updates via GraphQL polling every 2 seconds</li>
+    <li>If saga pauses at Review Required: progress bar shows orange state; Review button activates; modal transitions to Review pane</li>
+    <li>Review pane: renders imported script elements; low-confidence (&lt;0.75) highlighted with amber background + confidence score badge; below 0.50 in red; each element has type dropdown; Approve All / Approve Selected / Reject Element actions</li>
+    <li>On review submit: sends <code>reviewComplete</code> signal to Temporal saga via GraphQL mutation; progress resumes</li>
+    <li>On complete: modal shows success with scene count + overall confidence; Open Script button navigates to <code>/scripts/{id}/editor</code></li>
+    <li>Batch zip: progress shows per-episode progress bars; episodes with errors shown inline with retry option</li>
+  </ul>
+
+  <!-- Task #136 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#136</span><span class="label lbl-task">Task</span> <strong>Build import modal with drag-and-drop zone, file type validation, and upload trigger</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">6 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>src/pages/ImportModal.tsx</code>. Install: <code>react-dropzone</code>. Configure Dropzone: accept .fdx, .fountain, .spmd, .pdf, .zip; maxSize 100MB. On file drop: display <code>FilePreview</code> showing filename, <code>FileTypeBadge</code> (format-specific colour), and file size. On upload: POST to <code>/import/upload</code> using FormData; on success receive <code>{ importId, scriptId }</code> and transition to progress view. Error handling: file too large → inline error; unsupported type → inline warning. Add Import button to ProjectsPage toolbar and ScriptsPage empty state CTA. Vitest + RTL test: drop FDX file → assert FileTypeBadge shows 'FDX'; drop unsupported file → assert inline error shown.
+    </div>
+  </div>
+
+  <!-- Task #137 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#137</span><span class="label lbl-task">Task</span> <strong>Build import review UI with per-element confidence highlighting and type correction controls</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">8 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>src/components/ImportReviewPane.tsx</code>. Data source: <code>GET_IMPORT_REVIEW(importId)</code> GraphQL query returning elements with confidence data. Render elements in screenplay-formatted view (reuses screenplay CSS from EditorPage). Confidence highlighting: ≥ 0.95 → no highlight; 0.75–0.94 → <code>bg-amber-50</code> + amber badge; 0.50–0.74 → <code>bg-orange-50</code> + orange badge + 'Review recommended'; below 0.50 → <code>bg-red-50</code> + red badge + 'Must review'. Each element has inline <code>ElementTypeSelect</code> dropdown for type correction. Toolbar: Approve All, Approve Selected, Reject Element actions. Submit button sends <code>reviewComplete</code> mutation with <code>{ acceptedElements: [{ id, nodeType }] }</code>. Vitest test: 3 elements rendered; change type on element 2; submit; assert mutation called with corrected type.
+    </div>
+  </div>
+
+  <!-- Task #138 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#138</span><span class="label lbl-task">Task</span> <strong>Implement import progress tracking via GraphQL polling on Temporal workflow status</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">4 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Define <code>importStatus(importId: ID!)</code> GraphQL query in the Import Service subgraph: returns <code>{ status, currentStage, stageProgress, overallProgress, errorMessage, completedAt, scriptId }</code>. Implement a React hook <code>useImportProgress(importId)</code> that polls every 2 seconds via Apollo <code>useQuery</code> with <code>pollInterval: 2000</code>; stops polling when status reaches 'complete' or 'failed'. Create <code>ImportProgressBar.tsx</code>: progress bar with percentage fill; stage label colour-coded (blue=in-progress, orange=review required, green=complete, red=failed). On status='complete': call <code>onComplete(scriptId)</code> → navigate to <code>/scripts/{scriptId}/editor</code>. On status='failed': show <code>ErrorBanner</code> with errorMessage + retry button. Wire into <code>ImportModal</code> after upload.
+    </div>
+  </div>
+
+  <!-- Task #139 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#139</span><span class="label lbl-task">Task</span> <strong>Build batch import UI with zip upload, episode preview, and per-episode progress tracking</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 4</span> <span class="hours-badge">6 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>src/components/BatchImportPane.tsx</code>. Triggered when a .zip file is dropped. Steps: (1) Upload zip → POST <code>/import/batch/upload</code> → returns <code>{ batchId, episodes: [{ episodeNumber, filename, detectedFormat, estimatedSceneCount }] }</code>. (2) Episode list preview: table with episode number (inferred from filename), filename, format badge, estimated scene count; manual episode number correction via inline editable input. (3) Confirm → calls <code>startBatchImport(batchId, episodes)</code> mutation. (4) Progress view: per-episode <code>ProgressRow</code> with episode number + stage + % — rows update independently via polling. Failed episodes show retry button. (5) On all complete: summary card showing N episodes imported, total scene count, any warnings. Vitest test: mock batch upload returning 3 episodes; assert 3 rows rendered with correct inferred episode numbers.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 3.3 — Series Bible Service  (page break for print)
+═══════════════════════════════════════════════════════════════ -->
+<div class="page-break"></div>
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#140</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>3.3 — Series Bible Service</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 5</span>
+  </div>
+  <div class="description-text" style="margin-top:8px;">
+    The Series Bible Service manages a Neo4j Aura graph of characters, locations, props, world rules, story arcs, and lore facts. Every entity has a stable UUID, is project-scoped, and participates in a rich relationship graph (APPEARS_IN, SET_IN, HAS_VOICE, SUPERSEDES, RELATED_TO, PARTICIPATES_IN). The canon consistency checker uses graph traversal to detect contradictions between new facts and established ones. Voice profiles per character capture vocabulary, speech patterns, and forbidden words for AI grounding. Stub entities are auto-created when character and location names are detected on script checkpoint.
+    <br><em>Reference: Wiki/03-data-model.md Series Bible Graph, Wiki/15-roadmap.md Sprint 5.</em>
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Character, Location, Fact, Rule, VoiceProfile nodes created and queryable in Neo4j Aura</li>
+    <li>APPEARS_IN and SET_IN relationships created when character/location first linked to a script scene</li>
+    <li>Fact supersedure chain traversable: SUPERSEDES relationship queryable via Cypher path query</li>
+    <li>Canon consistency check: <code>validateScriptConsistency</code> gRPC returns <code>ConflictResult[]</code> for a contradictory test case</li>
+    <li>Voice profile stored with <code>vocabularyLevel</code>, <code>speechPatterns</code>, <code>forbiddenWords</code>, <code>referenceSceneIds</code></li>
+    <li>AI context gRPC methods (<code>getWorldRules</code>, <code>getCharacterFacts</code>, <code>getVoiceProfiles</code>) all returning correct data</li>
+    <li>Character and location stub nodes auto-created from <code>script.checkpointed</code> NATS events within 30s</li>
+    <li>Bible Service deployed to staging with Neo4j Aura connection; /health returns 200</li>
+  </ul>
+</div>
+
+<!-- US 3.3.1 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#141</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a writer I can create and manage characters, locations, facts, and world rules in the Series Bible</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 5</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">8 pts</span>
+    <span style="margin-left:8px;"><span class="tag">bible-service</span> <span class="tag">neo4j</span> <span class="tag">characters</span> <span class="tag">facts</span></span>
+  </div>
+  <div class="description-text">
+    The Series Bible is where showrunners and writers capture the living canon of their story: who the characters are, where scenes take place, what rules govern the story world, and what facts have been established across episodes. These entities are linked back to specific script scenes so writers can trace where any fact originated. All CRUD operations are project-scoped and support soft deactivation so facts are never lost but can be superseded.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Character node: create with <code>{ name, description, characterType ('protagonist','antagonist','supporting','minor') }</code>; read by id; update name and description; deactivate (<code>isActive=false</code>); link to scene via APPEARS_IN relationship with role</li>
+    <li>Location node: create with <code>{ name, locationType ('interior','exterior','both'), description }</code>; link to scene via SET_IN</li>
+    <li>Fact node: create with <code>{ factText, confidence, sourceSceneId, tags[] }</code>; SUPERSEDES relationship to previous fact when updating; supersedure chain traversable via path query</li>
+    <li>Rule node: create with <code>{ ruleText, category ('PHYSICAL','SOCIAL','NARRATIVE') }</code>; queryable by category; isActive toggle</li>
+    <li>All nodes carry: id (UUID), orgId, projectId, createdAt, updatedAt, isActive</li>
+    <li>CRUD operations all scoped by orgId + projectId; cross-project access returns 403 from gRPC</li>
+    <li>Soft delete: deactivate sets isActive=false; deactivated nodes excluded from default queries but retained for audit</li>
+  </ul>
+
+  <!-- Task #142 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#142</span><span class="label lbl-task">Task</span> <strong>Apply Neo4j Cypher constraints and vector index for the Series Bible Graph schema in <code>packages/db</code></strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>packages/db/migrations/bible/constraints.cypher</code> with all Cypher DDL from Wiki/03-data-model.md. Uniqueness constraints on id for: Character, Location, Fact, Rule, Arc, LoreEntry, VoiceProfile, SceneRef, EpisodeRef. Existence constraints on orgId for Character, Location, Fact, Rule. Vector index: <code>CALL db.index.vector.createNodeIndex('factEmbeddings', 'Fact', 'embedding', 1536, 'cosine')</code> for OpenAI text-embedding-3-large dimensions. Composite indexes: <code>CREATE INDEX char_project FOR (n:Character) ON (n.orgId, n.projectId)</code>; same for Location, Fact, Rule. Create migration runner <code>packages/db/scripts/apply-bible-constraints.ts</code>: connect to Neo4j Aura; apply all constraints idempotently (SHOW CONSTRAINTS → skip if exists). Run in CI and as a Kubernetes Job on deployment. Verify: SHOW CONSTRAINTS lists all 15+ constraints; SHOW INDEXES includes factEmbeddings.
+    </div>
+  </div>
+
+  <!-- Task #143 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#143</span><span class="label lbl-task">Task</span> <strong>Implement Bible Service character CRUD with APPEARS_IN scene linkage in Neo4j</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/bible/src/handlers/character.handler.ts</code>. gRPC: <code>CreateCharacter</code>, <code>GetCharacter</code>, <code>UpdateCharacter</code>, <code>DeactivateCharacter</code> (sets isActive=false), <code>LinkCharacterToScene</code> → creates APPEARS_IN relationship. Cypher for create: <code>CREATE (c:Character { id: $id, name: $name, description: $desc, characterType: $type, orgId: $orgId, projectId: $projectId, isActive: true, createdAt: datetime(), updatedAt: datetime() })</code>. Cypher for APPEARS_IN: <code>MATCH (c:Character {id: $cId}), (s:SceneRef {id: $sId}) CREATE (c)-[:APPEARS_IN { role: $role, linkedAt: datetime() }]-&gt;(s)</code>. SceneRef nodes created on first reference (MERGE pattern). Integration test: createCharacter → linkToScene → getCharacter → assert APPEARS_IN relationship.
+    </div>
+  </div>
+
+  <!-- Task #144 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#144</span><span class="label lbl-task">Task</span> <strong>Implement Bible Service location CRUD with SET_IN scene linkage in Neo4j</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/bible/src/handlers/location.handler.ts</code>. gRPC: <code>CreateLocation</code>, <code>GetLocation</code>, <code>UpdateLocation</code>, <code>DeactivateLocation</code>, <code>LinkLocationToScene</code>. Cypher patterns mirror Character handler with Location label and SET_IN relationship. Additional location properties: <code>intExt</code> (extracted from scene headings: INT.=interior, EXT.=exterior, INT./EXT.=both), <code>linkedSceneCount</code> (computed via COUNT query). <code>GetLocation</code> returns: <code>{ id, name, locationType, description, linkedSceneCount, linkedEpisodes, isActive }</code>. Integration test: createLocation → linkToScene via SET_IN → getLocation → assert <code>linkedSceneCount = 1</code>.
+    </div>
+  </div>
+
+  <!-- Task #145 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#145</span><span class="label lbl-task">Task</span> <strong>Implement Bible Service fact creation with provenance chain and SUPERSEDES relationship in Neo4j</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/bible/src/handlers/fact.handler.ts</code>. Cypher for create: <code>CREATE (f:Fact { id: $id, factText: $text, confidence: $confidence, tags: $tags, sourceSceneId: $sourceSceneId, orgId: $orgId, projectId: $projectId, isActive: true, createdAt: datetime() })</code>. On superseding: <code>MATCH (old:Fact {id: $oldId}) CREATE (new:Fact {...}) CREATE (new)-[:SUPERSEDES { reason: $reason, supersededAt: datetime() }]-&gt;(old) SET old.isActive = false</code>. Supersedure chain query: <code>MATCH path = (f:Fact {id: $id})-[:SUPERSEDES*0..10]-&gt;(ancestor) RETURN path</code>. On fact create: call OpenAI <code>text-embedding-3-large</code> API with factText; store as <code>embedding</code> property (float[1536]) for semantic search in Sprint 6. Integration test: createFact → supersedeFact → query chain → assert chain length = 2 → assert old fact isActive=false.
+    </div>
+  </div>
+
+  <!-- Task #146 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#146</span><span class="label lbl-task">Task</span> <strong>Implement Bible Service world rule CRUD with Rule node and category filtering</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/bible/src/handlers/rule.handler.ts</code>. World rules define the governing logic of the story universe (PHYSICAL: gravity/time travel; SOCIAL: faction interaction; NARRATIVE: genre conventions, plot constraints). gRPC: <code>CreateRule({ ruleText, category, orgId, projectId })</code> → <code>RuleResponse</code>; <code>GetRule</code>; <code>ListRules({ projectId, category? })</code> — optional category filter; <code>UpdateRule</code>; <code>DeactivateRule</code>. Cypher for ListRules: <code>MATCH (r:Rule { orgId: $orgId, projectId: $projectId, isActive: true }) WHERE r.category = $category OR $category IS NULL RETURN r ORDER BY r.createdAt</code>. Integration test: create 3 rules (1 PHYSICAL, 1 SOCIAL, 1 NARRATIVE) → listRules(category: PHYSICAL) → assert 1 result → listRules(no filter) → assert 3 results.
+    </div>
+  </div>
+</div>
+
+<!-- US 3.3.2 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#147</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a service consumer the Bible Service provides gRPC APIs for canon consistency checking, AI context assembly, and character voice profiles</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 5</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">13 pts</span>
+    <span style="margin-left:8px;"><span class="tag">bible-service</span> <span class="tag">grpc</span> <span class="tag">ai-context</span> <span class="tag">canon</span> <span class="tag">voice-profile</span></span>
+  </div>
+  <div class="description-text">
+    The AI Service in Sprint 6 will call the Bible Service to assemble context for dialogue suggestions and consistency checks. The Bible Service must expose reliable gRPC batch methods that return world rules, character facts, and voice profiles for a given project and character set. The canon consistency checker detects contradictions between new writer-asserted facts and established bible facts using graph traversal — it is the core of the AI-assisted canon guardian feature.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li><code>validateScriptConsistency(projectId, newFacts[])</code> gRPC: detects contradictions; returns <code>ConflictResult[]</code> with <code>{ existingFactId, newFactId, conflictType, severity: 'ERROR' | 'WARNING' | 'INFO' }</code></li>
+    <li>Voice profile stored per character: <code>{ vocabularyLevel, speechPatterns[], forbiddenWords[], referenceSceneIds[] }</code>; <code>CreateVoiceProfile</code>, <code>GetVoiceProfile</code>, <code>UpdateVoiceProfile</code> gRPC</li>
+    <li><code>getWorldRules(projectId)</code> returns all active Rule nodes for a project (used by AI context assembly)</li>
+    <li><code>getCharacterFacts(characterId, limit)</code> returns top-N active facts for a character ordered by confidence desc</li>
+    <li><code>getVoiceProfiles(characterIds[])</code> batch returns voice profiles for multiple characters in one call</li>
+    <li><code>BibleService</code> proto in <code>packages/proto/bible.proto</code>; <code>buf generate</code> produces TypeScript stubs with zero compile errors</li>
+    <li>Script Service subscribes to <code>script.checkpointed</code> NATS event; extracts character and location names; creates Character stub nodes (isStub=true) if name not already in bible within 30s of event</li>
+  </ul>
+
+  <!-- Task #148 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#148</span><span class="label lbl-task">Task</span> <strong>Implement <code>validateScriptConsistency</code> gRPC for canon conflict detection using Neo4j graph traversal</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/bible/src/handlers/consistency.handler.ts</code>. For each new fact: (1) Generate embedding via OpenAI <code>text-embedding-3-large</code>. (2) Semantic search in Neo4j vector index: <code>CALL db.index.vector.queryNodes('factEmbeddings', 10, $embedding) YIELD node, score WHERE node.projectId = $projectId AND node.isActive = true RETURN node, score</code>. (3) For each result with score &gt; 0.88 (high semantic similarity): run contradiction heuristic — if factText contains negation keywords (not, never, no longer, opposite) compared to similar established fact → classify as CONTRADICTION (severity ERROR); partially overlapping claims → WARNING. (4) Rule-based checks: if new fact asserts a character attribute that contradicts an existing character attribute fact for same character + same attribute type → ERROR. Integration test: establish fact 'Walter is a high school teacher' → validate with new fact 'Walter is a drug lord' → assert ConflictResult with severity ERROR.
+    </div>
+  </div>
+
+  <!-- Task #149 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#149</span><span class="label lbl-task">Task</span> <strong>Implement character voice profile CRUD with HAS_VOICE relationship in Neo4j</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/bible/src/handlers/voice-profile.handler.ts</code>. Each character has at most one VoiceProfile (one-to-one via HAS_VOICE). gRPC: <code>CreateVoiceProfile({ characterId, vocabularyLevel, speechPatterns[], forbiddenWords[], referenceSceneIds[] })</code>; if character already has profile → return ALREADY_EXISTS. <code>UpdateVoiceProfile</code>: SET on all fields + updatedAt. <code>GetVoiceProfile(characterId)</code>: <code>MATCH (c:Character {id: $cId})-[:HAS_VOICE]-&gt;(v:VoiceProfile) RETURN v</code>. <code>AddReferenceScene(profileId, sceneId)</code>: appends to <code>v.referenceSceneIds</code> array; max 5 enforced — return FAILED_PRECONDITION if at limit. Integration test: create character → create voice profile → add 3 reference scenes → getVoiceProfile → assert all fields correct → attempt to add 6th scene → assert FAILED_PRECONDITION.
+    </div>
+  </div>
+
+  <!-- Task #150 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#150</span><span class="label lbl-task">Task</span> <strong>Implement <code>getWorldRules</code>, <code>getCharacterFacts</code>, and <code>getVoiceProfiles</code> batch gRPC methods for AI context assembly</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/bible/src/handlers/ai-context.handler.ts</code>. Three gRPC methods optimised for AI context assembly (hot path for dialogue suggestions): (1) <code>GetWorldRules(projectId, category?)</code>: return all active Rule nodes; typically 5–20 per series. (2) <code>GetCharacterFacts(characterId, limit=20)</code>: <code>MATCH (f:Fact)-[:ABOUT]-&gt;(c:Character {id: $cId}) WHERE f.isActive = true RETURN f ORDER BY f.confidence DESC LIMIT $limit</code>. (3) <code>GetVoiceProfiles(characterIds[])</code>: batch lookup of voice profiles for up to 10 characters in a single Cypher query: <code>MATCH (c:Character)-[:HAS_VOICE]-&gt;(v:VoiceProfile) WHERE c.id IN $ids RETURN c.id, v</code>. All methods must complete in under 100ms for typical project sizes (benchmarked in integration tests). Read-only; no write side effects.
+    </div>
+  </div>
+
+  <!-- Task #151 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#151</span><span class="label lbl-task">Task</span> <strong>Define complete BibleService proto definitions in <code>packages/proto/bible.proto</code> with all RPC methods and message types</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Write <code>packages/proto/bible.proto</code>. Service BibleService: <code>CreateCharacter</code>, <code>GetCharacter</code>, <code>UpdateCharacter</code>, <code>DeactivateCharacter</code>, <code>LinkCharacterToScene</code>; <code>CreateLocation</code>, <code>GetLocation</code>, <code>UpdateLocation</code>, <code>LinkLocationToScene</code>; <code>CreateFact</code>, <code>SupersedeFact</code>, <code>GetFactChain</code>; <code>CreateRule</code>, <code>ListRules</code>; <code>CreateVoiceProfile</code>, <code>GetVoiceProfile</code>, <code>UpdateVoiceProfile</code>, <code>AddReferenceScene</code>; <code>ValidateScriptConsistency</code>; <code>GetWorldRules</code>; <code>GetCharacterFacts</code>; <code>GetVoiceProfiles</code> (batch). Key messages: <code>CharacterProto</code>, <code>FactProto</code>, <code>VoiceProfileProto</code>, <code>ConflictResult</code> with <code>ConflictSeverity</code> enum. Update <code>buf.gen.yaml</code>; run <code>buf generate</code>; verify TypeScript stubs compile with zero errors.
+    </div>
+  </div>
+
+  <!-- Task #152 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#152</span><span class="label lbl-task">Task</span> <strong>Implement NATS consumer in Script Service that extracts character and location names from checkpointed scenes and creates Bible stubs</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/script/src/consumers/bible-stub.consumer.ts</code>. Subscribe to NATS subject <code>scriptos.script.checkpointed</code> (durable consumer: <code>bible-stub</code>). On each event: (1) Fetch changed scene IDs. (2) Call <code>GetSceneSnapshot</code> gRPC for each changed scene to retrieve heading text and raw element text. (3) Extract character names: collect all <code>character_name</code> node textContent values from the scene's AST nodes. (4) Extract location names: parse <code>scene_heading</code> text — split on INT./EXT., extract location portion. (5) For each extracted name: call Bible Service <code>GetCharacterByName(name, projectId)</code> gRPC — if NOT_FOUND: call <code>CreateCharacter</code> with <code>isStub=true</code>. Same pattern for Location. Target: all stubs created within 30s of checkpoint event. Integration test: checkpoint event with 2 character names → verify 2 Character stub nodes created in Neo4j.
+    </div>
+  </div>
+</div>
+
+<!-- US 3.3.3 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#153</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a developer the Bible Service is deployed to staging with GraphQL subgraph, NATS integration, and Neo4j Aura connection</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 5</span>
+    <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span>
+    <span class="points-badge" style="margin-left:8px;">5 pts</span>
+    <span style="margin-left:8px;"><span class="tag">bible-service</span> <span class="tag">kubernetes</span> <span class="tag">graphql</span> <span class="tag">devops</span></span>
+  </div>
+  <div class="description-text">
+    Operational readiness for the Bible Service: Docker image, Kubernetes manifests, Neo4j Aura connection via ExternalSecret, NATS consumer running, and GraphQL subgraph federated into Apollo Router.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Bible Service GraphQL subgraph: <code>character(id) { facts { factText confidence } voiceProfile { forbiddenWords } }</code> query works through Apollo Router</li>
+    <li>Character, Location, Fact, and VoiceProfile types exposed in subgraph with <code>@key</code> federation directives</li>
+    <li>Bible Service Kubernetes Deployment: 2 replicas; Neo4j Aura URL from ExternalSecret; resource limits 500m CPU / 512Mi RAM</li>
+    <li><code>/health</code> returns <code>{ status: 'ok', neo4j: 'connected', version: '&lt;git-sha&gt;' }</code> — health check includes Neo4j ping</li>
+    <li>NATS consumer for <code>script.checkpointed</code> running; stub nodes created within 30s of checkpoint events (verified in staging)</li>
+    <li>Neo4j Cypher constraints and vector index applied via Kubernetes Job on deployment</li>
+    <li>Bible Service Docker image in CI release workflow; deployed to staging; <code>kubectl get pods</code> returns 2/2 Running</li>
+  </ul>
+
+  <!-- Task #154 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#154</span><span class="label lbl-task">Task</span> <strong>Implement Bible Service GraphQL subgraph with Character, Location, Fact, and VoiceProfile types and Apollo Federation directives</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">4 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>services/bible/src/graphql/schema.graphql</code>. Types: <code>Character @key(fields: "id") { id, name, description, characterType, isStub, facts: [Fact!]!, voiceProfile: VoiceProfile, linkedScenes: [SceneRef!]! }</code>; <code>Location @key(fields: "id") { id, name, locationType, description, linkedScenes: [SceneRef!]! }</code>; <code>Fact { id, factText, confidence, tags, isActive, sourceSceneId, supersededBy: Fact }</code>; <code>VoiceProfile { id, vocabularyLevel, speechPatterns, forbiddenWords, referenceSceneIds }</code>; <code>Rule { id, ruleText, category, isActive }</code>. Queries: <code>character(id)</code>, <code>characters(projectId, includeStubs)</code>, <code>location(id)</code>, <code>locations(projectId)</code>, <code>worldRules(projectId, category)</code>. Mutations: <code>createCharacter</code>, <code>updateCharacter</code>, <code>createFact</code>, <code>supersedeFact</code>, <code>createRule</code>, <code>createVoiceProfile</code>, <code>updateVoiceProfile</code>. Add Bible Service to <code>apps/gateway/supergraph.yaml</code>; run <code>rover supergraph compose</code>; verify <code>character(id) { facts { factText } }</code> works via Apollo Router.
+    </div>
+  </div>
+
+  <!-- Task #155 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#155</span><span class="label lbl-task">Task</span> <strong>Containerise Bible Service and deploy to GKE staging with Neo4j Aura connection and health check</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">8 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Create <code>services/bible/Dockerfile</code> extending <code>infra/docker/Dockerfile.service</code>. Create <code>infra/k8s/services/bible/deployment.yaml</code>: 2 replicas; env from ExternalSecret (NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, OPENAI_API_KEY, NATS_URL, SCRIPT_SERVICE_GRPC_URL); resource limits 500m CPU / 512Mi RAM; readinessProbe httpGet <code>/health</code> port 4005. Create <code>service.yaml</code>: ClusterIP ports 4005 (HTTP) and 4006 (gRPC). Create <code>infra/k8s/services/bible/neo4j-migration-job.yaml</code>: Kubernetes Job running <code>node packages/db/scripts/apply-bible-constraints.ts</code>; completions 1; backoffLimit 3. Add <code>/health</code> endpoint that calls <code>neo4j driver verifyConnectivity()</code> — if Neo4j unreachable returns 503. Deploy to staging; verify 2/2 Running and <code>/health</code> returns 200.
+    </div>
+  </div>
+
+  <!-- Task #156 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#156</span><span class="label lbl-task">Task</span> <strong>Implement Bible Service NATS JetStream consumer for <code>script.checkpointed</code> events to trigger stub creation</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">6 hrs</span> <span class="priority-1" style="margin-left:8px;">&#9679; Critical</span></div>
+    <div class="description-text">
+      Implement <code>services/bible/src/consumers/script-checkpoint.consumer.ts</code>. Create a NATS JetStream push consumer (durable name: <code>bible-checkpoint</code>) subscribing to stream <code>SCRIPT_EVENTS</code> with subject filter <code>scriptos.script.checkpointed</code>. On each message: (1) Parse <code>ScriptCheckpointedPayload</code>. (2) Call stub creation logic for each changedSceneId. (3) Acknowledge message after successful processing. (4) On error: nak with 5s delay; retry up to 5 times; after 5 failures send to dead-letter. Consumer startup: initialised in <code>services/bible/src/index.ts</code> before gRPC server starts. Integration test: publish a fake <code>script.checkpointed</code> event with 2 character names → verify 2 Character stub nodes in Neo4j within 5s.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURE 3.4 — Bible UI
+═══════════════════════════════════════════════════════════════ -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#157</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>3.4 — Bible UI</strong>
+    <span class="sprint-tag" style="margin-left:8px;">Sprint 5</span>
+  </div>
+  <div class="description-text" style="margin-top:8px;">
+    The Sprint 5 frontend delivers the Series Bible panel — a tabbed sidebar in the main editor layout showing Characters, Locations, Props, and Lore. Writers can browse and edit bible entities inline, navigate from a character name in the script directly to their bible entry, and see real-time canon violation banners when new facts contradict established canon.
+    <br><em>Reference: Wiki/15-roadmap.md Sprint 5 frontend tasks.</em>
+  </div>
+  <div class="section-label">Feature Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Bible panel: tabbed view with Characters, Locations, Props, Lore tabs rendered as a collapsible right sidebar in the editor layout</li>
+    <li>Character detail: name, description, facts list (editable), voice profile editor, reference scene picker</li>
+    <li>Location detail: name, type, linked scenes list</li>
+    <li>Bible ↔ editor: character names in dialogue highlighted as clickable links; clicking opens that character's detail in Bible panel</li>
+    <li>Canon conflict banner shown in editor header when <code>validateScriptConsistency</code> returns conflicts</li>
+    <li>Stub characters (isStub=true) shown with a 'Needs enrichment' badge; writers can click to fill in details</li>
+  </ul>
+</div>
+
+<!-- US 3.4.1 -->
+<div class="story-box" style="margin-left:20px;">
+  <div>
+    <span class="id-badge">#158</span>
+    <span class="label lbl-story">User Story</span>
+    <strong>As a writer I can browse and edit the Series Bible from the editor and see canon violations highlighted inline</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 5</span>
+    <span class="priority-2" style="margin-left:8px;">&#9679; High</span>
+    <span class="points-badge" style="margin-left:8px;">8 pts</span>
+    <span style="margin-left:8px;"><span class="tag">frontend</span> <span class="tag">bible-panel</span> <span class="tag">canon</span></span>
+  </div>
+  <div class="description-text">
+    The Bible panel gives writers an always-available reference to their story world without leaving the editor. The bible ↔ editor integration makes character names in scripts first-class navigation targets. Canon conflict banners surface contradictions the moment a writer adds a new fact, before it spreads to the rest of the team.
+  </div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Bible panel opens as a collapsible right sidebar (320px wide) from a book icon in the editor toolbar; state persisted in localStorage</li>
+    <li>Characters tab: list of characters with name, type badge, stub indicator; search/filter by name; clicking opens character detail view</li>
+    <li>Character detail view: name, description, type, facts list (factText + confidence badge + sourceScene link), voice profile section (vocabularyLevel dropdown, forbiddenWords chips, referenceScenes); all fields editable via mutation calls with Apollo optimistic updates</li>
+    <li>Locations tab: list of locations; location detail shows name, type, linked scenes count</li>
+    <li>Props and Lore tabs: stub views showing count and entity list (full CRUD deferred to Sprint 12)</li>
+    <li>Bible ↔ editor integration: <code>character_name</code> nodes matching a bible character wrapped in 'bible-mention' mark (underlined); hovering shows tooltip with character description; clicking opens Bible panel to that character</li>
+    <li>Canon conflict banner: red sticky banner below editor toolbar; 'Canon conflict: N contradiction(s) detected' with Review button; shown when <code>validateScriptConsistency</code> returns conflicts; dismissed per session</li>
+    <li>Auto-stub indicator: isStub=true characters shown with dashed border + 'Add details' CTA in character list</li>
+  </ul>
+
+  <!-- Task #159 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#159</span><span class="label lbl-task">Task</span> <strong>Build Bible panel with tabbed navigation and collapsible sidebar layout in the editor</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">8 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>src/editor/components/BiblePanel.tsx</code>. Integrate into EditorPage layout as a right sidebar (CSS flex or grid; editor area shrinks when panel is open). Toggle button: book icon in EditorToolbar; state in localStorage key <code>bible-panel-open</code>. BiblePanel renders a Tabs component (Radix UI Tabs): tabs array ['Characters', 'Locations', 'Props', 'Lore']. Characters tab: <code>useGetCharactersQuery(projectId)</code> Apollo hook; <code>CharacterList</code> with search input (client-side filter on name); each <code>CharacterListItem</code> shows name + <code>CharacterTypeBadge</code> + isStub indicator (dashed border). Locations tab: <code>LocationList</code>. Props and Lore tabs: 'Coming in Sprint 12' empty states. Panel width: 320px; overflow-y: auto. Vitest test: render BiblePanel with mocked characters query returning 3 characters; assert 3 <code>CharacterListItem</code> components rendered; test stub indicator shown for isStub=true character.
+    </div>
+  </div>
+
+  <!-- Task #160 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#160</span><span class="label lbl-task">Task</span> <strong>Build character detail view with facts list and voice profile editor in the Bible panel</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">8 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>src/editor/components/CharacterDetail.tsx</code>. Sections: (1) Header: name (editable h2 with click-to-edit pattern), <code>CharacterTypeBadge</code>, stub badge if isStub. (2) Description: editable textarea. (3) Facts list: each <code>FactItem</code> shows factText, confidence badge (colour per threshold), sourceScene link, isActive toggle, Add New Fact button → <code>FactCreateForm</code>. (4) Voice profile: vocabularyLevel Select (BASIC, CONVERSATIONAL, SOPHISTICATED, TECHNICAL), speechPatterns tag input (chips), forbiddenWords tag input (red chips), referenceSceneIds scene picker. All edits call useMutation: <code>updateCharacter</code>, <code>createFact</code>, <code>createVoiceProfile</code> or <code>updateVoiceProfile</code>. Apollo optimistic updates for facts list. Vitest test: render CharacterDetail with mocked character; add a fact; assert <code>createFact</code> mutation called with correct factText.
+    </div>
+  </div>
+
+  <!-- Task #161 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#161</span><span class="label lbl-task">Task</span> <strong>Build location detail view with linked scenes list in the Bible panel</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">6 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>src/editor/components/LocationDetail.tsx</code>. Sections: (1) Header: location name (editable), <code>LocationTypeBadge</code> (Interior=blue, Exterior=green, Both=teal). (2) Description: editable textarea. (3) Linked scenes: list of SceneRef nodes linked via SET_IN — each shows sceneNumber, headingText, episode title; clicking a scene navigates the editor to that scene via the same scroll mechanism as the Scene Panel. (4) Facts section: same <code>FactItem</code> list but scoped to location facts. Data from <code>useGetLocationQuery(locationId)</code> including <code>linkedScenes { sceneNumber headingText episodeTitle }</code> and <code>facts { factText confidence }</code>. Vitest test: render LocationDetail with 3 linked scenes; assert 3 scene links rendered; click first link; assert scroll command fired.
+    </div>
+  </div>
+
+  <!-- Task #162 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#162</span><span class="label lbl-task">Task</span> <strong>Implement Bible-to-editor integration with character name detection and click-to-bible navigation</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">8 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>apps/web/src/editor/extensions/BibleMentionMark.ts</code> as a TipTap Mark extension. Logic: (1) TipTap Plugin using <code>afterTransaction</code> hook: scan all <code>character_name</code> nodes in the document; extract text content. (2) Query <code>useBibleCharactersQuery(projectId)</code> (cached, refreshed every 30s) to get known character names. (3) For each <code>character_name</code> node matching a bible character: apply the 'bible-mention' mark. CSS: text-decoration underline dotted; cursor pointer. Click handler: open Bible panel and navigate to CharacterDetail for that character's id. Hover tooltip: show <code>TooltipCard</code> with character description from Apollo cache. Stub characters: tooltip shows 'Stub — click to add details' with dashed underline style. Performance: debounce the scan to max 2 per second. Vitest test: editor with character node 'WALTER'; bible characters include Walter; assert bible-mention mark applied.
+    </div>
+  </div>
+
+  <!-- Task #163 -->
+  <div class="task-box" style="margin-left:20px;">
+    <div><span class="id-badge">#163</span><span class="label lbl-task">Task</span> <strong>Implement canon conflict banner shown in editor header when <code>validateScriptConsistency</code> returns conflicts</strong></div>
+    <div class="meta-row"><span class="sprint-tag">Sprint 5</span> <span class="hours-badge">4 hrs</span> <span class="priority-2" style="margin-left:8px;">&#9679; High</span></div>
+    <div class="description-text">
+      Create <code>src/editor/components/ConflictBanner.tsx</code>. Trigger: after each checkpoint event (listen via GraphQL subscription or poll every 60s). Call <code>validateScriptConsistencyQuery(projectId, recentFacts)</code>. If <code>response.conflicts.length &gt; 0</code>: show sticky <code>ConflictBanner</code> below EditorToolbar (red background, icon + 'Canon conflict: {N} contradiction(s) detected'). Review button opens <code>ConflictReviewModal</code>: table of conflicts with <code>{ existingFact, newFact, conflictType, severity }</code>; each row has Acknowledge / Resolve buttons. Dismiss button hides banner for current session (sessionStorage). Severity badge: ERROR=red, WARNING=amber, INFO=blue. Vitest test: render with 2 conflicts; assert banner text shows '2 contradiction(s)'; click Review; assert modal opens with 2 rows; click Dismiss; assert banner hidden.
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
