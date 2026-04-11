@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScriptOS Backlog — Epic 5: Production Planning</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 2cm; color: #1a1a1a; }
+  h1 { font-size: 20pt; color: #1F3864; border-bottom: 3px solid #1F3864; padding-bottom: 6px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #2E4D9A; border-bottom: 2px solid #2E4D9A; padding-bottom: 4px; margin-top: 28px; }
+  .epic-box { background: #EFF3FB; border-left: 6px solid #1F3864; padding: 14px 18px; margin-bottom: 24px; border-radius: 4px; }
+  .feature-box { background: #F2F7FF; border-left: 5px solid #2E4D9A; padding: 12px 16px; margin: 18px 0 10px 0; border-radius: 3px; }
+  .story-box { background: #F9FDF4; border-left: 4px solid #375623; padding: 10px 14px; margin: 14px 0 8px 0; border-radius: 3px; }
+  .task-box { background: #FFFBF5; border-left: 3px solid #843C0C; padding: 8px 12px; margin: 8px 0 4px 0; border-radius: 2px; }
+  .label { display: inline-block; font-size: 8pt; font-weight: bold; padding: 2px 7px; border-radius: 10px; margin-right: 6px; text-transform: uppercase; }
+  .lbl-epic { background: #1F3864; color: white; }
+  .lbl-feature { background: #2E4D9A; color: white; }
+  .lbl-story { background: #375623; color: white; }
+  .lbl-task { background: #843C0C; color: white; }
+  .meta-row { font-size: 9pt; color: #555; margin: 4px 0 8px 0; }
+  .tag { background: #E8EEF6; padding: 1px 6px; border-radius: 3px; font-size: 8.5pt; margin-right: 4px; }
+  .sprint-tag { background: #FFF3CD; border: 1px solid #FFC107; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #856404; }
+  .section-label { font-size: 9pt; font-weight: bold; color: #666; text-transform: uppercase; margin: 8px 0 3px 0; }
+  .description-text { font-size: 10.5pt; margin: 4px 0 8px 0; line-height: 1.5; }
+  ul.ac-list { margin: 4px 0; padding-left: 18px; }
+  ul.ac-list li { font-size: 10pt; margin-bottom: 3px; line-height: 1.4; }
+  .id-badge { font-size: 8pt; color: #999; font-family: monospace; margin-right: 8px; }
+  .priority-1 { color: #C00000; font-weight: bold; }
+  .priority-2 { color: #E36C09; font-weight: bold; }
+  .points-badge { background: #EBF5FB; border: 1px solid #2E4D9A; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #1a3a6b; font-weight: bold; margin-right: 8px; }
+  .hours-badge { background: #FEF9E7; border: 1px solid #F0B429; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #7D5A00; }
+  .divider { border: none; border-top: 1px solid #E0E0E0; margin: 10px 0; }
+</style>
+</head>
+<body>
+<h1>ScriptOS Backlog — Epic 5: Production Planning</h1>
+<p style="font-size:10pt; color:#555; margin-bottom:20px;">
+  <strong>Project:</strong> ScriptOS &nbsp;|&nbsp; <strong>Sprints:</strong> 7–8 (Weeks 15–18) &nbsp;|&nbsp;
+  <strong>Generated:</strong> 2026-04-11 &nbsp;|&nbsp;
+  <strong>Total items:</strong> 1 Epic · 4 Features · 5 User Stories · 21 Tasks
+</p>
+
+<div class="epic-box">
+  <div><span class="id-badge">#199</span><span class="label lbl-epic">Epic</span><strong style="font-size:14pt;">Production Planning — Scheduling, Budget &amp; Publish Saga</strong></div>
+  <div class="meta-row" style="margin-top:6px;"><span class="sprint-tag">Sprints 7–8</span> <span class="priority-1" style="margin-left:10px;">&#9679; Priority: Critical</span> <span style="margin-left:10px;"><span class="tag">scheduling</span><span class="tag">budget</span><span class="tag">publish-saga</span><span class="tag">temporal</span></span></div>
+  <div class="section-label" style="margin-top:10px;">Description</div>
+  <div class="description-text">Build the three production planning services that transform a completed script breakdown into an actionable shooting schedule, budget, and a locked production version: (1) <strong>Scheduling Service</strong> — OR-Tools constraint solver, stripboard management, DOOD tables; (2) <strong>Budget Service</strong> — budget lines, account codes, EP Budgeting XLSX export; (3) <strong>Publish-to-Production Saga</strong> — full seven-step Temporal workflow with compensation, 24h escalation timers, 48h auto-approve, and parallel/sequential approval routing. The <strong>Notification Service</strong> (SendGrid email + WebSocket push) is also delivered in this epic to support the approval workflow. <em>Reference: Wiki/15-roadmap.md Sprints 7–8, Wiki/07-workflow-orchestration.md, Wiki/08-production-modules.md.</em></div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>OR-Tools solver produces valid schedule for 30-scene test project in &lt; 5s</li>
+    <li>Stripboard drag-and-drop works; manual overrides preserved across solver re-runs</li>
+    <li>DOOD table calculates W/H/T/F correctly for all characters</li>
+    <li>Full publish saga runs end-to-end: lock → validate → breakdown → schedule → budget → approval → lock</li>
+    <li>Approval email sent via SendGrid; in-app notification received within 2s</li>
+    <li>Compensation fires in correct reverse order on rejection</li>
+    <li>48h auto-approve fires correctly in Temporal time-skipping integration test</li>
+    <li>Budget XLSX export validates against EP Budgeting account code structure</li>
+    <li>All services deployed to staging with passing health checks</li>
+  </ul>
+</div>
+
+<!-- FEATURE: SCHEDULING -->
+<div class="feature-box">
+  <div><span class="id-badge">#200</span><span class="label lbl-feature">Feature</span><strong>Scheduling Service — Stripboard, OR-Tools Solver and Day-Out-of-Days</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 7</span> <span class="priority-1">&#9679; Critical</span> <span class="tag">scheduling</span><span class="tag">or-tools</span><span class="tag">dood</span></div>
+  <div class="description-text">Build the Scheduling Service: PostgreSQL stripboard persistence, OR-Tools CP-SAT constraint solver (scene ordering, location grouping, company move minimisation, SAG cast conflicts), DOOD matrix calculation, gRPC methods for the publish-saga (computeVersionDelta, rollbackDelta), and NATS consumer for breakdown.updated events.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#204</span><span class="label lbl-story">User Story</span><strong>As a 1st AD I can generate an optimised shooting schedule with OR-Tools and override by drag-and-drop</strong></div>
+    <div class="meta-row"><span class="points-badge">8 pts</span><span class="sprint-tag">Sprint 7</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="description-text">OR-Tools reduces schedule generation from days to seconds. Manual overrides are sacred — they must never be overwritten by subsequent solver runs (is_manual_override = true flag). DOOD table supports SAG-AFTRA compliance reporting.</div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Solver runs in &lt; 5s for 30 scenes, 5 locations, 8 characters on staging</li>
+      <li>Re-solve preview modal shows before/after comparison; user confirms or discards</li>
+      <li>Manual overrides (is_manual_override = true) preserved across solver re-runs</li>
+      <li>DOOD: W/H/T/F designations correct for all characters; CSV export works</li>
+      <li>computeVersionDelta and rollbackDelta callable by Temporal publish-saga</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#209</span><span class="label lbl-task">Task</span> Create Atlas DDL: scheduling.shoot_days, scene_schedule_assignments, schedule_versions, dood_entries <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#210</span><span class="label lbl-task">Task</span> Implement OR-Tools CP-SAT solver with location grouping, company move minimisation, and cast conflict avoidance <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#211</span><span class="label lbl-task">Task</span> Build scheduling CRUD gRPC: createShootDay, assignScene, manualOverrideScene, triggerSolve, computeVersionDelta, rollbackDelta <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#212</span><span class="label lbl-task">Task</span> Implement DOOD calculation (W/H/T/F matrix) and CSV export REST endpoint <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#213</span><span class="label lbl-task">Task</span> Build NATS consumer for breakdown.updated → incremental OR-Tools re-solve of affected shoot days <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#214</span><span class="label lbl-task">Task</span> Write packages/proto/scheduling.proto; build Scheduling GraphQL subgraph with ShootDay, SceneAssignment, DOODRow types <span class="hours-badge">6h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE: BUDGET -->
+<div class="feature-box">
+  <div><span class="id-badge">#201</span><span class="label lbl-feature">Feature</span><strong>Budget Service — Budget Lines, Account Codes and EP Budgeting Export</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 8</span> <span class="priority-1">&#9679; Critical</span> <span class="tag">budget</span><span class="tag">export</span><span class="tag">xlsx</span></div>
+  <div class="description-text">Manage ATL/BTL/Post budget lines, account codes (AICP standard), version delta computation for publish-saga, and EP Budgeting-compatible XLSX export with correct account code column structure.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#205</span><span class="label lbl-story">User Story</span><strong>As a producer I can create and edit budget lines and export to EP Budgeting format</strong></div>
+    <div class="meta-row"><span class="points-badge">5 pts</span><span class="sprint-tag">Sprint 8</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="description-text">Budget management drives financing and studio approval. EP Budgeting is the industry-standard software — XLSX export must match its template precisely for round-trip compatibility.</div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Budget lines CRUD via gRPC and GraphQL; totals update in real-time</li>
+      <li>computeVersionDelta / rollbackDelta callable by Temporal publish-saga</li>
+      <li>XLSX export: EP Budgeting column structure; correct account codes; ATL/BTL/POST sections; grand total</li>
+      <li>Budget GraphQL: <code>budget { totalAboveTheLine totalBelowTheLine }</code> resolves</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#215</span><span class="label lbl-task">Task</span> Create Atlas DDL: budget.budget_lines, account_codes (seeded with AICP codes), budget_versions, budget_deltas <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#216</span><span class="label lbl-task">Task</span> Build budget CRUD gRPC: createBudgetLine, updateBudgetLine, deleteBudgetLine, computeVersionDelta, rollbackDelta, lockBudgetVersion <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#217</span><span class="label lbl-task">Task</span> Implement EP Budgeting XLSX export using ExcelJS with account code groups, subtotals, and contingency summary sheet <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#218</span><span class="label lbl-task">Task</span> Build Budget Service GraphQL subgraph with BudgetLine, AccountCode, BudgetSummary types and mutations <span class="hours-badge">6h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE: PUBLISH SAGA -->
+<div class="feature-box">
+  <div><span class="id-badge">#202</span><span class="label lbl-feature">Feature</span><strong>Publish-to-Production Saga — Temporal Workflow with Approval Routing and Compensation</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 8</span> <span class="priority-1">&#9679; Critical</span> <span class="tag">publish-saga</span><span class="tag">temporal</span><span class="tag">approval</span><span class="tag">compensation</span></div>
+  <div class="description-text">Implement the full 7-step Temporal publish saga with compensation stack, 24h escalation timers, 48h auto-approve, parallel/sequential approval routing, and approval signals from approvers. Temporal's durable execution ensures the workflow survives process restarts.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#206</span><span class="label lbl-story">User Story</span><strong>As a writer or producer I can publish a script to production triggering the full seven-step Temporal approval saga</strong></div>
+    <div class="meta-row"><span class="points-badge">13 pts</span><span class="sprint-tag">Sprint 8</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="description-text">The publish workflow is the system's most critical operation — it locks the script and routes it through legal, planning, and approval gates. Temporal provides durability; compensation ensures clean rollback on rejection.</div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>'Publish to Production' triggers Temporal workflow; saga ID stored in DB</li>
+      <li>Saga status updates in real-time via WebSocket push through all 7 steps</li>
+      <li>On rejection: compensation fires in correct reverse order; script unlocked</li>
+      <li>48h auto-approve fires in Temporal time-skipping integration test</li>
+      <li>24h escalation notification sent to manager-role users</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#219</span><span class="label lbl-task">Task</span> Deploy Temporal publish-saga worker pod; implement all 7 activities with compensation stack <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#220</span><span class="label lbl-task">Task</span> Implement approval routing with parallel/sequential chains, 24h escalation timers, and 48h auto-approve signals <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#221</span><span class="label lbl-task">Task</span> Create Atlas DDL: workflow.approval_chain_configs, approval_requests; seed TV_EPISODE template <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#222</span><span class="label lbl-task">Task</span> Build Legal Service stub: validateScriptPolicy always returns { passed: true } (full implementation in Sprint 15) <span class="hours-badge">4h</span></div>
+  </div>
+  <div class="story-box">
+    <div><span class="id-badge">#207</span><span class="label lbl-story">User Story</span><strong>As an approver I can review and act on approval requests with script diff, schedule delta, and budget delta</strong></div>
+    <div class="meta-row"><span class="points-badge">8 pts</span><span class="sprint-tag">Sprint 8</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="description-text">Approvers need to see exactly what changed — script diff, schedule delta, budget impact — before deciding. Time-sensitive decisions require clear escalation paths and deadline countdowns.</div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Approval inbox shows pending requests with deadline countdown timer</li>
+      <li>Detail page: tabbed Script Changes / Schedule Delta / Budget Delta views</li>
+      <li>Approve sends signal to Temporal; status updated immediately</li>
+      <li>Reject requires mandatory comment; compensation begins immediately</li>
+      <li>Decided requests archived with timestamp and actor</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#229</span><span class="label lbl-task">Task</span> Build approval inbox and detail view with script diff, schedule delta, budget delta tabs and approve/reject actions <span class="hours-badge">8h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE: NOTIFICATION -->
+<div class="feature-box">
+  <div><span class="id-badge">#203</span><span class="label lbl-feature">Feature</span><strong>Notification Service — Email and In-App WebSocket Push</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 8</span> <span class="priority-2">&#9679; High</span> <span class="tag">notification</span><span class="tag">sendgrid</span><span class="tag">websocket</span></div>
+  <div class="description-text">SendGrid email delivery for approval requests, escalations, and auto-approvals. In-app WebSocket push for real-time notification delivery to active users. GraphQL subscription for notification updates.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#208</span><span class="label lbl-story">User Story</span><strong>As a crew member I receive email and in-app notifications for approval requests and saga status updates</strong></div>
+    <div class="meta-row"><span class="points-badge">5 pts</span><span class="sprint-tag">Sprint 8</span><span class="priority-2">&#9679; High</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Approval request email delivered within 30s via SendGrid</li>
+      <li>In-app notification delivered within 2s for active users (WebSocket push)</li>
+      <li>Notification badge increments in nav header</li>
+      <li>GraphQL subscription fires on new notification payload</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#223</span><span class="label lbl-task">Task</span> Create Atlas DDL: notifications.notification_events, emails; build SendGrid email integration with templates <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#224</span><span class="label lbl-task">Task</span> Build in-app WebSocket push via NATS → WebSocket Gateway; GraphQL subscription; notification drawer UI <span class="hours-badge">6h</span></div>
+  </div>
+</div>
+
+<!-- FRONTEND TASKS -->
+<h2 style="color:#5C3D8F; border-color:#5C3D8F;">Frontend Tasks — Sprints 7–8</h2>
+<div class="task-box"><span class="id-badge">#225</span><span class="label lbl-task">Task</span> Build stripboard UI: shoot days as columns, scenes as draggable cards (@dnd-kit), OR-Tools solve button with preview modal <span class="hours-badge">8h</span></div>
+<div class="task-box"><span class="id-badge">#226</span><span class="label lbl-task">Task</span> Build DOOD table with colour-coded W/H/T/F cells, sticky headers, and CSV export button <span class="hours-badge">6h</span></div>
+<div class="task-box"><span class="id-badge">#227</span><span class="label lbl-task">Task</span> Build budget panel: ATL/BTL/POST sections, inline edit, running totals, locked state, and XLSX export trigger <span class="hours-badge">8h</span></div>
+<div class="task-box"><span class="id-badge">#228</span><span class="label lbl-task">Task</span> Build Publish button, confirmation modal, and real-time saga status stepper with WebSocket updates <span class="hours-badge">8h</span></div>
+
+<hr class="divider">
+<p style="font-size:9pt; color:#888; margin-top:16px;">ScriptOS Backlog · Epic 5 of 10 · Sprints 7–8 (Weeks 15–18) · Generated 2026-04-11</p>
+</body>
+</html>

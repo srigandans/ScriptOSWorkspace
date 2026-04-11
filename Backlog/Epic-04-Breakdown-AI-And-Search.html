@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScriptOS Backlog — Epic 4: Breakdown, AI &amp; Search</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 2cm; color: #1a1a1a; }
+  h1 { font-size: 20pt; color: #1F3864; border-bottom: 3px solid #1F3864; padding-bottom: 6px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #2E4D9A; border-bottom: 2px solid #2E4D9A; padding-bottom: 4px; margin-top: 28px; }
+  h3 { font-size: 13pt; color: #2E75B6; margin-top: 20px; }
+  h4 { font-size: 11pt; color: #375623; margin-top: 14px; font-style: italic; }
+  .epic-box { background: #EFF3FB; border-left: 6px solid #1F3864; padding: 14px 18px; margin-bottom: 24px; border-radius: 4px; }
+  .feature-box { background: #F2F7FF; border-left: 5px solid #2E4D9A; padding: 12px 16px; margin: 18px 0 10px 0; border-radius: 3px; }
+  .story-box { background: #F9FDF4; border-left: 4px solid #375623; padding: 10px 14px; margin: 14px 0 8px 0; border-radius: 3px; }
+  .task-box { background: #FFFBF5; border-left: 3px solid #843C0C; padding: 8px 12px; margin: 8px 0 4px 0; border-radius: 2px; }
+  .label { display: inline-block; font-size: 8pt; font-weight: bold; padding: 2px 7px; border-radius: 10px; margin-right: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .lbl-epic { background: #1F3864; color: white; }
+  .lbl-feature { background: #2E4D9A; color: white; }
+  .lbl-story { background: #375623; color: white; }
+  .lbl-task { background: #843C0C; color: white; }
+  .meta-row { font-size: 9pt; color: #555; margin: 4px 0 8px 0; }
+  .meta-row span { margin-right: 16px; }
+  .meta-row .tag { background: #E8EEF6; padding: 1px 6px; border-radius: 3px; font-size: 8.5pt; }
+  table.ac-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 10pt; }
+  table.ac-table th { background: #F0F0F0; padding: 5px 8px; text-align: left; font-weight: bold; border: 1px solid #CCC; }
+  table.ac-table td { padding: 4px 8px; border: 1px solid #DDD; vertical-align: top; }
+  .section-label { font-size: 9pt; font-weight: bold; color: #666; text-transform: uppercase; margin: 8px 0 3px 0; }
+  .description-text { font-size: 10.5pt; margin: 4px 0 8px 0; line-height: 1.5; }
+  ul.ac-list { margin: 4px 0; padding-left: 18px; }
+  ul.ac-list li { font-size: 10pt; margin-bottom: 3px; line-height: 1.4; }
+  .divider { border: none; border-top: 1px solid #E0E0E0; margin: 10px 0; }
+  .id-badge { font-size: 8pt; color: #999; font-family: monospace; margin-right: 8px; }
+  .sprint-tag { background: #FFF3CD; border: 1px solid #FFC107; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #856404; }
+  .milestone-tag { background: #D4EDDA; border: 1px solid #28A745; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #155724; }
+  .priority-1 { color: #C00000; font-weight: bold; }
+  .priority-2 { color: #E36C09; font-weight: bold; }
+  .points-badge { background: #EBF5FB; border: 1px solid #2E4D9A; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #1a3a6b; font-weight: bold; }
+  .hours-badge { background: #FEF9E7; border: 1px solid #F0B429; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #7D5A00; }
+  @media print { .page-break { page-break-before: always; } }
+</style>
+</head>
+<body>
+
+<h1>ScriptOS Backlog — Epic 4: Breakdown, AI &amp; Search</h1>
+<p style="font-size:10pt; color:#555; margin-bottom:20px;">
+  <strong>Project:</strong> ScriptOS &nbsp;|&nbsp;
+  <strong>Sprint:</strong> 6 (Weeks 13–14) &nbsp;|&nbsp;
+  <strong>Milestone:</strong> <span class="milestone-tag">&#9733; Alpha — 10 External Writers</span> &nbsp;|&nbsp;
+  <strong>Generated:</strong> 2026-04-11 &nbsp;|&nbsp;
+  <strong>Total items:</strong> 1 Epic · 3 Features · 5 User Stories · 26 Tasks
+</p>
+
+<!-- EPIC -->
+<div class="epic-box">
+  <div>
+    <span class="id-badge">#164</span>
+    <span class="label lbl-epic">Epic</span>
+    <strong style="font-size:14pt;">Breakdown, AI &amp; Search</strong>
+  </div>
+  <div class="meta-row" style="margin-top:6px;">
+    <span class="sprint-tag">Sprint 6</span>
+    <span class="milestone-tag" style="margin-left:8px;">Alpha Milestone</span>
+    <span class="priority-1" style="margin-left:10px;">&#9679; Priority: Critical</span>
+    <span style="margin-left:10px;"><span class="tag">breakdown</span> <span class="tag">ai</span> <span class="tag">search</span> <span class="tag">alpha</span> <span class="tag">wga</span></span>
+  </div>
+  <div class="section-label" style="margin-top:10px;">Description</div>
+  <div class="description-text">
+    Deliver three services that transform ScriptOS into an intelligent production platform: (1) the <strong>Breakdown Service</strong>, which auto-detects production elements (characters, locations, props, wardrobe, VFX, stunts) from the Script AST using NLP within 30 seconds of every checkpoint event; (2) the <strong>AI Service</strong>, which provides WGA Article 72-compliant dialogue suggestions, format corrections, and consistency checks with full ledger tracking, company consent gating, Anthropic prompt caching, and org-level token quotas; and (3) the <strong>Search Service</strong>, which indexes all script content in Elasticsearch 8.9+ for sub-500ms hybrid BM25 + vector search with native RRF.
+    <br><br>
+    This epic concludes at the <strong>Alpha milestone (Week 14)</strong>: 10 external writers invited to use the editor, Series Bible, and AI suggestions.
+    <br><em>Reference: Wiki/15-roadmap.md Sprint 6, Wiki/05-ai-governance.md, Wiki/08-production-modules.md.</em>
+  </div>
+  <div class="section-label">Acceptance Criteria (Epic-level Definition of Done)</div>
+  <ul class="ac-list">
+    <li>Breakdown elements auto-detected for 5 test scenes with ≥ 80% F1 vs hand-tagged ground truth</li>
+    <li>Breakdown re-triggered within 30s of <code>script.checkpointed</code> NATS event for changed scenes</li>
+    <li>AI <code>dialogue_suggestion</code> end-to-end: consent → context assembly → Anthropic API → character guard → ledger write → suggestions displayed in UI</li>
+    <li>AI ledger DELETE trigger verified: deletion attempt raises DB exception; entries are permanent</li>
+    <li>Professional org quota of 500K tokens enforced; 429 returned with <code>Retry-After</code> on exhaustion</li>
+    <li>Search results returned within 500ms (P95) for a 100-scene test script on staging</li>
+    <li>Breakdown Service, AI Service, Search Service all deployed to staging with health checks passing</li>
+    <li><strong>Alpha milestone:</strong> 10 external writers onboarded with editor + bible + AI access</li>
+  </ul>
+</div>
+
+<!-- FEATURE 1: BREAKDOWN -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#165</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>Breakdown Service — NLP Element Detection and Production Catalog</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 6</span>
+    <span class="priority-1" style="margin-left:10px;">&#9679; Priority: Critical</span>
+    <span style="margin-left:10px;"><span class="tag">breakdown</span> <span class="tag">nlp</span> <span class="tag">grpc</span></span>
+  </div>
+  <div class="description-text">Auto-detect production elements from Script AST checkpoint events and expose a version-locked catalog. NLP pipeline identifies characters (matched against Bible stubs), locations (parsed from scene headings), and six other categories using NER and keyword matching. Each detection carries a confidence score. The catalog is version-controlled and immutable after publish-saga lock.</div>
+
+  <!-- US 168 -->
+  <div class="story-box">
+    <div>
+      <span class="id-badge">#168</span>
+      <span class="label lbl-story">User Story</span>
+      <strong>As a producer I can see auto-detected breakdown elements for every scene</strong>
+    </div>
+    <div class="meta-row"><span class="points-badge">8 pts</span> <span class="sprint-tag">Sprint 6</span> <span class="priority-1">&#9679; Critical</span></div>
+    <div class="description-text">Manual breakdown entry takes 2–4 days for a feature film. Auto-detection reduces that to hours. The breakdown panel groups elements by category with confidence badges for rapid human verification. Version-locking after publish ensures the breakdown used for scheduling is stable.</div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Breakdown panel shows auto-detected elements per scene grouped by category (Cast, Locations, Props, Wardrobe, VFX, Stunts)</li>
+      <li>HIGH badge (≥ 0.9) green; MEDIUM (0.7–0.9) amber; LOW (&lt; 0.7) red</li>
+      <li>Elements refresh within 30s after a checkpoint event</li>
+      <li>After publish lock: elements show padlock; add/edit/delete controls hidden</li>
+      <li>F1 ≥ 80% on 5 test scenes vs hand-tagged ground truth</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#173</span><span class="label lbl-task">Task</span> Create Atlas DDL schema for breakdown.elements, breakdown.categories, breakdown.versions, breakdown.element_history tables <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#174</span><span class="label lbl-task">Task</span> Implement NLP element detection pipeline for all production element categories (characters, locations, props, wardrobe, VFX, stunts) <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#175</span><span class="label lbl-task">Task</span> Build NATS JetStream consumer subscribing to script.checkpointed and triggering NLP re-detection for changed scenes <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#176</span><span class="label lbl-task">Task</span> Implement extractBreakdownFromVersion gRPC method callable by Temporal publish-saga (idempotent) <span class="hours-badge">6h</span></div>
+  </div>
+
+  <!-- US 169 -->
+  <div class="story-box">
+    <div>
+      <span class="id-badge">#169</span>
+      <span class="label lbl-story">User Story</span>
+      <strong>As a 1st AD I can manually add, edit, and remove breakdown elements to correct auto-detections</strong>
+    </div>
+    <div class="meta-row"><span class="points-badge">5 pts</span> <span class="sprint-tag">Sprint 6</span> <span class="priority-2">&#9679; High</span></div>
+    <div class="description-text">NLP is imperfect. A 1st AD must correct missed elements, edit mis-categorised detections, and delete false positives. Manual edits survive re-detection runs — <code>is_manual = true</code> elements are never overwritten by the NLP pipeline.</div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Manual add: creates element with is_manual = true, confidence = 1.0; survives NLP re-detection</li>
+      <li>Edit: saves immediately with optimistic UI update; rollback on gRPC error</li>
+      <li>Delete: removes after confirmation; undo snackbar for 5 seconds</li>
+      <li>Version-locked elements: mutation returns 409; UI disables all controls</li>
+      <li>Manual elements show pen icon to distinguish from NLP detections</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#177</span><span class="label lbl-task">Task</span> Build breakdown catalog CRUD gRPC methods (create, update, delete) with manual override flag and version-lock enforcement <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#178</span><span class="label lbl-task">Task</span> Build Breakdown Service GraphQL subgraph with BreakdownElement, BreakdownCategory types and Scene type extension <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#179</span><span class="label lbl-task">Task</span> Write packages/proto/breakdown.proto with complete BreakdownService RPC definitions and run buf generate <span class="hours-badge">4h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 2: AI SERVICE -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#166</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>AI Service — WGA-Compliant Dialogue Suggestions and AI Governance</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 6</span>
+    <span class="priority-1" style="margin-left:10px;">&#9679; Priority: Critical</span>
+    <span style="margin-left:10px;"><span class="tag">ai</span> <span class="tag">wga</span> <span class="tag">consent</span> <span class="tag">ledger</span> <span class="tag">anthropic</span></span>
+  </div>
+  <div class="description-text">Build the AI Service with WGA Article 72 compliance at its core: company consent model, per-feature writer opt-in, context assembler with prompt caching, Claude Haiku/Sonnet/Opus model router, Anthropic SDK integration, immutable AI ledger with DB trigger, <code>dialogue_suggestion</code> and <code>format_correction</code> features, and Redis org token quota + per-user soft limits.</div>
+
+  <!-- US 170 -->
+  <div class="story-box">
+    <div>
+      <span class="id-badge">#170</span>
+      <span class="label lbl-story">User Story</span>
+      <strong>As a writer I can request AI dialogue suggestions with WGA-compliant consent and full ledger tracking</strong>
+    </div>
+    <div class="meta-row"><span class="points-badge">8 pts</span> <span class="sprint-tag">Sprint 6</span> <span class="priority-1">&#9679; Critical</span></div>
+    <div class="description-text">WGA Article 72 compliance is non-negotiable. Company must enable AI features. Writer must opt in per feature type. Every request and writer action is logged in the immutable AI ledger with prompt hash and modification delta. Character voice forbidden_words are checked before returning any suggestion.</div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>First use: consent banner shown; toggle stores ai.feature_consents row</li>
+      <li>Cmd+Shift+A triggers: consent check → context assembly → Claude Sonnet call → character guard → ledger write → 2–3 suggestions displayed</li>
+      <li>Accept: writer_action = 'accepted', modification_delta = '' logged to ledger</li>
+      <li>Modify: writer_action = 'modified', modification_delta = character diff logged</li>
+      <li>Reject: writer_action = 'rejected' logged</li>
+      <li>Forbidden word in suggestion: suggestion withheld; warning shown inline</li>
+      <li>Ledger entry not deletable: DB trigger raises exception on DELETE attempt</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#180</span><span class="label lbl-task">Task</span> Create Atlas DDL for ai.company_consents, ai.feature_consents, ai.ledger_entries tables with immutability trigger <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#181</span><span class="label lbl-task">Task</span> Build AI context assembler constructing cacheable Bible prefix and fresh per-request suffix for Anthropic prompt caching <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#182</span><span class="label lbl-task">Task</span> Implement model router selecting Claude Haiku / Sonnet / Opus by feature tier and org plan <span class="hours-badge">4h</span></div>
+    <div class="task-box"><span class="id-badge">#183</span><span class="label lbl-task">Task</span> Integrate Anthropic SDK (claude-sonnet-4-6) with prompt caching headers; verify cache_read_input_tokens in usage <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#184</span><span class="label lbl-task">Task</span> Build AI ledger write service and verify DB immutability trigger blocks deletion (real DB integration test) <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#185</span><span class="label lbl-task">Task</span> Implement dialogue_suggestion feature end-to-end: consent → context → model → character guard → ledger write → response <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#186</span><span class="label lbl-task">Task</span> Implement format_correction feature — always-on Tier 1, Claude Haiku, no consent check required <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#187</span><span class="label lbl-task">Task</span> Build AI Service GraphQL subgraph with AISuggestion, AILedgerEntry, CompanyConsent types and mutations <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#188</span><span class="label lbl-task">Task</span> Write packages/proto/ai.proto with AIService RPC definitions and run buf generate <span class="hours-badge">4h</span></div>
+  </div>
+
+  <!-- US 171 -->
+  <div class="story-box">
+    <div>
+      <span class="id-badge">#171</span>
+      <span class="label lbl-story">User Story</span>
+      <strong>As an org admin AI token quota is enforced per organisation and I can view consumption analytics</strong>
+    </div>
+    <div class="meta-row"><span class="points-badge">5 pts</span> <span class="sprint-tag">Sprint 6</span> <span class="priority-2">&#9679; High</span></div>
+    <div class="description-text">Uncontrolled AI costs are a real SaaS risk. Professional orgs have 500K tokens/month enforced via Redis token bucket. Admin dashboard shows real-time consumption, cost estimates, and per-user/per-feature breakdowns. Soft-limit warning at 80% allows proactive management.</div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Professional quota: 500K tokens/month; 429 with Retry-After returned when exhausted</li>
+      <li>Indie tier: generative features return 403 with upgrade prompt</li>
+      <li>Admin dashboard: total tokens consumed, estimated cost (USD), per-user + per-feature breakdown tables</li>
+      <li>80% soft limit: warning notification sent to org admin via in-app + email</li>
+      <li>Quota resets on 1st of each month; reset logged in audit trail</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#189</span><span class="label lbl-task">Task</span> Implement Redis Lua token bucket rate limiting for org-level monthly quota and per-user soft limits <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#190</span><span class="label lbl-task">Task</span> Build AI usage aggregation queries for admin dashboard and WGA compliance report REST export endpoint <span class="hours-badge">6h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 3: SEARCH -->
+<div class="feature-box">
+  <div>
+    <span class="id-badge">#167</span>
+    <span class="label lbl-feature">Feature</span>
+    <strong>Search Service — Elasticsearch Hybrid Indexing and Query</strong>
+  </div>
+  <div class="meta-row">
+    <span class="sprint-tag">Sprint 6</span>
+    <span class="priority-2" style="margin-left:10px;">&#9679; Priority: High</span>
+    <span style="margin-left:10px;"><span class="tag">search</span> <span class="tag">elasticsearch</span> <span class="tag">embeddings</span> <span class="tag">rrf</span></span>
+  </div>
+  <div class="description-text">Configure Elasticsearch 8.9+ <code>script_content</code> index with BM25 text fields and OpenAI text-embedding-3-large dense_vector field (3072 dims). Index updated within 60s of checkpoint events via NATS consumer. Hybrid queries use native Elasticsearch RRF. Search GraphQL subgraph federated into Apollo Router.</div>
+
+  <!-- US 172 -->
+  <div class="story-box">
+    <div>
+      <span class="id-badge">#172</span>
+      <span class="label lbl-story">User Story</span>
+      <strong>As a writer I can search all script content and receive relevance-ranked results in under 500ms using hybrid keyword and semantic search</strong>
+    </div>
+    <div class="meta-row"><span class="points-badge">5 pts</span> <span class="sprint-tag">Sprint 6</span> <span class="priority-2">&#9679; High</span></div>
+    <div class="description-text">Writers navigate large multi-episode series by intent ("the scene where Walter first sees the RV"), not just keywords. Hybrid BM25 + semantic search powered by Elasticsearch RRF gives far better recall. The Cmd+K command palette keeps search instantly accessible.</div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Cmd+K opens search palette from anywhere in the web app</li>
+      <li>Results returned in &lt; 500ms (P95) for 100-scene script on staging hardware</li>
+      <li>Each result shows: scene number badge, heading, matched excerpt with highlighted terms</li>
+      <li>Clicking a result navigates editor to that scene, scrolled into view</li>
+      <li>Semantic query without exact keywords returns correct scene in top 3 (human eval)</li>
+      <li>Index updated within 60s of any checkpoint; new/edited scenes immediately searchable</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#191</span><span class="label lbl-task">Task</span> Create Elasticsearch script_content index mapping with BM25 text fields and dense_vector field (3072 dims, HNSW) <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#192</span><span class="label lbl-task">Task</span> Build NATS consumer subscribing to script.checkpointed and re-indexing changed scenes with OpenAI embeddings <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#193</span><span class="label lbl-task">Task</span> Implement hybrid BM25 + dense vector search using Elasticsearch native RRF (rank_constant=60, window_size=100) <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#194</span><span class="label lbl-task">Task</span> Build Search Service GraphQL subgraph with SearchResult type and searchScripts query with optional facet filters <span class="hours-badge">4h</span></div>
+  </div>
+</div>
+
+<!-- FRONTEND TASKS (Cross-cutting) -->
+<h2 style="color:#5C3D8F; border-color:#5C3D8F;">Frontend Tasks — Sprint 6</h2>
+<div class="task-box"><span class="id-badge">#195</span><span class="label lbl-task">Task</span> Build AI suggestion panel: request, display 2–3 options, accept/reject/modify with ledger update mutations <span class="hours-badge">8h</span></div>
+<div class="task-box"><span class="id-badge">#196</span><span class="label lbl-task">Task</span> Build AI consent settings UI with per-feature toggle list, company consent status row, and consent history <span class="hours-badge">6h</span></div>
+<div class="task-box"><span class="id-badge">#197</span><span class="label lbl-task">Task</span> Build breakdown panel with scene accordion grouped by category, confidence badges, manual add form, and lock indicator <span class="hours-badge">8h</span></div>
+<div class="task-box"><span class="id-badge">#198</span><span class="label lbl-task">Task</span> Build search command palette (Cmd+K) with debounced results, highlighted excerpts, and scene navigation <span class="hours-badge">6h</span></div>
+
+<hr class="divider">
+<p style="font-size:9pt; color:#888; margin-top:16px;">ScriptOS Backlog · Epic 4 of 10 · Sprint 6 (Weeks 13–14) · Alpha Milestone · Generated 2026-04-11</p>
+</body>
+</html>

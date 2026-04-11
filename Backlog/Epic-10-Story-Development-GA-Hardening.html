@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScriptOS Backlog — Epic 10: Story Development, GA Hardening &amp; Launch</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 2cm; color: #1a1a1a; }
+  h1 { font-size: 20pt; color: #1F3864; border-bottom: 3px solid #1F3864; padding-bottom: 6px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #2E4D9A; border-bottom: 2px solid #2E4D9A; padding-bottom: 4px; margin-top: 28px; }
+  .epic-box { background: #EFF3FB; border-left: 6px solid #1F3864; padding: 14px 18px; margin-bottom: 24px; border-radius: 4px; }
+  .feature-box { background: #F2F7FF; border-left: 5px solid #2E4D9A; padding: 12px 16px; margin: 18px 0 10px 0; border-radius: 3px; }
+  .story-box { background: #F9FDF4; border-left: 4px solid #375623; padding: 10px 14px; margin: 14px 0 8px 0; border-radius: 3px; }
+  .task-box { background: #FFFBF5; border-left: 3px solid #843C0C; padding: 8px 12px; margin: 8px 0 4px 0; border-radius: 2px; }
+  .label { display: inline-block; font-size: 8pt; font-weight: bold; padding: 2px 7px; border-radius: 10px; margin-right: 6px; text-transform: uppercase; }
+  .lbl-epic { background: #1F3864; color: white; } .lbl-feature { background: #2E4D9A; color: white; }
+  .lbl-story { background: #375623; color: white; } .lbl-task { background: #843C0C; color: white; }
+  .meta-row { font-size: 9pt; color: #555; margin: 4px 0 8px 0; }
+  .tag { background: #E8EEF6; padding: 1px 6px; border-radius: 3px; font-size: 8.5pt; margin-right: 4px; }
+  .sprint-tag { background: #FFF3CD; border: 1px solid #FFC107; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #856404; }
+  .milestone-tag { background: #D4EDDA; border: 1px solid #28A745; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #155724; }
+  .section-label { font-size: 9pt; font-weight: bold; color: #666; text-transform: uppercase; margin: 8px 0 3px 0; }
+  .description-text { font-size: 10.5pt; margin: 4px 0 8px 0; line-height: 1.5; }
+  ul.ac-list { margin: 4px 0; padding-left: 18px; }
+  ul.ac-list li { font-size: 10pt; margin-bottom: 3px; line-height: 1.4; }
+  .id-badge { font-size: 8pt; color: #999; font-family: monospace; margin-right: 8px; }
+  .priority-1 { color: #C00000; font-weight: bold; } .priority-2 { color: #E36C09; font-weight: bold; }
+  .points-badge { background: #EBF5FB; border: 1px solid #2E4D9A; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #1a3a6b; font-weight: bold; margin-right: 8px; }
+  .hours-badge { background: #FEF9E7; border: 1px solid #F0B429; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #7D5A00; }
+  .divider { border: none; border-top: 1px solid #E0E0E0; margin: 10px 0; }
+</style>
+</head>
+<body>
+<h1>ScriptOS Backlog — Epic 10: Story Development, GA Hardening &amp; Launch</h1>
+<p style="font-size:10pt; color:#555; margin-bottom:20px;">
+  <strong>Project:</strong> ScriptOS &nbsp;|&nbsp; <strong>Sprints:</strong> 17–18 (Weeks 35–38) &nbsp;|&nbsp;
+  <strong>Milestone:</strong> <span class="milestone-tag">&#9733; GA — Full Platform Available</span> &nbsp;|&nbsp;
+  <strong>Generated:</strong> 2026-04-11 &nbsp;|&nbsp;
+  <strong>Total items:</strong> 1 Epic · 4 Features · 4 User Stories · 14 Tasks
+</p>
+
+<div class="epic-box">
+  <div><span class="id-badge">#305</span><span class="label lbl-epic">Epic</span><strong style="font-size:14pt;">Story Development, GA Hardening &amp; Launch</strong></div>
+  <div class="meta-row" style="margin-top:6px;"><span class="sprint-tag">Sprints 17–18</span> <span class="milestone-tag" style="margin-left:8px;">&#9733; GA Milestone</span> <span class="priority-1" style="margin-left:10px;">&#9679; Priority: Critical</span> <span style="margin-left:10px;"><span class="tag">story-development</span><span class="tag">beat-board</span><span class="tag">ga-hardening</span><span class="tag">y-redis</span><span class="tag">scim</span><span class="tag">onboarding</span><span class="tag">dr</span></span></div>
+  <div class="section-label" style="margin-top:10px;">Description</div>
+  <div class="description-text">Sprint 17 delivers the story development layer: beat board data model (Neo4j beats → scenes with arc assignment), arc CRUD (protagonist/antagonist/subplot), beat board UI (index cards on virtual corkboard with drag-to-reorder), arc swimlane view, accounting export (EP Budgeting XLSX), Elasticsearch BM25/RRF tuning with Recall@10 ≥ 15% improvement, faceted search, and cross-episode continuity timeline UI. Sprint 18 is GA hardening: separate production GKE cluster, multi-region DR (Postgres read replica, RPO &lt; 5 min, RTO &lt; 15 min), PagerDuty alerting, Tier 1 incident runbooks, Atlas migration rollback verification, Unleash P2 feature flags (default off), y-redis migration (Hocuspocus → y-redis for horizontal CRDT scaling), pricing enforcement (Indie/Professional tiers), full SCIM provisioning, onboarding flow (&lt; 5 min), empty state UX, in-app help, mobile-responsive web, and error states. <strong>GA milestone at Sprint 18 end (Week 38).</strong> <em>Reference: Wiki/15-roadmap.md Sprints 17–18.</em></div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Beat board UI: index cards reorderable and linked to script scenes</li>
+    <li>Cross-episode continuity timeline rendered for a 3-episode test project</li>
+    <li>Accounting export produces valid EP Budgeting XLSX (opens in Excel without errors)</li>
+    <li>Hybrid search tuned: Recall@10 improved ≥ 15%; faceted filters working</li>
+    <li>Production GKE cluster live; DNS pointing to production environment</li>
+    <li>DR failover tested: RPO &lt; 5 min; RTO &lt; 15 min</li>
+    <li>Onboarding flow completed by new user in &lt; 5 minutes</li>
+    <li>y-redis deployed and tested with 20 concurrent CRDT editors</li>
+    <li>All Tier 1 runbooks written and reviewed</li>
+    <li><strong>GA milestone: Full platform available</strong></li>
+  </ul>
+</div>
+
+<!-- FEATURE 1 -->
+<div class="feature-box">
+  <div><span class="id-badge">#306</span><span class="label lbl-feature">Feature</span><strong>Story Development — Beat Boards and Arc View</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 17</span> <span class="priority-2">&#9679; High</span> <span class="tag">story-development</span><span class="tag">beat-board</span><span class="tag">arc</span><span class="tag">neo4j</span></div>
+  <div class="description-text">Neo4j beat board data model: Beat nodes (id, type, beatType, title, description, storyDayId, arcId, sceneId, orderIndex) linked to scenes via HAS_BEAT relationships. BeatArc nodes (protagonist, antagonist, subplot) with CRUD in Bible Service. Beat board UI: index cards on virtual corkboard with drag-to-reorder. Arc swimlane view: character arcs across story day axis. Cross-episode continuity timeline: all story days from all episodes in one unified view.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#310</span><span class="label lbl-story">User Story</span><strong>As a writer I can visualise my story structure on a beat board and track character arcs across the full series timeline</strong></div>
+    <div class="meta-row"><span class="points-badge">13 pts</span><span class="sprint-tag">Sprint 17</span><span class="priority-2">&#9679; High</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Beat board shows index cards for all beats in corkboard layout</li>
+      <li>Cards drag to reorder; order updates persist across sessions</li>
+      <li>Each card shows beat type, arc, title, and linked scene chip</li>
+      <li>Arc swimlane renders protagonist/antagonist/subplot arcs across story day axis</li>
+      <li>Cross-episode continuity timeline shows all story days from all episodes in unified chronological view</li>
+      <li>On-set assertions visible as pins on the timeline</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#314</span><span class="label lbl-task">Task</span> Implement Beat board data model in Neo4j: Beat node (id, beatType, title, description, storyDayId, arcId, sceneId, orderIndex); BeatArc node (id, type, name, characterId); arc CRUD gRPC in Bible Service; NATS event <code>bible.beat.created</code> on beat creation <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#315</span><span class="label lbl-task">Task</span> Build beat board GraphQL subgraph extension in Bible Service: Beat and BeatArc types; createBeat, updateBeat, reorderBeats, deleteArc mutations; beatsForScript and arcsForProject queries; Beat field added to Scene type via @key federation <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#316</span><span class="label lbl-task">Task</span> Build beat board UI: virtual corkboard canvas (@dnd-kit) with index cards; card shows beatType, arc, title and scene link chip; drag-to-reorder calls reorderBeats mutation; new card form in slide-over panel; colour coded by beat type (setup/confrontation/resolution) <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#317</span><span class="label lbl-task">Task</span> Build arc swimlane view: horizontal swimlane per arc across story day axis; beat cards placed at story day positions; cross-episode continuity timeline calling timelineView(projectId) API showing all story days with assertion pins <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#318</span><span class="label lbl-task">Task</span> Continuity Service: implement timelineView(projectId) gRPC method returning all StoryDay nodes across all episodes sorted by story day number with assertions and violation counts; extend GraphQL subgraph with continuitySummary(projectId) query; response time &lt; 200 ms for 100 story days <span class="hours-badge">6h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 2 -->
+<div class="feature-box">
+  <div><span class="id-badge">#307</span><span class="label lbl-feature">Feature</span><strong>Budget Accounting Export and Hybrid Search Hardening</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 17</span> <span class="priority-2">&#9679; High</span> <span class="tag">budget</span><span class="tag">accounting</span><span class="tag">search</span><span class="tag">elasticsearch</span><span class="tag">facets</span></div>
+  <div class="description-text">Budget Service: accountingExport generating EP Budgeting-compatible XLSX with correct account code mapping, fringes, and totals. Elasticsearch hybrid search hardening: offline eval harness on 200-query golden set; BM25 b/k1 parameter tuning; RRF vector weight optimisation targeting Recall@10 ≥ 15% improvement. Faceted aggregations (episode, scene_type, character, status) with filter UI.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#311</span><span class="label lbl-story">User Story</span><strong>As a production accountant I can export the ScriptOS budget in EP Budgeting XLSX format and search for specific elements using faceted filters</strong></div>
+    <div class="meta-row"><span class="points-badge">8 pts</span><span class="sprint-tag">Sprint 17</span><span class="priority-2">&#9679; High</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>EP Budgeting export: account codes map correctly; XLSX opens in Excel without errors; all cost lines present; fringes calculated; summary totals match line totals</li>
+      <li>Download completes within 10 s for a 500-line budget</li>
+      <li>Faceted search: episode filter returns only scenes from selected episode</li>
+      <li>Character filter returns only scenes featuring that character speaking</li>
+      <li>Combined facets AND-compose correctly; search results ranked by BM25 + vector RRF</li>
+      <li>Recall@10 improves ≥ 15% vs baseline on 200-query golden set</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#319</span><span class="label lbl-task">Task</span> Budget Service: implement accountingExport(budgetId) generating EP Budgeting-compatible XLSX; map ScriptOS account codes to EP Budgeting schema; write to S3 presigned URL; expose via GraphQL mutation exportToEPBudgeting; validate XLSX opens in Excel without errors <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#320</span><span class="label lbl-task">Task</span> Elasticsearch hybrid search tuning: run eval harness on 200-query golden set; tune BM25 b (0.3–0.8) and k1 (0.8–2.0) and RRF vector weight; implement faceted aggregations (episode, scene_type, character, status); add faceted filter UI in advanced search panel; assert Recall@10 ≥ 15% improvement <span class="hours-badge">8h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 3 -->
+<div class="feature-box">
+  <div><span class="id-badge">#308</span><span class="label lbl-feature">Feature</span><strong>GA Infrastructure — Production Environment, Disaster Recovery and Observability</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 18</span> <span class="priority-1">&#9679; Critical</span> <span class="tag">devops</span><span class="tag">gke</span><span class="tag">dr</span><span class="tag">y-redis</span><span class="tag">pagerduty</span><span class="tag">runbooks</span></div>
+  <div class="description-text">Separate production GKE Autopilot cluster from staging. Postgres read replica in secondary GCP region with failover drill (RPO &lt; 5 min, RTO &lt; 15 min). PagerDuty integration with P99/error-rate/disk alert rules. Tier 1 incident runbooks (DB failover, NATS outage, Temporal stuck workflow, cert expiry). Atlas migration rollback procedure verified on staging. Unleash feature flags for all 13 P2 features (default off). y-redis migration: Hocuspocus → y-redis Deployment + HPA + Worker for horizontal CRDT scaling.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#312</span><span class="label lbl-story">User Story</span><strong>As a DevOps engineer the production environment is live with disaster recovery tested and monitoring in place before GA</strong></div>
+    <div class="meta-row"><span class="points-badge">13 pts</span><span class="sprint-tag">Sprint 18</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Production GKE cluster provisioned; DNS and TLS configured; all 15 services healthy</li>
+      <li>Smoke test: create project → import FDX → publish saga completes → watermark verified</li>
+      <li>Postgres read replica replicating; replication lag &lt; 30 s under normal load</li>
+      <li>DR failover drill: primary shutdown → replica promoted → traffic restored within RTO &lt; 15 min; data loss &lt; 5 min (RPO)</li>
+      <li>PagerDuty alert fires within 60 s of P99 threshold breach; on-call rotation configured</li>
+      <li>4 Tier 1 runbooks in team knowledge base and reviewed</li>
+      <li>Atlas: migration apply + rollback round-trip tested on staging successfully</li>
+      <li>y-redis handles 20 concurrent CRDT editors without data loss; Hocuspocus deployment removed</li>
+      <li>13 P2 Unleash flags created and default off in production</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#321</span><span class="label lbl-task">Task</span> DevOps: provision production GKE Autopilot cluster; configure DNS + TLS (cert-manager); deploy all 15 services with production-grade resource limits; run smoke test (create project → FDX import → publish saga → watermark verify) <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#322</span><span class="label lbl-task">Task</span> DevOps: provision Postgres read replica in secondary GCP region (Cloud SQL cross-region); configure connection string failover; run DR drill (primary shutdown → manual failover → RTO measurement); document RPO/RTO results in runbook <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#323</span><span class="label lbl-task">Task</span> DevOps: configure PagerDuty integration in Prometheus Alertmanager; define alert rules (P99 &gt; 1 s, error_rate &gt; 1%, disk &gt; 80%, pod crash loop); write 4 Tier 1 runbooks (DB failover / NATS outage / Temporal stuck workflow / cert expiry); verify Atlas migration rollback on staging <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#324</span><span class="label lbl-task">Task</span> y-redis migration: replace Hocuspocus with y-redis Deployment + HPA (min 2 max 10 replicas) + y-redis Worker; update Collaboration Service to connect to y-redis; configure Redis CRDT stream key prefix; load test 20 concurrent editors for 30 min; assert zero data loss and Loro state convergence after partition simulation <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#325</span><span class="label lbl-task">Task</span> DevOps: create Unleash feature flags for all 13 P2 features (table-read-tts, native-player, location-scouting, multilingual-export, pitch-deck-gen, marketplace, mobile-app-ios, budget-actuals, callsheet-pdf-v2, search-semantic-v2, ai-storyboard, watermark-digimarc, legal-marketplace); all default off; SDK integration verified within 30 s of toggle <span class="hours-badge">4h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 4 -->
+<div class="feature-box">
+  <div><span class="id-badge">#309</span><span class="label lbl-feature">Feature</span><strong>GA Product Polish — Pricing Enforcement, SCIM, Onboarding and UX</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 18</span> <span class="priority-2">&#9679; High</span> <span class="tag">pricing</span><span class="tag">scim</span><span class="tag">onboarding</span><span class="tag">ux</span><span class="tag">mobile</span></div>
+  <div class="description-text">Pricing enforcement: Indie tier blocks AI generation beyond monthly quota (402); Professional token cap enforced via Redis sliding window counter. Full SCIM 2.0 provisioning endpoint for enterprise SSO (RFC 7644 POST/PATCH/GET; Okta connector tested). Onboarding wizard (4 steps: org create → project create → import → invite collaborator). Empty state UX for all panels. In-app help (? shortcut → keyboard cheat sheet). Mobile-responsive web (768 px tablet breakpoint). Error states with toast notifications and no blank screens. Reference: ADR-029 pricing; Wiki/11-security-compliance.md SCIM.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#313</span><span class="label lbl-story">User Story</span><strong>As an enterprise admin I can provision and deprovision users automatically via SCIM and team members complete onboarding in under 5 minutes</strong></div>
+    <div class="meta-row"><span class="points-badge">8 pts</span><span class="sprint-tag">Sprint 18</span><span class="priority-2">&#9679; High</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>SCIM POST creates user and triggers welcome email; SCIM PATCH with active=false deactivates user and revokes JWT</li>
+      <li>SCIM GET with filter=userName returns correct user; Okta SCIM connector test provisions and deprovisions successfully</li>
+      <li>Indie quota block returns 402 with quota_exceeded error code after 50 AI generations/month</li>
+      <li>Professional token cap enforced via Redis sliding window; correct 429 response when cap exceeded</li>
+      <li>New user completes 4-step onboarding in &lt; 5 minutes in usability test</li>
+      <li>All empty states render with actionable CTA buttons</li>
+      <li>? key opens help modal with full keyboard shortcut reference</li>
+      <li>Editor and dashboard usable on 768 px viewport with no horizontal scroll</li>
+      <li>Any GraphQL error shows toast notification; no blank white screens on any route</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#326</span><span class="label lbl-task">Task</span> Auth Service: implement full SCIM 2.0 endpoints (/scim/v2/Users and /scim/v2/Groups) per RFC 7644; support POST/PATCH/GET with filter; test with Okta SCIM connector; pricing middleware: Indie tier blocks AI mutations at monthly quota (402 quota_exceeded); Professional tier enforces token cap via Redis counter <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#327</span><span class="label lbl-task">Task</span> Frontend: implement 4-step onboarding wizard (org create → project create → script import → invite collaborator); empty state components for script list / scene list / breakdown / schedule / budget; in-app help (? shortcut → keyboard cheat sheet modal); mobile-responsive CSS at 768 px; error state toast components — no blank screens on any API failure <span class="hours-badge">8h</span></div>
+  </div>
+</div>
+
+<hr class="divider">
+<p style="font-size:9pt; color:#888; margin-top:16px;">ScriptOS Backlog · Epic 10 of 10 · Sprints 17–18 (Weeks 35–38) · GA Milestone · Generated 2026-04-11</p>
+</body>
+</html>

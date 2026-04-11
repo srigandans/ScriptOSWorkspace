@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScriptOS Backlog — Epic 9: Legal, Rights &amp; Compliance</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 2cm; color: #1a1a1a; }
+  h1 { font-size: 20pt; color: #1F3864; border-bottom: 3px solid #1F3864; padding-bottom: 6px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #2E4D9A; border-bottom: 2px solid #2E4D9A; padding-bottom: 4px; margin-top: 28px; }
+  .epic-box { background: #EFF3FB; border-left: 6px solid #1F3864; padding: 14px 18px; margin-bottom: 24px; border-radius: 4px; }
+  .feature-box { background: #F2F7FF; border-left: 5px solid #2E4D9A; padding: 12px 16px; margin: 18px 0 10px 0; border-radius: 3px; }
+  .story-box { background: #F9FDF4; border-left: 4px solid #375623; padding: 10px 14px; margin: 14px 0 8px 0; border-radius: 3px; }
+  .task-box { background: #FFFBF5; border-left: 3px solid #843C0C; padding: 8px 12px; margin: 8px 0 4px 0; border-radius: 2px; }
+  .label { display: inline-block; font-size: 8pt; font-weight: bold; padding: 2px 7px; border-radius: 10px; margin-right: 6px; text-transform: uppercase; }
+  .lbl-epic { background: #1F3864; color: white; } .lbl-feature { background: #2E4D9A; color: white; }
+  .lbl-story { background: #375623; color: white; } .lbl-task { background: #843C0C; color: white; }
+  .meta-row { font-size: 9pt; color: #555; margin: 4px 0 8px 0; }
+  .tag { background: #E8EEF6; padding: 1px 6px; border-radius: 3px; font-size: 8.5pt; margin-right: 4px; }
+  .sprint-tag { background: #FFF3CD; border: 1px solid #FFC107; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #856404; }
+  .section-label { font-size: 9pt; font-weight: bold; color: #666; text-transform: uppercase; margin: 8px 0 3px 0; }
+  .description-text { font-size: 10.5pt; margin: 4px 0 8px 0; line-height: 1.5; }
+  ul.ac-list { margin: 4px 0; padding-left: 18px; }
+  ul.ac-list li { font-size: 10pt; margin-bottom: 3px; line-height: 1.4; }
+  .id-badge { font-size: 8pt; color: #999; font-family: monospace; margin-right: 8px; }
+  .priority-1 { color: #C00000; font-weight: bold; } .priority-2 { color: #E36C09; font-weight: bold; }
+  .points-badge { background: #EBF5FB; border: 1px solid #2E4D9A; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #1a3a6b; font-weight: bold; margin-right: 8px; }
+  .hours-badge { background: #FEF9E7; border: 1px solid #F0B429; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #7D5A00; }
+  .divider { border: none; border-top: 1px solid #E0E0E0; margin: 10px 0; }
+</style>
+</head>
+<body>
+<h1>ScriptOS Backlog — Epic 9: Legal, Rights &amp; Compliance</h1>
+<p style="font-size:10pt; color:#555; margin-bottom:20px;">
+  <strong>Project:</strong> ScriptOS &nbsp;|&nbsp; <strong>Sprints:</strong> 15–16 (Weeks 31–34) &nbsp;|&nbsp;
+  <strong>Generated:</strong> 2026-04-11 &nbsp;|&nbsp;
+  <strong>Total items:</strong> 1 Epic · 4 Features · 4 User Stories · 8 Tasks
+</p>
+
+<div class="epic-box">
+  <div><span class="id-badge">#288</span><span class="label lbl-epic">Epic</span><strong style="font-size:14pt;">Legal, Rights &amp; Compliance</strong></div>
+  <div class="meta-row" style="margin-top:6px;"><span class="sprint-tag">Sprints 15–16</span> <span class="priority-1" style="margin-left:10px;">&#9679; Priority: Critical</span> <span style="margin-left:10px;"><span class="tag">legal</span><span class="tag">gdpr</span><span class="tag">security</span><span class="tag">wcag</span><span class="tag">soc2</span></span></div>
+  <div class="section-label" style="margin-top:10px;">Description</div>
+  <div class="description-text">Sprint 15 delivers the full Legal Service (replacing the Sprint 8 stub): rights tags, NDA gates, legal holds, and complete validateScriptPolicy. GDPR data export and account deletion. Sprint 16 is the security and accessibility hardening sprint: pentest remediation, Zod validation on all mutations, global API rate limiting, RBAC matrix automated tests, SOC 2 Type I evidence package, backup restoration verification, 500-user load test (P99 &lt; 500ms), WCAG 2.2 AA audit and remediation, and Lighthouse score ≥ 90. This epic is the final gate before GA hardening. <em>Reference: Wiki/15-roadmap.md Sprints 15–16, Wiki/11-security-compliance.md.</em></div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>validateScriptPolicy blocks publish when rights are missing or NDA not signed</li>
+    <li>NDA gate: 403 returned for unsigned writers on NDA-gated scripts</li>
+    <li>Legal hold: DELETE returns 403 with hold reason in audit log</li>
+    <li>GDPR data export produces complete JSON package for a test user</li>
+    <li>AI ledger entries anonymized (not deleted) after account deletion — WGA compliance preserved</li>
+    <li>All pentest critical/high findings resolved</li>
+    <li>Load test: 500 concurrent users; P99 &lt; 500ms; error rate &lt; 0.1%</li>
+    <li>WCAG 2.2 AA audit passed; all Level AA criteria pass axe-core scan</li>
+    <li>SOC 2 Type I readiness package complete</li>
+  </ul>
+</div>
+
+<!-- FEATURE 1 -->
+<div class="feature-box">
+  <div><span class="id-badge">#289</span><span class="label lbl-feature">Feature</span><strong>Legal Service — Rights Tags, NDA Gates and Legal Holds</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 15</span> <span class="priority-1">&#9679; Critical</span> <span class="tag">legal</span><span class="tag">rights</span><span class="tag">nda</span></div>
+  <div class="description-text">Full Legal Service implementation replacing the Sprint 8 stub. Rights tags on script versions, NDA gate middleware, legal hold enforcement, and full validateScriptPolicy gRPC checking rights gaps, NDA status, and unresolved continuity violations.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#293</span><span class="label lbl-story">User Story</span><strong>As a legal team member I can enforce rights tags, NDA access gates, and legal holds on scripts</strong></div>
+    <div class="meta-row"><span class="points-badge">8 pts</span><span class="sprint-tag">Sprint 15</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Rights tags CRUD linked to script versions; status badges (Active/Expired/Pending)</li>
+      <li>NDA gate: unsigned writers receive 403; 'Sign NDA' modal shown</li>
+      <li>Legal hold: DELETE returns 403; hold reason in audit log; export disabled in UI</li>
+      <li>validateScriptPolicy full: violations returned for rights gaps, NDA missing, unresolved ERROR continuity violations</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#297</span><span class="label lbl-task">Task</span> Create Atlas DDL: legal.rights_tags, nda_records, legal_holds; implement full validateScriptPolicy gRPC replacing Sprint 8 stub; add NDA gate + legal hold middleware <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#298</span><span class="label lbl-task">Task</span> Build Legal Service GraphQL subgraph with RightsTag, NDARecord, LegalHold types and mutations <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#304</span><span class="label lbl-task">Task</span> Build rights status panel, NDA gate modal, legal hold banner, and GDPR settings UI in web app <span class="hours-badge">8h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 2 -->
+<div class="feature-box">
+  <div><span class="id-badge">#290</span><span class="label lbl-feature">Feature</span><strong>GDPR and Account Management</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 15</span> <span class="priority-2">&#9679; High</span> <span class="tag">gdpr</span><span class="tag">privacy</span></div>
+  <div class="story-box">
+    <div><span class="id-badge">#294</span><span class="label lbl-story">User Story</span><strong>As a platform user I have the right to export all my data or delete my account with GDPR compliance; AI ledger entries are anonymised not deleted</strong></div>
+    <div class="meta-row"><span class="points-badge">5 pts</span><span class="sprint-tag">Sprint 15</span><span class="priority-2">&#9679; High</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>'Download my data' produces complete JSON download within 60s</li>
+      <li>Account deletion: immediate deactivation; data cascade within 30 days</li>
+      <li>AI ledger: user_id replaced with SHA-256 hash after deletion (rows NOT deleted — WGA)</li>
+      <li>Audit log entry on data export and account deletion initiation</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#299</span><span class="label lbl-task">Task</span> Implement GDPR data export (full JSON, S3 presigned URL) and account deletion cascade with AI ledger anonymisation <span class="hours-badge">8h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 3 -->
+<div class="feature-box">
+  <div><span class="id-badge">#291</span><span class="label lbl-feature">Feature</span><strong>Security Hardening — Pentest Remediation, Input Validation, Rate Limiting and SOC 2</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 16</span> <span class="priority-1">&#9679; Critical</span> <span class="tag">security</span><span class="tag">pentest</span><span class="tag">soc2</span><span class="tag">load-test</span></div>
+  <div class="story-box">
+    <div><span class="id-badge">#295</span><span class="label lbl-story">User Story</span><strong>As a security team member the platform passes an external pentest and 500-user load test with no critical findings and P99 under 500ms</strong></div>
+    <div class="meta-row"><span class="points-badge">13 pts</span><span class="sprint-tag">Sprint 16</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>All pentest critical/high findings resolved before GA</li>
+      <li>Every GraphQL mutation protected by Zod; invalid input returns 400 with field errors</li>
+      <li>Global rate limit: 1000 req/min per user; 429 with Retry-After on exceed</li>
+      <li>RBAC matrix test: 7 roles × all resources; zero unauthorised access paths</li>
+      <li>Load test (k6): P99 &lt; 500ms; error rate &lt; 0.1% under 500 concurrent users for 10 min</li>
+      <li>SOC 2 Type I evidence package assembled; audit engagement letter signed</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#300</span><span class="label lbl-task">Task</span> Add Zod validation to all GraphQL mutations (15 services); implement global API rate limiting (1000 req/min/user) at HTTP Gateway via Redis sliding window <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#301</span><span class="label lbl-task">Task</span> Implement RBAC matrix automated test (7 roles × all resources); run k6 load test (500 VU, 10 min); assert P99 &lt; 500ms <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#302</span><span class="label lbl-task">Task</span> Assemble SOC 2 Type I evidence package; verify Postgres + Neo4j + S3 backup restoration (RPO &lt; 5 min, RTO &lt; 15 min) <span class="hours-badge">6h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 4 -->
+<div class="feature-box">
+  <div><span class="id-badge">#292</span><span class="label lbl-feature">Feature</span><strong>Accessibility — WCAG 2.2 AA Audit and Remediation</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 16</span> <span class="priority-2">&#9679; High</span> <span class="tag">accessibility</span><span class="tag">wcag</span><span class="tag">a11y</span></div>
+  <div class="story-box">
+    <div><span class="id-badge">#296</span><span class="label lbl-story">User Story</span><strong>As a user with accessibility needs I can use the ScriptOS web app and Tauri on-set app with a screen reader and keyboard navigation meeting WCAG 2.2 AA</strong></div>
+    <div class="meta-row"><span class="points-badge">8 pts</span><span class="sprint-tag">Sprint 16</span><span class="priority-2">&#9679; High</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>External WCAG 2.2 AA audit passed; all Level A + AA criteria pass axe-core in CI</li>
+      <li>NVDA/VoiceOver can navigate script editor, scene list, and collaboration events</li>
+      <li>aria-live regions announce collaboration events, approval updates, suggestion panel opening</li>
+      <li>Tauri on-set app: take logging operable via keyboard only</li>
+      <li>Lighthouse CI: editor page performance ≥ 90, accessibility ≥ 95</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#303</span><span class="label lbl-task">Task</span> Remediate WCAG 2.2 AA audit findings: keyboard navigation, aria-labels, aria-live regions, colour contrast, editor screen reader support, Tauri keyboard-only workflow; Lighthouse CI ≥ 90 <span class="hours-badge">8h</span></div>
+  </div>
+</div>
+
+<hr class="divider">
+<p style="font-size:9pt; color:#888; margin-top:16px;">ScriptOS Backlog · Epic 9 of 10 · Sprints 15–16 (Weeks 31–34) · Generated 2026-04-11</p>
+</body>
+</html>

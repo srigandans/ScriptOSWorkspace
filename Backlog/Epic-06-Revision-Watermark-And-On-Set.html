@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScriptOS Backlog — Epic 6: Revision, Watermark &amp; On-Set Supervisor</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 2cm; color: #1a1a1a; }
+  h1 { font-size: 20pt; color: #1F3864; border-bottom: 3px solid #1F3864; padding-bottom: 6px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #2E4D9A; border-bottom: 2px solid #2E4D9A; padding-bottom: 4px; margin-top: 28px; }
+  .epic-box { background: #EFF3FB; border-left: 6px solid #1F3864; padding: 14px 18px; margin-bottom: 24px; border-radius: 4px; }
+  .feature-box { background: #F2F7FF; border-left: 5px solid #2E4D9A; padding: 12px 16px; margin: 18px 0 10px 0; border-radius: 3px; }
+  .story-box { background: #F9FDF4; border-left: 4px solid #375623; padding: 10px 14px; margin: 14px 0 8px 0; border-radius: 3px; }
+  .task-box { background: #FFFBF5; border-left: 3px solid #843C0C; padding: 8px 12px; margin: 8px 0 4px 0; border-radius: 2px; }
+  .label { display: inline-block; font-size: 8pt; font-weight: bold; padding: 2px 7px; border-radius: 10px; margin-right: 6px; text-transform: uppercase; }
+  .lbl-epic { background: #1F3864; color: white; } .lbl-feature { background: #2E4D9A; color: white; }
+  .lbl-story { background: #375623; color: white; } .lbl-task { background: #843C0C; color: white; }
+  .meta-row { font-size: 9pt; color: #555; margin: 4px 0 8px 0; }
+  .tag { background: #E8EEF6; padding: 1px 6px; border-radius: 3px; font-size: 8.5pt; margin-right: 4px; }
+  .sprint-tag { background: #FFF3CD; border: 1px solid #FFC107; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #856404; }
+  .section-label { font-size: 9pt; font-weight: bold; color: #666; text-transform: uppercase; margin: 8px 0 3px 0; }
+  .description-text { font-size: 10.5pt; margin: 4px 0 8px 0; line-height: 1.5; }
+  ul.ac-list { margin: 4px 0; padding-left: 18px; }
+  ul.ac-list li { font-size: 10pt; margin-bottom: 3px; line-height: 1.4; }
+  .id-badge { font-size: 8pt; color: #999; font-family: monospace; margin-right: 8px; }
+  .priority-1 { color: #C00000; font-weight: bold; } .priority-2 { color: #E36C09; font-weight: bold; }
+  .points-badge { background: #EBF5FB; border: 1px solid #2E4D9A; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #1a3a6b; font-weight: bold; margin-right: 8px; }
+  .hours-badge { background: #FEF9E7; border: 1px solid #F0B429; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #7D5A00; }
+  .divider { border: none; border-top: 1px solid #E0E0E0; margin: 10px 0; }
+</style>
+</head>
+<body>
+<h1>ScriptOS Backlog — Epic 6: Revision, Watermark &amp; On-Set Supervisor</h1>
+<p style="font-size:10pt; color:#555; margin-bottom:20px;">
+  <strong>Project:</strong> ScriptOS &nbsp;|&nbsp; <strong>Sprints:</strong> 9–10 (Weeks 19–22) &nbsp;|&nbsp;
+  <strong>Generated:</strong> 2026-04-11 &nbsp;|&nbsp;
+  <strong>Total items:</strong> 1 Epic · 4 Features · 4 User Stories · 13 Tasks
+</p>
+
+<div class="epic-box">
+  <div><span class="id-badge">#230</span><span class="label lbl-epic">Epic</span><strong style="font-size:14pt;">Revision, Watermark &amp; On-Set Supervisor</strong></div>
+  <div class="meta-row" style="margin-top:6px;"><span class="sprint-tag">Sprints 9–10</span> <span class="priority-1" style="margin-left:10px;">&#9679; Priority: Critical</span> <span style="margin-left:10px;"><span class="tag">revision</span><span class="tag">watermark</span><span class="tag">supervisor</span><span class="tag">tauri</span><span class="tag">powersync</span></span></div>
+  <div class="section-label" style="margin-top:10px;">Description</div>
+  <div class="description-text">Deliver four capabilities that bridge script authoring and physical production: (1) <strong>Revision Color Workflow</strong> — 13-colour WGA sequence state machine with locked version management, scene-level diff, and per-recipient watermarked distribution saga; (2) <strong>Watermark Service</strong> — steganographic embedding in PDF (character spacing) and FDX (zero-width characters); (3) <strong>Call Sheet Saga</strong> — Temporal workflow generating industry-standard call sheet PDF with AD approval gate and crew distribution; (4) <strong>Supervisor Module + PowerSync</strong> — Tauri 2.x on-set app with SQLite + SQLCipher encryption, PowerSync offline sync, take logging, and continuity assertions. <em>Reference: Wiki/15-roadmap.md Sprints 9–10, Wiki/06-offline-sync.md, Wiki/11-security-compliance.md.</em></div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>Revision color state machine: 13 colours enforced; locked pages reject colour change</li>
+    <li>Watermarked PDF round-trip: embed recipient ID → extract from leaked copy → recover correct ID (confidence &gt; 0.95)</li>
+    <li>Revision distribution saga: correct watermarked PDF delivered to each recipient</li>
+    <li>Call sheet PDF generated and distributed to 3 test crew members</li>
+    <li>Tauri app runs on macOS; script supervisor logs takes offline for 1 hour; all sync on reconnect</li>
+    <li>SQLCipher encryption verified: DB file unreadable without key (hex dump test)</li>
+    <li>PowerSync sync works for supervisor and AD roles with correct data isolation</li>
+    <li>Supervisor Service deployed to staging with passing integration tests</li>
+  </ul>
+</div>
+
+<!-- FEATURE 1 -->
+<div class="feature-box">
+  <div><span class="id-badge">#231</span><span class="label lbl-feature">Feature</span><strong>Revision Color Workflow and Version Distribution Saga</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 9</span> <span class="priority-1">&#9679; Critical</span> <span class="tag">revision</span><span class="tag">distribution</span></div>
+  <div class="description-text">WGA 13-colour revision sequence state machine; locked page enforcement; scene-level diff between any two locked versions; revision-distribution Temporal saga with per-recipient watermark embedding.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#235</span><span class="label lbl-story">User Story</span><strong>As a writer I can track coloured revision pages following the WGA standard sequence and compare locked versions with a scene-level diff</strong></div>
+    <div class="meta-row"><span class="points-badge">8 pts</span><span class="sprint-tag">Sprint 9</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Colour badge visible in script header; changes via dropdown (only next valid colour shown)</li>
+      <li>Invalid transition returns error: 'Expected next revision colour: [colour]'</li>
+      <li>Locked pages reject colour change: 'Page is locked'</li>
+      <li>scriptVersionDiff returns added (green), removed (red), modified (amber) scenes</li>
+      <li>Version history panel: locked versions list; click → diff view</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#239</span><span class="label lbl-task">Task</span> Implement 13-colour WGA revision state machine with locked-page enforcement in Script Service <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#240</span><span class="label lbl-task">Task</span> Implement scriptVersionDiff gRPC method returning scene-level unified diff using Myers algorithm + diff-match-patch <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#241</span><span class="label lbl-task">Task</span> Implement revision-distribution Temporal saga: generate base PDF → per-recipient watermark → email delivery <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#244</span><span class="label lbl-task">Task</span> Create Atlas DDL: call_sheet.* tables; deploy call-sheet Temporal saga worker with AD approval gate <span class="hours-badge">8h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 2 -->
+<div class="feature-box">
+  <div><span class="id-badge">#232</span><span class="label lbl-feature">Feature</span><strong>Watermark Service — Steganographic Embedding and Forensic Extraction</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 9</span> <span class="priority-1">&#9679; Critical</span> <span class="tag">watermark</span><span class="tag">steganography</span><span class="tag">security</span></div>
+  <div class="description-text">Invisible per-recipient watermarks in exported PDFs (character spacing) and FDX (zero-width Unicode). The embedWatermarkPerRecipient gRPC method is called by the revision-distribution saga. Extraction endpoint allows the security team to trace leaks.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#236</span><span class="label lbl-story">User Story</span><strong>As a distribution manager I can distribute colour-revised scripts with per-recipient invisible watermarks so leaks can be traced</strong></div>
+    <div class="meta-row"><span class="points-badge">8 pts</span><span class="sprint-tag">Sprint 9</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Export modal shows 'Recipient watermark will be embedded' warning</li>
+      <li>Each exported PDF has a unique invisible watermark per recipient</li>
+      <li>POST /watermark/extract returns { recipientId, confidence &gt; 0.95 } for a watermarked test PDF</li>
+      <li>Revision distribution saga sends correct watermarked file to each email address</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#242</span><span class="label lbl-task">Task</span> Implement PDF character spacing steganographic watermark embed and extract using pdf-lib (confidence &gt; 0.95 round-trip) <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#243</span><span class="label lbl-task">Task</span> Implement FDX zero-width character watermark; build embedWatermarkPerRecipient gRPC and REST /watermark/extract endpoint <span class="hours-badge">8h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 3: SUPERVISOR -->
+<div class="feature-box">
+  <div><span class="id-badge">#234</span><span class="label lbl-feature">Feature</span><strong>Supervisor Service and PowerSync Offline Sync</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 10</span> <span class="priority-1">&#9679; Critical</span> <span class="tag">supervisor</span><span class="tag">powersync</span><span class="tag">tauri</span><span class="tag">offline</span></div>
+  <div class="description-text">Supervisor Service (PostgreSQL, gRPC, GraphQL) for take logging, continuity assertions, deviation tracking, and photo uploads. PowerSync cloud sync with role-based data routing. Tauri 2.x on-set app with SQLite + SQLCipher, PowerSync Rust SDK, take logging UI, and sync status indicator.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#237</span><span class="label lbl-story">User Story</span><strong>As a script supervisor I can log takes and continuity assertions offline during a full shooting day and sync to cloud on reconnect</strong></div>
+    <div class="meta-row"><span class="points-badge">13 pts</span><span class="sprint-tag">Sprint 10</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Tauri app fully functional with no network connection</li>
+      <li>logTake, rateTake, createContinuityAssertion, attachContinuityPhoto all work offline</li>
+      <li>SQLCipher: DB file unreadable without derived key (hex dump shows encrypted header)</li>
+      <li>Sync status: pending write count + 'OFFLINE' badge when disconnected</li>
+      <li>After reconnect: all offline takes appear in cloud Postgres within 60s</li>
+      <li>Photo uploads: enqueued offline; uploaded to S3 on reconnect</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#245</span><span class="label lbl-task">Task</span> Create Atlas DDL: supervisor.scene_sessions, takes, continuity_assertions, deviations; build take logging + assertion gRPC methods <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#246</span><span class="label lbl-task">Task</span> Build Supervisor Service GraphQL subgraph and NATS event publishing (supervisor.take.circled, supervisor.scene.completed) <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#247</span><span class="label lbl-task">Task</span> Configure PowerSync cloud sync with role-based data routing for supervisor and AD roles; verify data isolation <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#248</span><span class="label lbl-task">Task</span> Set up Tauri 2.x scaffold with SQLite WAL + SQLCipher (Argon2id key derivation) and PowerSync Rust SDK <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#249</span><span class="label lbl-task">Task</span> Implement Tauri commands (log_take, rate_take, create_continuity_assertion, attach_continuity_photo); build SceneList, TakeLogger, SyncStatusBar React components <span class="hours-badge">8h</span></div>
+  </div>
+  <div class="story-box">
+    <div><span class="id-badge">#238</span><span class="label lbl-story">User Story</span><strong>As a 1st AD I can view and resolve take conflicts when two devices circle different takes for the same scene</strong></div>
+    <div class="meta-row"><span class="points-badge">5 pts</span><span class="sprint-tag">Sprint 10</span><span class="priority-2">&#9679; High</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Conflict detected when two devices submit circle for same scene with different takes</li>
+      <li>Conflict visible in pending conflicts list in both Tauri app and web dashboard</li>
+      <li>1st AD selects authoritative circle; resolution syncs to all devices</li>
+      <li>Resolution creates audit log entry with actor and timestamp</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FRONTEND TASKS -->
+<h2 style="color:#5C3D8F; border-color:#5C3D8F;">Frontend Tasks — Sprints 9–10</h2>
+<div class="task-box"><span class="id-badge">#250</span><span class="label lbl-task">Task</span> Build revision colour badge, version history panel, and side-by-side scene-level diff view in web app <span class="hours-badge">8h</span></div>
+<div class="task-box"><span class="id-badge">#251</span><span class="label lbl-task">Task</span> Build call sheet viewer (print-ready layout) and watermark export modal with recipient selector <span class="hours-badge">6h</span></div>
+
+<hr class="divider">
+<p style="font-size:9pt; color:#888; margin-top:16px;">ScriptOS Backlog · Epic 6 of 10 · Sprints 9–10 (Weeks 19–22) · Generated 2026-04-11</p>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScriptOS Backlog — Epic 7: SeriesTimeline, Continuity &amp; AI Deep Features</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 2cm; color: #1a1a1a; }
+  h1 { font-size: 20pt; color: #1F3864; border-bottom: 3px solid #1F3864; padding-bottom: 6px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #2E4D9A; border-bottom: 2px solid #2E4D9A; padding-bottom: 4px; margin-top: 28px; }
+  .epic-box { background: #EFF3FB; border-left: 6px solid #1F3864; padding: 14px 18px; margin-bottom: 24px; border-radius: 4px; }
+  .feature-box { background: #F2F7FF; border-left: 5px solid #2E4D9A; padding: 12px 16px; margin: 18px 0 10px 0; border-radius: 3px; }
+  .story-box { background: #F9FDF4; border-left: 4px solid #375623; padding: 10px 14px; margin: 14px 0 8px 0; border-radius: 3px; }
+  .task-box { background: #FFFBF5; border-left: 3px solid #843C0C; padding: 8px 12px; margin: 8px 0 4px 0; border-radius: 2px; }
+  .label { display: inline-block; font-size: 8pt; font-weight: bold; padding: 2px 7px; border-radius: 10px; margin-right: 6px; text-transform: uppercase; }
+  .lbl-epic { background: #1F3864; color: white; } .lbl-feature { background: #2E4D9A; color: white; }
+  .lbl-story { background: #375623; color: white; } .lbl-task { background: #843C0C; color: white; }
+  .meta-row { font-size: 9pt; color: #555; margin: 4px 0 8px 0; }
+  .tag { background: #E8EEF6; padding: 1px 6px; border-radius: 3px; font-size: 8.5pt; margin-right: 4px; }
+  .sprint-tag { background: #FFF3CD; border: 1px solid #FFC107; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #856404; }
+  .milestone-tag { background: #D4EDDA; border: 1px solid #28A745; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #155724; }
+  .section-label { font-size: 9pt; font-weight: bold; color: #666; text-transform: uppercase; margin: 8px 0 3px 0; }
+  .description-text { font-size: 10.5pt; margin: 4px 0 8px 0; line-height: 1.5; }
+  ul.ac-list { margin: 4px 0; padding-left: 18px; }
+  ul.ac-list li { font-size: 10pt; margin-bottom: 3px; line-height: 1.4; }
+  .id-badge { font-size: 8pt; color: #999; font-family: monospace; margin-right: 8px; }
+  .priority-1 { color: #C00000; font-weight: bold; } .priority-2 { color: #E36C09; font-weight: bold; }
+  .points-badge { background: #EBF5FB; border: 1px solid #2E4D9A; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #1a3a6b; font-weight: bold; margin-right: 8px; }
+  .hours-badge { background: #FEF9E7; border: 1px solid #F0B429; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #7D5A00; }
+  .divider { border: none; border-top: 1px solid #E0E0E0; margin: 10px 0; }
+</style>
+</head>
+<body>
+<h1>ScriptOS Backlog — Epic 7: SeriesTimeline, Continuity &amp; AI Deep Features</h1>
+<p style="font-size:10pt; color:#555; margin-bottom:20px;">
+  <strong>Project:</strong> ScriptOS &nbsp;|&nbsp; <strong>Sprints:</strong> 11–12 (Weeks 23–26) &nbsp;|&nbsp;
+  <strong>Milestone:</strong> <span class="milestone-tag">&#9733; Beta — 3 Production Teams</span> &nbsp;|&nbsp;
+  <strong>Generated:</strong> 2026-04-11 &nbsp;|&nbsp;
+  <strong>Total items:</strong> 1 Epic · 4 Features · 4 User Stories · 10 Tasks
+</p>
+
+<div class="epic-box">
+  <div><span class="id-badge">#252</span><span class="label lbl-epic">Epic</span><strong style="font-size:14pt;">SeriesTimeline, Continuity &amp; AI Deep Features</strong></div>
+  <div class="meta-row" style="margin-top:6px;"><span class="sprint-tag">Sprints 11–12</span> <span class="milestone-tag" style="margin-left:8px;">Beta Milestone</span> <span class="priority-1" style="margin-left:10px;">&#9679; Priority: Critical</span> <span style="margin-left:10px;"><span class="tag">continuity</span><span class="tag">series-timeline</span><span class="tag">ai</span><span class="tag">semantic-cache</span><span class="tag">voice-registry</span></span></div>
+  <div class="section-label" style="margin-top:10px;">Description</div>
+  <div class="description-text">Two capabilities that mature ScriptOS into an intelligent series platform: (1) <strong>Continuity Service</strong> — SeriesTimeline graph tracking cross-episode story-day assertions, automatic violation detection with AI-assisted ambiguous case resolution, and a violation management workflow; (2) <strong>AI Deep Features</strong> — character voice registry completion with few-shot reference scenes, semantic cache (pgvector ANN at 0.97 threshold), advanced analytics (coverage_analysis, structure_analysis), C2PA manifest in PDF exports, and hybrid search hardening. <strong>Beta milestone</strong> at Sprint 11 end (Week 24): 3 production teams onboarded. <em>Reference: Wiki/15-roadmap.md Sprints 11–12.</em></div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>On-set assertion → sync → SeriesTimeline → violation detected if contradictory (end-to-end pipeline)</li>
+    <li>Cross-episode violation: injury in ep 3 flagged against healthy state in ep 4 (story day 6)</li>
+    <li><strong>Beta milestone (Week 24):</strong> 3 production teams using breakdown + scheduling + on-set</li>
+    <li>Semantic cache: second identical request hits cache (model_id = 'semantic_cache', cost_usd = 0)</li>
+    <li>Voice violation warning shown when AI suggests a character's forbidden word</li>
+    <li>Coverage analysis generates structured report for 90-page test script</li>
+    <li>Hybrid search Recall@10 improved ≥ 15% after BM25/RRF tuning</li>
+  </ul>
+</div>
+
+<!-- FEATURE 1: CONTINUITY -->
+<div class="feature-box">
+  <div><span class="id-badge">#253</span><span class="label lbl-feature">Feature</span><strong>Continuity Service — SeriesTimeline and Cross-Episode Violation Detection</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 11</span> <span class="priority-1">&#9679; Critical</span> <span class="tag">continuity</span><span class="tag">series-timeline</span><span class="tag">violation</span></div>
+  <div class="description-text">SeriesTimeline graph: story days across all episodes with assertions (wardrobe, injuries, props, relationships) attached to story days. Ingest assertions from supervisor.assertion.synced NATS events. Rule-based + AI-assisted violation detection. Violation resolution workflow.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#257</span><span class="label lbl-story">User Story</span><strong>As a continuity supervisor I can track cross-episode continuity assertions on a story day timeline and see violations automatically detected</strong></div>
+    <div class="meta-row"><span class="points-badge">8 pts</span><span class="sprint-tag">Sprint 11</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>SeriesTimeline shows story days as horizontal timeline; each day lists assertions by subject</li>
+      <li>On-set assertions sync to cloud and appear in SeriesTimeline within 10s</li>
+      <li>Contradiction detection: same subject + story day + conflicting assertion text → violation (ERROR)</li>
+      <li>Cross-episode violation: injury in ep 3 flagged against healed state in ep 4 story day 6</li>
+      <li>Violation severity levels: ERROR / WARNING / INFO</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#261</span><span class="label lbl-task">Task</span> Create Atlas DDL: series_timeline.timeline_story_days, story_day_scenes, continuity_assertions, assertion_violations <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#262</span><span class="label lbl-task">Task</span> Build Continuity Service core: story day CRUD, assertion ingestion, NATS consumer for supervisor.assertion.synced <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#263</span><span class="label lbl-task">Task</span> Implement violation detection engine: rule-based contradiction detection + AI-assisted check for ambiguous cases <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#264</span><span class="label lbl-task">Task</span> Build Continuity Service GraphQL subgraph with StoryDay, AssertionViolation types and resolveViolation mutation <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#269</span><span class="label lbl-task">Task</span> Build SeriesTimeline view, continuity violations panel, and violation resolution workflow UI <span class="hours-badge">8h</span></div>
+  </div>
+  <div class="story-box">
+    <div><span class="id-badge">#258</span><span class="label lbl-story">User Story</span><strong>As a continuity supervisor I can resolve violations by marking them as resolved, intentional, or an error</strong></div>
+    <div class="meta-row"><span class="points-badge">5 pts</span><span class="sprint-tag">Sprint 11</span><span class="priority-2">&#9679; High</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Resolution status: resolved / intentional / error (false positive)</li>
+      <li>Resolution requires mandatory text note; actor + timestamp recorded</li>
+      <li>Resolved/intentional violations archived; ERROR violations cannot be archived without note</li>
+      <li>Unresolved ERROR violations block publish-saga policy validation (Sprint 15)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FEATURE 2: VOICE REGISTRY -->
+<div class="feature-box">
+  <div><span class="id-badge">#254</span><span class="label lbl-feature">Feature</span><strong>Character Voice Registry and Few-Shot AI Dialogue</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 12</span> <span class="priority-2">&#9679; High</span> <span class="tag">voice-registry</span><span class="tag">ai</span><span class="tag">few-shot</span></div>
+  <div class="description-text">Complete the character voice registry: manage 3–5 reference scenes per character injected as few-shot dialogue examples. AI suggestions enforce forbidden words and vocabulary level. Voice violation warnings shown inline.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#259</span><span class="label lbl-story">User Story</span><strong>As a writer AI dialogue suggestions respect my character's voice profile and warn me when the AI suggests vocabulary that violates their established voice</strong></div>
+    <div class="meta-row"><span class="points-badge">8 pts</span><span class="sprint-tag">Sprint 12</span><span class="priority-2">&#9679; High</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Voice profile editor: vocabularyLevel, speechPatterns, forbiddenWords, referenceSceneIds all functional</li>
+      <li>Character guard checks suggestion against forbiddenWords before returning to writer</li>
+      <li>Violation shows amber warning: 'Flagged: [CHARACTER] would not use this vocabulary'</li>
+      <li>Reference scenes injected as few-shot examples in AI context</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#265</span><span class="label lbl-task">Task</span> Complete character voice profile reference scene management in Bible Service; update AI context assembler with few-shot dialogue injection <span class="hours-badge">6h</span></div>
+    <div class="task-box"><span class="id-badge">#270</span><span class="label lbl-task">Task</span> Build voice profile editor in Bible panel; build AI usage admin dashboard with per-feature cost breakdown <span class="hours-badge">8h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 3: SEMANTIC CACHE -->
+<div class="feature-box">
+  <div><span class="id-badge">#255</span><span class="label lbl-feature">Feature</span><strong>AI Semantic Cache, Advanced Analytics and C2PA</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 12</span> <span class="priority-2">&#9679; High</span> <span class="tag">semantic-cache</span><span class="tag">coverage-analysis</span><span class="tag">c2pa</span></div>
+  <div class="description-text">pgvector ANN semantic cache (0.97 threshold, 24h/7d TTL); coverage_analysis and structure_analysis AI features; C2PA manifest embedding in PDF exports; WGA compliance report export.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#260</span><span class="label lbl-story">User Story</span><strong>As a writer repeated AI queries for the same context are served from the semantic cache instantly at zero cost</strong></div>
+    <div class="meta-row"><span class="points-badge">5 pts</span><span class="sprint-tag">Sprint 12</span><span class="priority-2">&#9679; High</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Second identical dialogue request returns from cache in &lt; 200ms</li>
+      <li>Cache hit: model_id = 'semantic_cache', cost_usd = 0 in ledger entry</li>
+      <li>Cache TTL: 24h for dialogue_suggestion; 7d for analytical features</li>
+      <li>Cache reduces AI costs ≥ 30% in a simulated 10-writer session</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#266</span><span class="label lbl-task">Task</span> Implement AI semantic cache using pgvector ANN (0.97 threshold) with 24h/7d TTL and ledger integration <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#267</span><span class="label lbl-task">Task</span> Implement coverage_analysis and structure_analysis AI features; add C2PA manifest embedding in PDF exports <span class="hours-badge">6h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 4: SEARCH HARDENING -->
+<div class="feature-box">
+  <div><span class="id-badge">#256</span><span class="label lbl-feature">Feature</span><strong>Hybrid Search Hardening and Faceted Filters</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 12</span> <span class="priority-2">&#9679; High</span> <span class="tag">search</span><span class="tag">elasticsearch</span><span class="tag">tuning</span><span class="tag">facets</span></div>
+  <div class="task-box"><span class="id-badge">#268</span><span class="label lbl-task">Task</span> Tune Elasticsearch BM25 parameters (b, k1) and RRF weights; add faceted search (episode, scene type, character) with aggregation output; assert Recall@10 ≥ 15% improvement <span class="hours-badge">8h</span></div>
+</div>
+
+<hr class="divider">
+<p style="font-size:9pt; color:#888; margin-top:16px;">ScriptOS Backlog · Epic 7 of 10 · Sprints 11–12 (Weeks 23–26) · Beta Milestone · Generated 2026-04-11</p>
+</body>
+</html>

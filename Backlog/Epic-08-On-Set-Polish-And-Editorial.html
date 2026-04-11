@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScriptOS Backlog — Epic 8: On-Set Polish &amp; Editorial Round-Trip</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 2cm; color: #1a1a1a; }
+  h1 { font-size: 20pt; color: #1F3864; border-bottom: 3px solid #1F3864; padding-bottom: 6px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #2E4D9A; border-bottom: 2px solid #2E4D9A; padding-bottom: 4px; margin-top: 28px; }
+  .epic-box { background: #EFF3FB; border-left: 6px solid #1F3864; padding: 14px 18px; margin-bottom: 24px; border-radius: 4px; }
+  .feature-box { background: #F2F7FF; border-left: 5px solid #2E4D9A; padding: 12px 16px; margin: 18px 0 10px 0; border-radius: 3px; }
+  .story-box { background: #F9FDF4; border-left: 4px solid #375623; padding: 10px 14px; margin: 14px 0 8px 0; border-radius: 3px; }
+  .task-box { background: #FFFBF5; border-left: 3px solid #843C0C; padding: 8px 12px; margin: 8px 0 4px 0; border-radius: 2px; }
+  .label { display: inline-block; font-size: 8pt; font-weight: bold; padding: 2px 7px; border-radius: 10px; margin-right: 6px; text-transform: uppercase; }
+  .lbl-epic { background: #1F3864; color: white; } .lbl-feature { background: #2E4D9A; color: white; }
+  .lbl-story { background: #375623; color: white; } .lbl-task { background: #843C0C; color: white; }
+  .meta-row { font-size: 9pt; color: #555; margin: 4px 0 8px 0; }
+  .tag { background: #E8EEF6; padding: 1px 6px; border-radius: 3px; font-size: 8.5pt; margin-right: 4px; }
+  .sprint-tag { background: #FFF3CD; border: 1px solid #FFC107; padding: 1px 7px; border-radius: 10px; font-size: 8pt; font-weight: bold; color: #856404; }
+  .section-label { font-size: 9pt; font-weight: bold; color: #666; text-transform: uppercase; margin: 8px 0 3px 0; }
+  .description-text { font-size: 10.5pt; margin: 4px 0 8px 0; line-height: 1.5; }
+  ul.ac-list { margin: 4px 0; padding-left: 18px; }
+  ul.ac-list li { font-size: 10pt; margin-bottom: 3px; line-height: 1.4; }
+  .id-badge { font-size: 8pt; color: #999; font-family: monospace; margin-right: 8px; }
+  .priority-1 { color: #C00000; font-weight: bold; } .priority-2 { color: #E36C09; font-weight: bold; }
+  .points-badge { background: #EBF5FB; border: 1px solid #2E4D9A; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #1a3a6b; font-weight: bold; margin-right: 8px; }
+  .hours-badge { background: #FEF9E7; border: 1px solid #F0B429; padding: 1px 7px; border-radius: 10px; font-size: 8pt; color: #7D5A00; }
+  .divider { border: none; border-top: 1px solid #E0E0E0; margin: 10px 0; }
+</style>
+</head>
+<body>
+<h1>ScriptOS Backlog — Epic 8: On-Set Polish &amp; Editorial Round-Trip</h1>
+<p style="font-size:10pt; color:#555; margin-bottom:20px;">
+  <strong>Project:</strong> ScriptOS &nbsp;|&nbsp; <strong>Sprints:</strong> 13–14 (Weeks 27–30) &nbsp;|&nbsp;
+  <strong>Generated:</strong> 2026-04-11 &nbsp;|&nbsp;
+  <strong>Total items:</strong> 1 Epic · 3 Features · 4 User Stories · 9 Tasks
+</p>
+
+<div class="epic-box">
+  <div><span class="id-badge">#271</span><span class="label lbl-epic">Epic</span><strong style="font-size:14pt;">On-Set Polish &amp; Editorial Round-Trip</strong></div>
+  <div class="meta-row" style="margin-top:6px;"><span class="sprint-tag">Sprints 13–14</span> <span class="priority-1" style="margin-left:10px;">&#9679; Priority: Critical</span> <span style="margin-left:10px;"><span class="tag">tauri</span><span class="tag">editorial</span><span class="tag">otio</span><span class="tag">aaf</span><span class="tag">frame-io</span></span></div>
+  <div class="section-label" style="margin-top:10px;">Description</div>
+  <div class="description-text">Sprint 13 production-hardens the Tauri on-set app: 72-hour offline test, Basecamp self-hosted mode, day-end turnover PDF, Loro CRDT on-set collaborative notes, and Tauri auto-updater. Sprint 14 delivers the complete editorial round-trip: OTIO + AAF + EDL export with correlation metadata, format normaliser (AAF/EDL → OTIO via Python subprocess), diff engine, editorial re-import Temporal saga with reviewer approval gate, and Frame.io OAuth with webhook comment linkage. <em>Reference: Wiki/15-roadmap.md Sprints 13–14, Wiki/09-post-production.md, ADR-007, ADR-022, ADR-023.</em></div>
+  <div class="section-label">Acceptance Criteria</div>
+  <ul class="ac-list">
+    <li>72-hour offline test: 300 takes, 100 assertions, 50 photos — all sync correctly on reconnect</li>
+    <li>Basecamp mode: 3 Tauri clients sync via local WiFi without internet</li>
+    <li>Day-end turnover PDF generated and saved to Desktop from Tauri</li>
+    <li>OTIO export: clips have scriptos.scene_id in custom metadata; AAF importable in Media Composer</li>
+    <li>Correlation DB fallback: scene IDs resolved after stripping OTIO metadata (timecode + clip name match)</li>
+    <li>Editorial diff correctly detects omissions, reorders, take changes, and untracked clips</li>
+    <li>Re-import saga: approved operations applied to script graph</li>
+    <li>Frame.io comment received and linked to correct take within 5s</li>
+  </ul>
+</div>
+
+<!-- FEATURE 1 -->
+<div class="feature-box">
+  <div><span class="id-badge">#272</span><span class="label lbl-feature">Feature</span><strong>Tauri On-Set App Polish and Basecamp Mode</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 13</span> <span class="priority-1">&#9679; Critical</span> <span class="tag">tauri</span><span class="tag">on-set</span><span class="tag">basecamp</span></div>
+  <div class="description-text">72-hour offline simulation test, Basecamp self-hosted PowerSync on local Docker Compose, day-end turnover PDF generation, Loro CRDT for collaborative continuity notes on local WiFi, conflict resolution UI, photo gallery, and Tauri auto-updater.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#275</span><span class="label lbl-story">User Story</span><strong>As a script supervisor the Tauri on-set app works reliably for 12+ hour shooting days and Basecamp mode keeps a unit working without internet</strong></div>
+    <div class="meta-row"><span class="points-badge">13 pts</span><span class="sprint-tag">Sprint 13</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Automated 72h offline test: 300 takes + 100 assertions + 50 photos — all synced correctly on reconnect</li>
+      <li>Basecamp Docker Compose: starts local PowerSync + Postgres; 3 Tauri clients sync via LAN</li>
+      <li>App auto-update: new version downloaded and applied on launch</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#279</span><span class="label lbl-task">Task</span> Implement 72-hour offline simulation test; create Basecamp Docker Compose (infra/basecamp/); write basecamp-setup.sh script <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#280</span><span class="label lbl-task">Task</span> Implement day-end turnover PDF generator in Supervisor Service (PDFKit); expose via Tauri command writing to ~/Desktop <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#281</span><span class="label lbl-task">Task</span> Implement Loro CRDT SQLite persistence for continuity notes and local WiFi sync via tokio-tungstenite WebSocket server <span class="hours-badge">8h</span></div>
+  </div>
+  <div class="story-box">
+    <div><span class="id-badge">#276</span><span class="label lbl-story">User Story</span><strong>As a script supervisor I can generate a day-end turnover package and collaborate on continuity notes in real-time with another supervisor via local WiFi</strong></div>
+    <div class="meta-row"><span class="points-badge">8 pts</span><span class="sprint-tag">Sprint 13</span><span class="priority-2">&#9679; High</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Turnover PDF: lined script pages, take log, deviation report; saved to Desktop</li>
+      <li>Two Tauri devices on LAN WiFi share continuity note edits in real-time via Loro CRDT</li>
+      <li>CRDT state persists across Tauri app restarts in SQLite</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FEATURE 2 -->
+<div class="feature-box">
+  <div><span class="id-badge">#273</span><span class="label lbl-feature">Feature</span><strong>Editorial Export — OTIO, AAF, EDL and Correlation DB</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 14</span> <span class="priority-1">&#9679; Critical</span> <span class="tag">editorial</span><span class="tag">otio</span><span class="tag">aaf</span><span class="tag">edl</span></div>
+  <div class="description-text">OTIO export (via opentimelineio Python subprocess), AAF export for Avid delivery, EDL (CMX 3600) export — all with scriptos.* correlation metadata. Correlation DB populated on each export. Format normaliser (AAF/EDL → OTIO). Diff engine. Editorial re-import Temporal saga with reviewer approval gate.</div>
+  <div class="story-box">
+    <div><span class="id-badge">#277</span><span class="label lbl-story">User Story</span><strong>As a post-production supervisor I can export to OTIO/AAF/EDL and re-import NLE changes through a diff-reviewed approval workflow</strong></div>
+    <div class="meta-row"><span class="points-badge">13 pts</span><span class="sprint-tag">Sprint 14</span><span class="priority-1">&#9679; Critical</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>OTIO export downloads in &lt; 5s for 100-scene script; clips contain scriptos.scene_id metadata</li>
+      <li>AAF importable in Avid Media Composer; SCRIPTOS_SCENE_ID visible in SourceMob</li>
+      <li>EDL: valid CMX 3600; reel names ≤ 8 chars</li>
+      <li>Correlation DB fallback resolves scene IDs without metadata using clip name + timecode</li>
+      <li>Re-import saga: approved operations applied (omitted scene → status='omitted')</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#282</span><span class="label lbl-task">Task</span> Create Atlas DDL: editorial.export_batches, correlation_records, reimport_batches; implement OTIO export via opentimelineio Python subprocess <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#283</span><span class="label lbl-task">Task</span> Implement AAF export (aaf-writer Python library) for Avid and EDL export (CMX 3600 format) <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#284</span><span class="label lbl-task">Task</span> Build format normaliser (AAF/EDL → OTIO via Python subprocess) and editorial diff engine detecting omissions, reorders, take changes, untracked clips <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#285</span><span class="label lbl-task">Task</span> Implement editorial re-import Temporal saga: normalize → diff → review gate (approveReimport signal) → apply operations → finalize <span class="hours-badge">8h</span></div>
+  </div>
+</div>
+
+<!-- FEATURE 3 -->
+<div class="feature-box">
+  <div><span class="id-badge">#274</span><span class="label lbl-feature">Feature</span><strong>Frame.io Integration — OAuth and Webhook Comment Linkage</strong></div>
+  <div class="meta-row"><span class="sprint-tag">Sprint 14</span> <span class="priority-2">&#9679; High</span> <span class="tag">frame-io</span><span class="tag">oauth</span><span class="tag">webhook</span></div>
+  <div class="story-box">
+    <div><span class="id-badge">#278</span><span class="label lbl-story">User Story</span><strong>As a DIT or producer I can connect Frame.io to ScriptOS so review comments from dailies are linked to the correct takes</strong></div>
+    <div class="meta-row"><span class="points-badge">5 pts</span><span class="sprint-tag">Sprint 14</span><span class="priority-2">&#9679; High</span></div>
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>'Connect Frame.io' OAuth flow works; credentials stored; integration shows as active</li>
+      <li>comment.created webhook received → ReviewComment stored and take linked within 5s</li>
+      <li>Review Comments panel: timecode, reviewer name, comment text, take link</li>
+    </ul>
+    <div class="task-box"><span class="id-badge">#286</span><span class="label lbl-task">Task</span> Implement Frame.io OAuth 2.0 flow, webhook endpoint (HMAC-SHA256 signature verification), ReviewComment DB storage, and Take type extension <span class="hours-badge">8h</span></div>
+    <div class="task-box"><span class="id-badge">#287</span><span class="label lbl-task">Task</span> Build editorial export modal, re-import upload + change review UI, and Review Comments panel in web app <span class="hours-badge">8h</span></div>
+  </div>
+</div>
+
+<hr class="divider">
+<p style="font-size:9pt; color:#888; margin-top:16px;">ScriptOS Backlog · Epic 8 of 10 · Sprints 13–14 (Weeks 27–30) · Generated 2026-04-11</p>
+</body>
+</html>
